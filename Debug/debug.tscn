@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://c5ghj6s2ygaut"]
+
+[ext_resource type="Script" uid="uid://dyli6um4gyu2k" path="res://Scripts/PlayerScript.gd" id="1_4nspm"]
+[ext_resource type="Script" uid="uid://bp65whtbsuglr" path="res://Debug/debug.gd" id="1_vacks"]
+[ext_resource type="Texture2D" uid="uid://c5xxbu8xoj287" path="res://Assets/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="2_61nan"]
+[ext_resource type="Script" uid="uid://cgutm8xwwnhvk" path="res://Debug/floor-debug.gd" id="3_2shxo"]
+[ext_resource type="Resource" uid="uid://wggkcmea0bu3" path="res://GameResources/PlayerInventory.tres" id="3_jsvd1"]
+[ext_resource type="PackedScene" uid="uid://cqj5ayylwerkv" path="res://Scenes/inventory.tscn" id="4_61nan"]
+[ext_resource type="Script" uid="uid://cres0ae6h81fi" path="res://Scripts/inventory_interface.gd" id="6_7vn5m"]
+[ext_resource type="PackedScene" uid="uid://dc7h7d5rtbx3n" path="res://Scenes/pickup.tscn" id="8_gud2c"]
+[ext_resource type="Resource" uid="uid://c6b7yn1d0n2hr" path="res://GameResources/Items/item1.tres" id="9_jsvd1"]
+[ext_resource type="Script" uid="uid://ci2x2egpwby2g" path="res://Scripts/slot_data.gd" id="10_qx38g"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jjgbg"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jjgbg"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7u77a"]
+panorama = ExtResource("2_61nan")
+energy_multiplier = 0.75
+
+[sub_resource type="Sky" id="Sky_jjgbg"]
+sky_material = SubResource("PanoramaSkyMaterial_7u77a")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_bo1nx"]
+background_mode = 2
+sky = SubResource("Sky_jjgbg")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_qj246"]
+script = ExtResource("10_qx38g")
+item_data = ExtResource("9_jsvd1")
+metadata/_custom_type_script = "uid://ci2x2egpwby2g"
+
+[node name="Debug" type="Node3D"]
+script = ExtResource("1_vacks")
+
+[node name="PlayerController" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34451, 4.09856, 0.673832)
+collision_layer = 2
+script = ExtResource("1_4nspm")
+inventory_data = ExtResource("3_jsvd1")
+
+[node name="Head" type="Node3D" parent="PlayerController"]
+
+[node name="PlayerCamera" type="Camera3D" parent="PlayerController/Head"]
+fov = 85.0
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="PlayerController"]
+transform = Transform3D(1, 0, 0, 0, 0.99981, -0.0194767, 0, 0.0194767, 0.99981, 0, -0.0204878, -0.209175)
+mesh = SubResource("CapsuleMesh_jjgbg")
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="PlayerController"]
+shape = SubResource("ConvexPolygonShape3D_jjgbg")
+
+[node name="Crosshair" type="ColorRect" parent="PlayerController"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -8.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 1, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bo1nx")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 28.1301, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.5, 0, 0, 0, 100, 0, 0, 0)
+use_collision = true
+script = ExtResource("3_2shxo")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_7vn5m")
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="HUD/InventoryInterface" instance=ExtResource("4_61nan")]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 450.0
+offset_right = 91.0
+offset_bottom = 466.0
+
+[node name="PickupItem" parent="." instance=ExtResource("8_gud2c")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.68323, -3.74541)
+slot_data = SubResource("Resource_qj246")
+
+[node name="PickupItem2" parent="." instance=ExtResource("8_gud2c")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.912764, 3.68323, -3.74541)
+slot_data = SubResource("Resource_qj246")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://duxq6fpfklbs"]
+
+[ext_resource type="Script" uid="uid://xfx660mgfu6a" path="res://Scripts/slot.gd" id="1_12ej0"]
+
+[node name="Inventory" type="PanelContainer"]
+custom_minimum_size = Vector2(64, 128)
+offset_right = 73.0
+offset_bottom = 128.0
+script = ExtResource("1_12ej0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/outline_size = 4
