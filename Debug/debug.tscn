@@ -1,9 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://c5ghj6s2ygaut"]
+[gd_scene load_steps=42 format=3 uid="uid://c5ghj6s2ygaut"]
 
 [ext_resource type="Script" uid="uid://dyli6um4gyu2k" path="res://Scripts/PlayerScript.gd" id="1_4nspm"]
 [ext_resource type="Script" uid="uid://bp65whtbsuglr" path="res://Scripts/PlayInvConn.gd" id="1_vacks"]
-[ext_resource type="Texture2D" uid="uid://c5xxbu8xoj287" path="res://Assets/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="2_61nan"]
 [ext_resource type="Resource" uid="uid://wggkcmea0bu3" path="res://GameResources/PlayerInventory.tres" id="3_jsvd1"]
+[ext_resource type="Texture2D" uid="uid://mo2q1jaakd0d" path="res://Assets/walltextures/crosshair.png" id="4_8pkys"]
 [ext_resource type="PackedScene" uid="uid://cqj5ayylwerkv" path="res://Scenes/inventory.tscn" id="4_61nan"]
 [ext_resource type="Script" uid="uid://cres0ae6h81fi" path="res://Scripts/inventory_interface.gd" id="6_7vn5m"]
 [ext_resource type="Script" uid="uid://cj4s0on08f2h8" path="res://Scripts/boss_health_bar.gd" id="7_ggivr"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cqs6ib4e6imgr" path="res://Scripts/slide_door_down.gd" id="12_ggivr"]
 [ext_resource type="Texture2D" uid="uid://cwchi6g8ha18u" path="res://Debug/prototype_512x512_orange.png" id="12_qj246"]
 [ext_resource type="PackedScene" uid="uid://v3k2myw4x563" path="res://Scenes/School.tscn" id="14_8pkys"]
+[ext_resource type="PackedScene" uid="uid://c6vuvt42wpt5e" path="res://box_light_3d.tscn" id="15_ni7jk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jjgbg"]
 radius = 0.432
@@ -21,19 +22,26 @@ radius = 0.432
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jjgbg"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7u77a"]
-panorama = ExtResource("2_61nan")
-energy_multiplier = 0.75
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggivr"]
 
 [sub_resource type="Sky" id="Sky_jjgbg"]
-sky_material = SubResource("PanoramaSkyMaterial_7u77a")
+sky_material = SubResource("ProceduralSkyMaterial_ggivr")
 radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_bo1nx"]
 background_mode = 2
 sky = SubResource("Sky_jjgbg")
-tonemap_mode = 2
+tonemap_mode = 3
+tonemap_exposure = 1.1
+sdfgi_enabled = true
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.23
+volumetric_fog_albedo = Color(0.27956834, 0.3921106, 0.42179576, 1)
+volumetric_fog_emission = Color(0.15736482, 0.19223651, 0.1953747, 1)
+volumetric_fog_emission_energy = 0.3
+volumetric_fog_length = 128.0
+adjustment_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj246"]
 bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.258824)
@@ -378,6 +386,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67977, -0.166016)
 [node name="PlayerCamera" type="Camera3D" parent="PlayerController/Head"]
 fov = 85.0
 
+[node name="SpotLight3D" type="SpotLight3D" parent="PlayerController/Head/PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 0.8205112, 0.5716305, 0, -0.5716305, 0.8205112, 0, 0, 0)
+light_energy = 0.75
+light_volumetric_fog_energy = 0.4
+spot_range = 150.0
+spot_angle_attenuation = 4.0
+
+[node name="TextureRect" type="TextureRect" parent="PlayerController/Head/PlayerCamera"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_8pkys")
+expand_mode = 1
+
 [node name="CharacterMesh" type="MeshInstance3D" parent="PlayerController"]
 transform = Transform3D(1, 0, 0, 0, 0.99981, -0.0194767, 0, 0.0194767, 0.99981, 0, -0.0204878, -0.209175)
 mesh = SubResource("CapsuleMesh_jjgbg")
@@ -390,6 +420,7 @@ environment = SubResource("Environment_bo1nx")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 28.1301, 0)
+visible = false
 shadow_enabled = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -408,21 +439,6 @@ offset_left = 75.0
 offset_top = 450.0
 offset_right = 91.0
 offset_bottom = 466.0
-
-[node name="Crosshair" type="ColorRect" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -5.0
-offset_top = -8.0
-offset_right = 5.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 0, 1, 1)
 
 [node name="BossHealthBar" type="ProgressBar" parent="HUD"]
 anchors_preset = 11
@@ -487,7 +503,7 @@ libraries = {
 autoplay = "cutscene_cam_pre"
 
 [node name="CutsceneCamera" type="Camera3D" parent="Level"]
-transform = Transform3D(0.00450012, 0.717978, -0.696051, -0.00242973, 0.696064, 0.717976, 0.999987, -0.00153976, 0.00487687, -14.2575, 9.92659, 2.55626)
+transform = Transform3D(0.00450012, 0.7179783, -0.69605094, -0.002429732, 0.6960637, 0.717976, 0.99998695, -0.0015397604, 0.0048768655, -14.2575, 9.92659, 2.55626)
 fov = 58.6
 far = 50.0
 
@@ -567,6 +583,26 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.912682, 4.18322, -3.7
 slot_data = SubResource("Resource_qj246")
 
 [node name="Root" parent="." instance=ExtResource("14_8pkys")]
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.088554, 3.1502843, -73.59097)
+light_color = Color(0.6553685, 0.063919045, 0.15349397, 1)
+light_energy = 0.67
+light_indirect_energy = 4.134
+light_volumetric_fog_energy = 2.44
+light_specular = 0.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.295, 3.5153255, -84.46756)
+light_color = Color(0.6553685, 0.063919045, 0.15349397, 1)
+light_energy = 0.67
+light_indirect_energy = 4.134
+light_volumetric_fog_energy = 2.44
+light_specular = 0.0
+
+[node name="CSGBox3D" parent="." instance=ExtResource("15_ni7jk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.19246, 3.2924554, -84.504845)
+size = Vector3(1.1113281, 1, 1)
 
 [connection signal="body_entered" from="Level/DoorToggle" to="Level/SlideDoorDown" method="_on_door_toggle_body_entered"]
 [connection signal="body_entered" from="Level/BossArea/BossDmg1" to="HUD/BossHealthBar" method="_on_boss_dmg_1_body_entered"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6vuvt42wpt5e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xfk7"]
+albedo_color = Color(0.12941387, 0.40251508, 0.74247915, 1)
+emission_enabled = true
+emission = Color(0.9796677, 0.22576132, 0.25344566, 1)
+emission_energy_multiplier = 4.78
+
+[node name="CSGBox3D" type="CSGBox3D"]
+material = SubResource("StandardMaterial3D_6xfk7")
