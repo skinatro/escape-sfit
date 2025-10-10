@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://kpx16h3p0m0y"]
+
+[ext_resource type="PackedScene" uid="uid://cnbkgum4pqprx" path="res://Assets/Door.glb" id="1_w6aom"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6aom"]
+albedo_color = Color(100, 100, 100, 0)
+metallic = 0.5
+roughness = 0.1
+refraction_enabled = true
+refraction_scale = 0.0
+
+[node name="Door" instance=ExtResource("1_w6aom")]
+
+[node name="Door" parent="." index="0"]
+transform = Transform3D(0.149989, 9.88587e-08, 0.0119853, 1.12997e-08, 2, -1.0409e-05, -0.0017978, 2.08182e-05, 0.999928, -0.053337, 2.07433, 0.000316441)
+
+[node name="HandleBaseDown" parent="." index="1"]
+transform = Transform3D(0.00499964, 2.47377e-09, 0.000599267, 3.76658e-10, 0.05, -5.20448e-07, -5.9927e-05, 5.20456e-07, 0.0499964, 0.0889028, 1.92063, -0.754577)
+
+[node name="HandleBaseUp" parent="." index="2"]
+transform = Transform3D(0.00499964, 2.47377e-09, 0.000599267, 3.76658e-10, 0.05, -5.20448e-07, -5.9927e-05, 5.20456e-07, 0.0499964, 0.0889028, 2.36898, -0.754572)
+
+[node name="HandleBaseDown_001" parent="." index="3"]
+transform = Transform3D(0.159988, 1.48426e-09, 0.00035956, 1.2053e-08, 0.03, -3.12269e-07, -0.00191766, 3.12274e-07, 0.0299978, 0.0888734, 1.92063, -0.75703)
+
+[node name="HandleBaseDown_002" parent="." index="4"]
+transform = Transform3D(0.159988, 1.48426e-09, 0.00035956, 1.2053e-08, 0.03, -3.12269e-07, -0.00191766, 3.12274e-07, 0.0299978, 0.0888734, 2.36787, -0.757026)
+
+[node name="HandleBaseDown_003" parent="." index="5"]
+transform = Transform3D(4.64201e-08, 0.0299978, 0.00035956, -0.255, 9.18177e-09, -3.10257e-07, -2.63793e-06, -0.00035956, 0.0299978, 0.220094, 2.14549, -0.758601)
+
+[node name="HandleBaseDown_004" parent="." index="6"]
+transform = Transform3D(0.00499964, 2.47377e-09, 0.000599267, 3.76658e-10, 0.05, -5.20448e-07, -5.9927e-05, 5.20456e-07, 0.0499964, 0.0889028, 1.92063, -0.754577)
+
+[node name="HandleBaseUp_001" parent="." index="7"]
+transform = Transform3D(0.00499964, 2.47377e-09, 0.000599267, 3.76658e-10, 0.05, -5.20448e-07, -5.9927e-05, 5.20456e-07, 0.0499964, 0.0889028, 2.36898, -0.754572)
+
+[node name="HandleBaseDown_005" parent="." index="8"]
+transform = Transform3D(0.159988, 1.48426e-09, 0.00035956, 1.2053e-08, 0.03, -3.12269e-07, -0.00191766, 3.12274e-07, 0.0299978, 0.0888734, 1.92063, -0.75703)
+
+[node name="HandleBaseDown_006" parent="." index="9"]
+transform = Transform3D(0.159988, 1.48426e-09, 0.00035956, 1.2053e-08, 0.03, -3.12269e-07, -0.00191766, 3.12274e-07, 0.0299978, 0.0888734, 2.36787, -0.757026)
+
+[node name="HandleBaseDown_007" parent="." index="10"]
+transform = Transform3D(4.64201e-08, 0.0299978, 0.00035956, -0.255, 9.18177e-09, -3.10257e-07, -2.63793e-06, -0.00035956, 0.0299978, 0.220094, 2.14549, -0.758601)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0259399, 3.01669, 0.0403633)
+size = Vector3(0.130737, 0.629761, 0.709656)
+material = SubResource("StandardMaterial3D_w6aom")
