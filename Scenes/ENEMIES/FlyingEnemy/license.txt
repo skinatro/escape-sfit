@@ -1,0 +1,11 @@
+Model Information:
+* title:	Heavy robot Enemy for "Overgrown"
+* source:	https://sketchfab.com/3d-models/heavy-robot-enemy-for-overgrown-ce704e45239249b6a4466f3542b5f5ec
+* author:	Jordi Kruk (https://sketchfab.com/JordiKruk)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Heavy robot Enemy for "Overgrown"" (https://sketchfab.com/3d-models/heavy-robot-enemy-for-overgrown-ce704e45239249b6a4466f3542b5f5ec) by Jordi Kruk (https://sketchfab.com/JordiKruk) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

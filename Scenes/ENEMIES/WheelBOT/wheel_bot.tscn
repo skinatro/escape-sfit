@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpsnbno2x2y82"]
+
+[ext_resource type="PackedScene" uid="uid://c4gv786hfa2s8" path="res://Scenes/ENEMIES/WheelBOT/scene.gltf" id="1_1kqjr"]
+[ext_resource type="Script" uid="uid://c8ym1v3fr3hnt" path="res://Scripts/EnemyScripts/wheel_botSCRIPT.gd" id="1_ey8jo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ey8jo"]
+radius = 1.51116
+height = 5.58771
+
+[node name="WheelBot" type="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("1_ey8jo")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_1kqjr")]
+transform = Transform3D(0.83, 0, 0, 0, 0.83, 0, 0, 0, 0.83, 0.0203506, 0, -2.84387)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.920622, 0, 0, 0, 1.44667, 0, 0, 0, 1.22187, 0, 3.96864, -2.99398)
+shape = SubResource("CapsuleShape3D_ey8jo")

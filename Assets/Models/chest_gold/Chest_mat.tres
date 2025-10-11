@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bximy4patu2a0"]
+
+[ext_resource type="Texture2D" uid="uid://c3nlruo015abd" path="res://Assets/Models/chest_gold/chest_texture.png" id="1_pmm6g"]
+
+[resource]
+albedo_texture = ExtResource("1_pmm6g")
+metallic = 0.68
+roughness = 0.52

@@ -1,0 +1,238 @@
+[gd_scene load_steps=16 format=3 uid="uid://d2f3sn771t0f5"]
+
+[ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://c6pjq0knegrw8" path="res://Scenes/extras/wall_corner_2.tscn" id="4_21xkr"]
+[ext_resource type="PackedScene" uid="uid://b8ubeojf3iuwa" path="res://Scenes/extras/wall_arched_2.tscn" id="5_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bnprfbw5w86kp" path="res://Scenes/extras/wall_shelved.tscn" id="6_344ge"]
+[ext_resource type="PackedScene" uid="uid://c2nfdlf28lxkm" path="res://Scenes/LaserGame/LaserGamebutton.tscn" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://djwg2icxgsc2v" path="res://Scenes/Block Game/puzzle_block.tscn" id="9_6iyac"]
+[ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="9_hptm8"]
+[ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="9_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://durq041py6pld" path="res://Scenes/Block Game/puzzle_manager.tscn" id="10_hptm8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7u77a"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_jjgbg"]
+sky_material = SubResource("ProceduralSkyMaterial_7u77a")
+
+[sub_resource type="Environment" id="Environment_bo1nx"]
+background_mode = 2
+sky = SubResource("Sky_jjgbg")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l55se"]
+albedo_color = Color(1, 1, 0.0745098, 1)
+emission_enabled = true
+emission = Color(0.985159, 0.635418, 3.85046e-07, 1)
+emission_energy_multiplier = 1.31
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jyof0"]
+material = SubResource("StandardMaterial3D_l55se")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_6bp64")
+playerScene = ExtResource("1_jjgbg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bo1nx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.140077, 0.72616, -0.673105, -0.879011, 0.404116, 0.253041, 0.455761, 0.556222, 0.69491, -14.1, 13.8, 0)
+shadow_enabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.35, 1, 32.05)
+use_collision = true
+size = Vector3(5.5, 1, 1.5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.35, 2, 30.65)
+use_collision = true
+size = Vector3(5.5, 1, 1.5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.35, 2, -9.15)
+use_collision = true
+size = Vector3(5.5, 1, 1.5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.35, 1, -10.65)
+use_collision = true
+size = Vector3(5.5, 1, 1.5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25, 2.9, 10.65)
+use_collision = true
+size = Vector3(5.5, 1, 38.3)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.200002, 0.0499997, -6.85)
+operation = 2
+calculate_tangents = false
+size = Vector3(6.7, 1.5, 1.8)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.200002, 0.0499997, 3.35)
+operation = 2
+calculate_tangents = false
+size = Vector3(6.7, 1.5, 1.8)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25, 5.013, 0)
+use_collision = true
+size = Vector3(5.5, 3.4, 1)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+operation = 2
+size = Vector3(4.4, 2.8, 1)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 0, 1.1)
+use_collision = true
+size = Vector3(80, 1, 80)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="wall_corner2" parent="Walls" instance=ExtResource("4_21xkr")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.9, 0.5, 28.8)
+
+[node name="wall_arched2" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.5, 28.6)
+
+[node name="wall_arched3" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(0.999993, 0.0025096, 0.00293126, -0.00250811, 0.999997, -0.000511496, -0.00293253, 0.000504144, 0.999996, 8.6, 0.5, 28.6)
+
+[node name="wall_arched4" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.9, 0.5, 24.7)
+
+[node name="wall_arched5" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.9, 0.5, 16.7)
+
+[node name="wall_arched9" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.8, 0.5, 16.7)
+
+[node name="wall_arched10" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.8, 0.5, 20.6)
+
+[node name="wall_arched11" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.8, 0.5, 24.6)
+
+[node name="wall_corner3" parent="Walls" instance=ExtResource("4_21xkr")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1, 0.5, 28.5)
+
+[node name="wall_corner4" parent="Walls" instance=ExtResource("4_21xkr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.75, 0.5, 12.25)
+
+[node name="wall_arched6" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.95, 0.5, 12.45)
+
+[node name="wall_arched8" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.05, 0.5, 12.45)
+
+[node name="wall_arched7" parent="Walls" instance=ExtResource("5_6bp64")]
+transform = Transform3D(-0.999993, -0.0025096, -0.00293135, -0.00250811, 0.999997, -0.000511496, 0.00293262, -0.000504144, -0.999996, 1.25, 0.5, 12.45)
+
+[node name="wall_corner5" parent="Walls" instance=ExtResource("4_21xkr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.15, 0.5, 12.55)
+
+[node name="wall_shelved" parent="Walls" instance=ExtResource("6_344ge")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.8, 0.5, 20.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_right = 120.0
+offset_bottom = 90.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_left = 128.0
+offset_top = 2.0
+offset_right = 248.0
+offset_bottom = 92.0
+text = "JOIN"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bs72ogkvdd7d6")
+spawn_path = NodePath("..")
+
+[node name="laserBeamNew" parent="." node_paths=PackedStringArray("spawnPoint") instance=ExtResource("9_ynf5e")]
+transform = Transform3D(-3.61999e-07, -1.564, -4.46638e-07, 0.1, -5.66166e-06, 0, -1.61683e-12, -6.98542e-06, 0.1, -20.1, 1, 28.3)
+collision_layer = 13311
+collision_mask = 13311
+moveSpeed = 5.0
+rotateSpeed = 3.0
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="SpawnPoint" parent="." instance=ExtResource("9_hptm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2537, 1.52244, 37.2895)
+
+[node name="Button" parent="." instance=ExtResource("8_344ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.6, -1.90735e-06)
+terminalGame = true
+
+[node name="Button2" parent="." instance=ExtResource("8_344ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0.6, 29.3)
+laserGame = true
+
+[node name="Puzzle_Block" parent="." instance=ExtResource("9_6iyac")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.8, 1.2, -4.9)
+
+[node name="MeshInstance3D" parent="Puzzle_Block/Area3D/CSGBox3D" index="2"]
+transform = Transform3D(-7.21238e-09, -0.49, 0, 0.165, -2.14186e-08, 0, 0, 0, 0.45, 0, -0.2, 0.33185)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puzzle_Block/Area3D/CSGBox3D" index="3"]
+transform = Transform3D(0.165, -2.13163e-14, 0, 1.18424e-15, 0.49, 0, 0, 0, 0.45, 0, 0, 0.33185)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("../../..")
+
+[node name="Puzzle_Block2" parent="." instance=ExtResource("9_6iyac")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.9, 1.2, -4.9)
+
+[node name="MeshInstance3D" parent="Puzzle_Block2/Area3D/CSGBox3D" index="2"]
+transform = Transform3D(-7.21238e-09, -0.49, 0, 0.165, -2.14186e-08, 0, 0, 0, 0.45, 0, -0.2, 0.33185)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puzzle_Block2/Area3D/CSGBox3D" index="3"]
+transform = Transform3D(0.165, -2.13163e-14, 0, 1.18424e-15, 0.49, 0, 0, 0, 0.45, 0, 0, 0.33185)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("../../..")
+
+[node name="Puzzle_Block3" parent="." instance=ExtResource("9_6iyac")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.9, 2.85133, -4.9)
+
+[node name="MeshInstance3D" parent="Puzzle_Block3/Area3D/CSGBox3D" index="2"]
+transform = Transform3D(-7.21238e-09, -0.49, 0, 0.165, -2.14186e-08, 0, 0, 0, 0.45, 0, 0.2, 0.33185)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puzzle_Block3/Area3D/CSGBox3D" index="3"]
+transform = Transform3D(0.165, -2.13163e-14, 0, 1.18424e-15, 0.49, 0, 0, 0, 0.45, 0, 0, 0.33185)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("../../..")
+
+[node name="Puzzle_Block4" parent="." instance=ExtResource("9_6iyac")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.853376, 2.85133, -4.9)
+
+[node name="MeshInstance3D" parent="Puzzle_Block4/Area3D/CSGBox3D" index="2"]
+transform = Transform3D(-7.21238e-09, -0.49, 0, 0.165, -2.14186e-08, 0, 0, 0, 0.45, 0, 0.2, 0.33185)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Puzzle_Block4/Area3D/CSGBox3D" index="3"]
+transform = Transform3D(0.165, -2.13163e-14, 0, 1.18424e-15, 0.49, 0, 0, 0, 0.45, 0, 0, 0.33185)
+mesh = SubResource("CylinderMesh_jyof0")
+
+[node name="PuzzleManager" parent="." node_paths=PackedStringArray("blocks") instance=ExtResource("10_hptm8")]
+blocks = [NodePath("../Puzzle_Block"), NodePath("../Puzzle_Block2"), NodePath("../Puzzle_Block3"), NodePath("../Puzzle_Block4")]
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+
+[editable path="Puzzle_Block"]
+[editable path="Puzzle_Block2"]
+[editable path="Puzzle_Block3"]
+[editable path="Puzzle_Block4"]

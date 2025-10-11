@@ -1,0 +1,172 @@
+[gd_scene load_steps=6 format=3 uid="uid://b54fydbav4ra2"]
+
+[ext_resource type="Script" uid="uid://ck25i8nwse1ux" path="res://Scripts/WaveGameScripts/signal_console.gd" id="1_hj46e"]
+[ext_resource type="Script" uid="uid://boi4mk87boaip" path="res://Scripts/WaveGameScripts/graph.gd" id="2_8266o"]
+[ext_resource type="Texture2D" uid="uid://bbioy2ck1dyil" path="res://Assets/Textures/OscilloScopeBG.png" id="2_uqu5d"]
+[ext_resource type="Texture2D" uid="uid://dyb55mniob63p" path="res://Assets/Textures/knob.png" id="4_hqr5m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hqr5m"]
+font_size = 96
+font_color = Color(0, 0, 0, 1)
+
+[node name="SignalConsole" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_hj46e")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uqu5d")
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -785.0
+offset_bottom = -416.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.69222, 1.64)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 2
+
+[node name="freq_slider" type="HSlider" parent="ColorRect/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="gain_slider" type="HSlider" parent="ColorRect/VBoxContainer/HBoxContainer/VBoxContainer3"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Graph" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 199.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.989206, 0.635998)
+size_flags_vertical = 3
+script = ExtResource("2_8266o")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1933.0
+offset_top = 1082.0
+offset_right = 1973.0
+offset_bottom = 2157.0
+rotation = 1.5708
+scale = Vector2(-0.616363, 1.79484)
+
+[node name="FreqRotor" type="TextureButton" parent="."]
+modulate = Color(1, 0.952941, 1, 0.8)
+layout_mode = 2
+offset_left = 93.0
+offset_top = 636.0
+offset_right = 694.0
+offset_bottom = 1251.0
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(299.51, 292.428)
+texture_normal = ExtResource("4_hqr5m")
+stretch_mode = 0
+
+[node name="freqLabel" type="Label" parent="FreqRotor"]
+layout_mode = 2
+offset_left = 65.0433
+offset_top = 222.588
+offset_right = 549.043
+offset_bottom = 354.588
+text = "Frequency"
+label_settings = SubResource("LabelSettings_hqr5m")
+horizontal_alignment = 1
+
+[node name="AmpRotor" type="TextureButton" parent="."]
+modulate = Color(1, 0.952941, 1, 0.8)
+layout_mode = 2
+offset_left = 1241.0
+offset_top = 636.0
+offset_right = 1842.0
+offset_bottom = 1251.0
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(299.51, 292.428)
+texture_normal = ExtResource("4_hqr5m")
+stretch_mode = 0
+
+[node name="ampLabel" type="Label" parent="AmpRotor"]
+layout_mode = 2
+offset_left = 71.71
+offset_top = 227.032
+offset_right = 553.71
+offset_bottom = 359.032
+text = "Amplitude"
+label_settings = SubResource("LabelSettings_hqr5m")
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(963, 547)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -148.0
+offset_top = 8.7738e-05
+offset_right = -108.0
+offset_bottom = 1075.0
+scale = Vector2(4.19987, 1.00445)
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1897.0
+offset_top = 8.7738e-05
+offset_right = 1937.0
+offset_bottom = 1075.0
+scale = Vector2(1.28785, 1.01061)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1950.0
+offset_top = -20.9999
+offset_right = 1990.0
+offset_bottom = 1054.0
+rotation = 1.5708
+scale = Vector2(0.711115, 1.83554)
+
+[connection signal="pressed" from="FreqRotor" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AmpRotor" to="." method="_on_amp_rotor_pressed"]

@@ -1,0 +1,208 @@
+[gd_scene load_steps=20 format=3 uid="uid://d2f3sn771t0f5"]
+
+[ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://uahp3xu84uod" path="res://Assets/Textures/prototype_512x512_blue1.png" id="3_d1ilt"]
+[ext_resource type="Texture2D" uid="uid://dpuoo4vprxnl7" path="res://Assets/Textures/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="3_jkdf5"]
+[ext_resource type="PackedScene" uid="uid://c2nfdlf28lxkm" path="res://Scenes/LaserGame/LaserGamebutton.tscn" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://m6uf8qjt3w0p" path="res://Scenes/ENEMIES/FlyingEnemy/scene.gltf" id="9_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="9_hptm8"]
+[ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="9_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://bpsnbno2x2y82" path="res://Scenes/ENEMIES/WheelBOT/wheel_bot.tscn" id="10_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://durq041py6pld" path="res://Scenes/Block Game/puzzle_manager.tscn" id="10_hptm8"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Scenes/SFIT/CSGStairMaker3D.tscn" id="11_6iyac"]
+[ext_resource type="PackedScene" uid="uid://dsb4l8jkavooh" path="res://Scenes/Block Game/puzzle_blockHEXA.tscn" id="11_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="12_6iyac"]
+[ext_resource type="PackedScene" uid="uid://c0xw7wkai82jd" path="res://Scenes/ENEMIES/GasLeak.tscn" id="13_fdnlq"]
+[ext_resource type="PackedScene" uid="uid://jvg55xuxytxl" path="res://Scenes/SFIT/emissive.tscn" id="15_wsu2k"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
+panorama = ExtResource("3_jkdf5")
+
+[sub_resource type="Sky" id="Sky_k12tt"]
+sky_material = SubResource("PanoramaSkyMaterial_wsu2k")
+
+[sub_resource type="Environment" id="Environment_h1bgf"]
+background_mode = 2
+sky = SubResource("Sky_k12tt")
+ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+glow_normalized = true
+glow_intensity = 2.35
+glow_bloom = 0.65
+volumetric_fog_density = 0.0285
+volumetric_fog_albedo = Color(0.57700837, 0.5770084, 0.57700837, 1)
+volumetric_fog_gi_inject = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iyac"]
+albedo_texture = ExtResource("3_d1ilt")
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
+script = ExtResource("1_6bp64")
+playerScene = ExtResource("1_jjgbg")
+Spawnpoint = NodePath("SpawnPoint")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h1bgf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.140077, 0.72616, -0.673105, -0.879011, 0.404116, 0.253041, 0.455761, 0.556222, 0.69491, -14.1, 13.8, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 0, 1.1)
+use_collision = true
+size = Vector3(80, 1, 80)
+material = SubResource("StandardMaterial3D_6iyac")
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_left = 950.0
+offset_top = 580.0
+offset_right = 1070.0
+offset_bottom = 670.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_left = 948.0
+offset_top = 461.0
+offset_right = 1068.0
+offset_bottom = 551.0
+text = "JOIN"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bs72ogkvdd7d6")
+spawn_path = NodePath("..")
+
+[node name="SpawnPoint" parent="." instance=ExtResource("9_hptm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2801, 3.49843, -12.5752)
+
+[node name="Button" parent="." instance=ExtResource("8_344ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.8, 0.6, 29.2)
+terminalGame = true
+
+[node name="CSGStairMaker3D" parent="." instance=ExtResource("11_6iyac")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -27.9, 2.7, 2.95)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(7.9, 4.6, 3.2)
+num_stairs = 15
+
+[node name="CSGStairMaker3D2" parent="." instance=ExtResource("11_6iyac")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -27.9, 2.7, -4.75)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(7.9, 4.6, 3.2)
+num_stairs = 15
+
+[node name="PuzzleGame" type="Node" parent="."]
+
+[node name="PuzzleManager" parent="PuzzleGame" node_paths=PackedStringArray("blocks") instance=ExtResource("10_hptm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, -0.2, 9.2)
+blocks = [NodePath("../Puzzle_Block5"), NodePath("../Puzzle_Block6"), NodePath("../Puzzle_Block7"), NodePath("../Puzzle_Block8")]
+
+[node name="Puzzle_Block5" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -12.1631, 2.54614, 4.57636)
+
+[node name="Puzzle_Block6" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -10.7631, 2.54614, 4.57636)
+
+[node name="Puzzle_Block7" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -11.4631, 3.84614, 4.57636)
+
+[node name="Puzzle_Block10" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -10.0631, 3.84614, 4.57636)
+
+[node name="Puzzle_Block8" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -11.4631, 1.24614, 4.57636)
+
+[node name="Puzzle_Block9" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.96313, 1.24614, 4.57636)
+
+[node name="Puzzle_Block11" parent="PuzzleGame" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.26313, 2.54614, 4.57636)
+
+[node name="LaserGame" type="Node" parent="."]
+
+[node name="laserBeamNew" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("9_ynf5e")]
+transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -11.8, 1, 28.8)
+collision_layer = 13311
+collision_mask = 13311
+up_down = false
+left_right = true
+Rotate = true
+Rangee = 5
+moveSpeed = 5.0
+rotateSpeed = 3.0
+spawnPoint = NodePath("../../SpawnPoint")
+
+[node name="laserBeamNew4" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("9_ynf5e")]
+transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -8.7, 1, 24.5)
+collision_layer = 13311
+collision_mask = 13311
+up_down = false
+left_right = true
+Rangee = 10
+moveSpeed = 5.0
+rotateSpeed = 3.0
+spawnPoint = NodePath("../../SpawnPoint")
+
+[node name="laserBeamNew3" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("9_ynf5e")]
+transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -20.1, 1, 24.5)
+collision_layer = 13311
+collision_mask = 13311
+Rotate = true
+Rangee = 5
+moveSpeed = 5.0
+rotateSpeed = 3.0
+spawnPoint = NodePath("../../SpawnPoint")
+
+[node name="laserBeamNew2" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("9_ynf5e")]
+transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -20.1, 1, 28.3)
+collision_layer = 13311
+collision_mask = 13311
+Rangee = 5
+moveSpeed = 5.0
+rotateSpeed = 3.0
+spawnPoint = NodePath("../../SpawnPoint")
+
+[node name="Button2" parent="LaserGame" instance=ExtResource("8_344ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0.6, 29.3)
+laserGame = true
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("9_d1ilt")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="RobotEnemy2_RobotEnemy2_MAT_0" parent="Sketchfab_Scene/Sketchfab_model/161be35bbf6242aba82d58085d1f9ec3_fbx/RootNode/RobotEnemy2" index="0"]
+transform = Transform3D(1, -5.87747e-39, 0, 0, 1, -2.64698e-23, 0, 2.64698e-23, 1, 0, 0, 0)
+
+[node name="WheelBot" parent="." instance=ExtResource("10_d1ilt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 17.3, 0.2, 0.4)
+
+[node name="SFIT" parent="." instance=ExtResource("12_6iyac")]
+transform = Transform3D(-1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, -1, 6.4459, -1.3165922, -38.8363)
+
+[node name="Gasleak" parent="." instance=ExtResource("13_fdnlq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -3)
+
+[node name="Emissive" parent="." instance=ExtResource("15_wsu2k")]
+transform = Transform3D(0.9999835, 0, 0.0057421015, 0, 1, 0, -0.0057421015, 0, 0.9999835, 3.670641, 2.1566525, -23.1367)
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+
+[editable path="PuzzleGame/Puzzle_Block5"]
+[editable path="PuzzleGame/Puzzle_Block6"]
+[editable path="PuzzleGame/Puzzle_Block7"]
+[editable path="PuzzleGame/Puzzle_Block10"]
+[editable path="PuzzleGame/Puzzle_Block8"]
+[editable path="PuzzleGame/Puzzle_Block9"]
+[editable path="PuzzleGame/Puzzle_Block11"]
+[editable path="Sketchfab_Scene"]

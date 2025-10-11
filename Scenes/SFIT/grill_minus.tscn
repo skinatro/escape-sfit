@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3nuukdiaefhg"]
+
+[ext_resource type="PackedScene" uid="uid://goxdscltu71n" path="res://Assets/Models/SFIT/Grill-left.glb" id="1_y1llu"]
+[ext_resource type="Material" uid="uid://breehy3somub" path="res://Assets/Materials/Grill.tres" id="2_ttqih"]
+
+[node name="Grill-left" instance=ExtResource("1_y1llu")]
+
+[node name="Cube" parent="." index="0"]
+material_override = ExtResource("2_ttqih")
+gi_mode = 2

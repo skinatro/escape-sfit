@@ -1,0 +1,11 @@
+Model Information:
+* title:	Monowheel Bot | VGDC
+* source:	https://sketchfab.com/3d-models/monowheel-bot-vgdc-006e21a7dd9a4f669c4e8cce35dde89d
+* author:	MooKorea (https://sketchfab.com/MooKorea)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Monowheel Bot | VGDC" (https://sketchfab.com/3d-models/monowheel-bot-vgdc-006e21a7dd9a4f669c4e8cce35dde89d) by MooKorea (https://sketchfab.com/MooKorea) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

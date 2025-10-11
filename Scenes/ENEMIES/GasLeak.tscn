@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0xw7wkai82jd"]
+
+[sub_resource type="Curve" id="Curve_iaont"]
+_limits = [0.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0.00255102, 20), 0.0, 0.0, 0, 0, Vector2(0.0790816, 11.931), 0.0, 0.0, 0, 0, Vector2(0.658163, 5.39902), 0.0, 0.0, 0, 0, Vector2(0.895408, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_voms8"]
+curve = SubResource("Curve_iaont")
+
+[sub_resource type="Curve" id="Curve_pxks8"]
+_data = [Vector2(0, 0.404433), 0.0, 0.0, 0, 0, Vector2(0.244898, 0.372414), 0.0, 0.0, 0, 0, Vector2(0.441327, 0.750246), -0.936696, -0.936696, 0, 0, Vector2(1, 0.000985265), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qr5f4"]
+curve = SubResource("Curve_pxks8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cobbh"]
+spread = 180.0
+initial_velocity_max = 1.5
+gravity = Vector3(10, 0, 0)
+scale_curve = SubResource("CurveTexture_qr5f4")
+color = Color(5.0056e-06, 0.759724, 0.740341, 1)
+emission_curve = SubResource("CurveTexture_voms8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wybep"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_l0mdp"]
+material = SubResource("StandardMaterial3D_wybep")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 400
+lifetime = 2.4
+process_material = SubResource("ParticleProcessMaterial_cobbh")
+draw_pass_1 = SubResource("SphereMesh_l0mdp")

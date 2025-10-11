@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1luelue526sf"]
+
+[ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/FloorA.tscn" id="1_33ows"]
+
+[node name="SFIT" type="Node3D"]
+
+[node name="Floor2" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96936, 0)
+
+[node name="Floor3" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.89042, 0)

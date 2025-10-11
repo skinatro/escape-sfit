@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://4s66tfgyqrxi"]
+
+[ext_resource type="Script" uid="uid://bybg8pt22lpdw" path="res://Scripts/BlockGame/grid_wallSCRIPT.gd" id="1_rxi5a"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ly8qi"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_rxi5a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.768, 0, 0, 0, 3.195, 0, 0, 0, 2.49, 0, 0, 0)
+mesh = SubResource("BoxMesh_ly8qi")

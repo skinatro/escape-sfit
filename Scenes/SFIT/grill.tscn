@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://co5qf44xppjvk"]
+
+[ext_resource type="PackedScene" uid="uid://dd3mepntcwqbm" path="res://Assets/Models/SFIT/Grill.glb" id="1_1q3yj"]
+[ext_resource type="Material" uid="uid://breehy3somub" path="res://Assets/Materials/Grill.tres" id="2_uqgss"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vvyji"]
+size = Vector3(1, 1.65286, 1.02515)
+
+[node name="Grill" instance=ExtResource("1_1q3yj")]
+
+[node name="Cube" parent="." index="0"]
+material_override = ExtResource("2_uqgss")
+gi_mode = 2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0"]
+transform = Transform3D(2.38002, 0, 0, 0, 3.49075, 0, 0, 0, 114.002, 0, 0.0485331, -19.4173)
+shape = SubResource("BoxShape3D_vvyji")

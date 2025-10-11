@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://durq041py6pld"]
+
+[ext_resource type="Script" uid="uid://c2w1syobpun5r" path="res://Scripts/BlockGame/puzzle_manager.gd" id="1_h6ldt"]
+
+[node name="PuzzleManager" type="Node3D"]
+script = ExtResource("1_h6ldt")

@@ -1,0 +1,104 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2nfdlf28lxkm"]
+
+[ext_resource type="Script" uid="uid://bsu4xu1rx4yej" path="res://Scripts/LaserGameScripts/GameButton.gd" id="1_kwvxl"]
+[ext_resource type="PackedScene" uid="uid://b7b54wfwf8ut4" path="res://Scenes/TerminalGame/Terminal.tscn" id="2_c2ayt"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_dpep4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kwvxl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fh1ty"]
+albedo_color = Color(0.828434, 0.381261, 0.264697, 1)
+emission_enabled = true
+emission = Color(0.972549, 0, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kwvxl"]
+height = 0.15
+radius = 1.2
+
+[sub_resource type="Animation" id="Animation_kwvxl"]
+resource_name = "ButtonGlow"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainButton:surface_material_override/0:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 15.4]
+}
+
+[sub_resource type="Animation" id="Animation_y4eum"]
+resource_name = "ButtonGlow_off"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainButton:surface_material_override/0:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15.4, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fh1ty"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainButton:surface_material_override/0:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4eum"]
+_data = {
+&"ButtonGlow": SubResource("Animation_kwvxl"),
+&"ButtonGlow_off": SubResource("Animation_y4eum"),
+&"RESET": SubResource("Animation_fh1ty")
+}
+
+[node name="GameButton" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_kwvxl")
+terminal = ExtResource("2_c2ayt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_dpep4")
+
+[node name="MainButton" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("CylinderMesh_kwvxl")
+surface_material_override/0 = SubResource("StandardMaterial3D_fh1ty")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("CylinderShape3D_kwvxl")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y4eum")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="buttonPressed" from="." to="." method="_on_button_pressed"]
