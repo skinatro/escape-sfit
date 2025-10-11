@@ -9,3 +9,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96936, 0)
 
 [node name="Floor3" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.89042, 0)
+
+[node name="Floor4" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.885516, 0)
+
+[node name="Floor5" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.886177, 0)
+
+[node name="Floor6" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.884546, 0)
+
+[node name="Floor7" parent="." instance=ExtResource("1_33ows")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.926327, 0)
