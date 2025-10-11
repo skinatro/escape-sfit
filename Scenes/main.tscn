@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=21 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_6bp64"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="1_jjgbg"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="12_6iyac"]
 [ext_resource type="PackedScene" uid="uid://c0xw7wkai82jd" path="res://Scenes/ENEMIES/GasLeak.tscn" id="13_fdnlq"]
 [ext_resource type="PackedScene" uid="uid://jvg55xuxytxl" path="res://Scenes/SFIT/emissive.tscn" id="15_wsu2k"]
+[ext_resource type="PackedScene" uid="uid://kpx16h3p0m0y" path="res://Scenes/SFIT/door.tscn" id="16_k12tt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
 panorama = ExtResource("3_jkdf5")
@@ -80,7 +81,7 @@ _spawnable_scenes = PackedStringArray("uid://bs72ogkvdd7d6")
 spawn_path = NodePath("..")
 
 [node name="SpawnPoint" parent="." instance=ExtResource("9_hptm8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2801, 3.49843, -12.5752)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2801, 4.679632, -12.5752)
 
 [node name="Button" parent="." instance=ExtResource("8_344ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.8, 0.6, 29.2)
@@ -187,13 +188,16 @@ transform = Transform3D(1, -5.87747e-39, 0, 0, 1, -2.64698e-23, 0, 2.64698e-23, 
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 17.3, 0.2, 0.4)
 
 [node name="SFIT" parent="." instance=ExtResource("12_6iyac")]
-transform = Transform3D(-1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, -1, 6.4459, -1.3165922, -38.8363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4459, -1.3165922, -40.5434)
 
 [node name="Gasleak" parent="." instance=ExtResource("13_fdnlq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -3)
 
 [node name="Emissive" parent="." instance=ExtResource("15_wsu2k")]
 transform = Transform3D(0.9999835, 0, 0.0057421015, 0, 1, 0, -0.0057421015, 0, 0.9999835, 3.670641, 2.1566525, -23.1367)
+
+[node name="Door" parent="." instance=ExtResource("16_k12tt")]
+transform = Transform3D(0.666, 0, 0, 0, 0.666, 0, 0, 0, 0.666, -29.40938, 0.50000095, 17.388739)
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
