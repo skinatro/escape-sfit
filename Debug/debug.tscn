@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://ci2x2egpwby2g" path="res://Scripts/slot_data.gd" id="10_qx38g"]
 [ext_resource type="Script" uid="uid://cqs6ib4e6imgr" path="res://Scripts/slide_door_down.gd" id="12_ggivr"]
 [ext_resource type="Texture2D" uid="uid://cwchi6g8ha18u" path="res://Debug/prototype_512x512_orange.png" id="12_qj246"]
-[ext_resource type="PackedScene" uid="uid://v3k2myw4x563" path="res://Scenes/School.tscn" id="14_8pkys"]
+[ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/Building.tscn" id="14_8pkys"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jjgbg"]
 radius = 0.432
@@ -363,11 +363,10 @@ item_data = ExtResource("9_jsvd1")
 metadata/_custom_type_script = "uid://ci2x2egpwby2g"
 
 [node name="Debug" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.486023, -0.257072, 0.40799)
 script = ExtResource("1_vacks")
 
 [node name="PlayerController" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.4617, 6.57693, -90.0511)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5949, 16.3903, 10.5933)
 collision_layer = 2
 script = ExtResource("1_4nspm")
 inventory_data = ExtResource("3_jsvd1")
@@ -389,7 +388,10 @@ shape = SubResource("ConvexPolygonShape3D_jjgbg")
 environment = SubResource("Environment_bo1nx")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 28.1301, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -44.9318, 28.1301, 49.6084)
+light_color = Color(0.730881, 0.816673, 0.22396, 1)
+light_indirect_energy = 2.0
+light_angular_distance = 32.28
 shadow_enabled = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -444,7 +446,6 @@ show_percentage = false
 script = ExtResource("7_ggivr")
 
 [node name="Level" type="CSGCombiner3D" parent="."]
-visible = false
 use_collision = true
 
 [node name="Floor" type="CSGBox3D" parent="Level"]
@@ -566,7 +567,8 @@ slot_data = SubResource("Resource_qj246")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.912682, 4.18322, -3.74486)
 slot_data = SubResource("Resource_qj246")
 
-[node name="Root" parent="." instance=ExtResource("14_8pkys")]
+[node name="SFIT" parent="." instance=ExtResource("14_8pkys")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.3845, 6.24726, 18.2239)
 
 [connection signal="body_entered" from="Level/DoorToggle" to="Level/SlideDoorDown" method="_on_door_toggle_body_entered"]
 [connection signal="body_entered" from="Level/BossArea/BossDmg1" to="HUD/BossHealthBar" method="_on_boss_dmg_1_body_entered"]
