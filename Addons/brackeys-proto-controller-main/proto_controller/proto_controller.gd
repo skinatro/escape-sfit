@@ -5,6 +5,12 @@
 
 extends CharacterBody3D
 
+@export_group("Camera")
+@export var base_fov: float = 75.0
+@export var sprint_fov: float = 85.0
+@export var fov_change_speed: float = 6.0
+
+
 ## Can we move around?
 @export var can_move : bool = true
 ## Are we affected by gravity?
@@ -12,7 +18,7 @@ extends CharacterBody3D
 ## Can we press to jump?
 @export var can_jump : bool = true
 ## Can we hold to run?
-@export var can_sprint : bool = false
+@export var can_sprint : bool = true
 ## Can we press to enter freefly mode (noclip)?
 @export var can_freefly : bool = false
 
@@ -67,6 +73,8 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
+
+	
 	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
@@ -111,8 +119,6 @@ func _snap_down_to_stairs_check()->void:
 
 func _snap_up_stairs_check(delta) -> bool:
 	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
-	#if velocity.y > 0 or (velocity * Vector3(1,0,1)).length() == 0:
-		#return false
 	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
 	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
 	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
@@ -140,6 +146,18 @@ func _snap_up_stairs_check(delta) -> bool:
 	return false
 
 func _physics_process(delta: float) -> void:
+	# inside _physics_process(delta) where you handle sprint
+	var target_fov: float = base_fov
+	if can_sprint and Input.is_action_pressed(input_sprint):
+		target_fov = sprint_fov
+
+	# ensure the interpolation weight is in [0,1]
+	var w: float = clamp(fov_change_speed * delta, 0.0, 1.0)
+
+	# final write (only if cam is valid)
+	if cam != null:
+		cam.fov = lerp(cam.fov, target_fov, w)
+
 	#STAIRS CODE:
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 	
@@ -166,9 +184,14 @@ func _physics_process(delta: float) -> void:
 
 		# Modify speed based on sprinting
 		if can_sprint and Input.is_action_pressed(input_sprint):
-				move_speed = sprint_speed
+			move_speed = sprint_speed
+		# Target the sprint FOV
+			cam.fov = lerp(cam.fov, sprint_fov, fov_change_speed * delta)
 		else:
 			move_speed = base_speed
+		# Return smoothly to base FOV
+			cam.fov = lerp(cam.fov, base_fov, fov_change_speed * delta)
+
 
 		# Apply desired movement to velocity
 		if can_move:
@@ -185,18 +208,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 		
 		# Use velocity to actually move
-		#if not _snap_up_stairs_check(delta):
-			#
-			#move_and_slide()
-			#_snap_down_to_stairs_check()
-		
-		# Use velocity to actually move
+		if not _snap_up_stairs_check(delta):
+			
+			move_and_slide()
+			_snap_down_to_stairs_check()
 
-		
-
-	if not _snap_up_stairs_check(delta):
-		move_and_slide()
-		_snap_down_to_stairs_check()
 
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).

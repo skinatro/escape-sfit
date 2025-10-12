@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=20 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
@@ -176,14 +176,12 @@ laserGame = true
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("11_cbgmd")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="RobotEnemy2_RobotEnemy2_MAT_0" parent="Sketchfab_Scene/Sketchfab_model/161be35bbf6242aba82d58085d1f9ec3_fbx/RootNode/RobotEnemy2" index="0"]
-transform = Transform3D(1, -5.87747e-39, 0, 0, 1, -2.64698e-23, 0, 2.64698e-23, 1, 0, 0, 0)
-
 [node name="WheelBot" parent="." instance=ExtResource("12_1w6v2")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 17.3, 0.2, 0.4)
 
 [node name="Gasleak" parent="." instance=ExtResource("14_6vcvc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.43142, 1, 9.105782)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.001111, 1, 9.105782)
+left = true
 
 [node name="Emissive" parent="." instance=ExtResource("15_7k868")]
 transform = Transform3D(0.9999835, 0, 0.0057421015, 0, 1, 0, -0.0057421015, 0, 0.9999835, -20.091194, 2.1566525, -2.0744705)

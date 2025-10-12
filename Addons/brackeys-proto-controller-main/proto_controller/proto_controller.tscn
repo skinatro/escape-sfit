@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bs72ogkvdd7d6"]
 
-[ext_resource type="Script" uid="uid://d1g1p827swfsm" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.gd" id="1_3pa5o"]
-[ext_resource type="Script" uid="uid://bf80l5svttgpn" path="res://Addons/brackeys-proto-controller-main/proto_controller/door_ray_cast_3d.gd" id="2_hniue"]
+[ext_resource type="Script" uid="uid://d1g1p827swfsm" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.gd" id="1_3pa5o"]
+[ext_resource type="Script" uid="uid://bf80l5svttgpn" path="res://addons/brackeys-proto-controller-main/proto_controller/door_ray_cast_3d.gd" id="2_hniue"]
 [ext_resource type="Texture2D" uid="uid://bycf5jw2uysik" path="res://Assets/Textures/crosshair.png" id="2_kescs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
@@ -28,7 +28,6 @@ editor_description = "IN 2ND LAYER OF COLLISION AND COLLIDES WITH OBJECTS IN LAY
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_3pa5o")
-can_freefly = true
 base_speed = 10.0
 jump_velocity = 9.0
 input_left = "left"

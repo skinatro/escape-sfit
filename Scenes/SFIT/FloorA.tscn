@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cbc8cne1c2xrs"]
+[gd_scene load_steps=25 format=3 uid="uid://cbc8cne1c2xrs"]
 
 [ext_resource type="Texture2D" uid="uid://brvhhmmh3mwha" path="res://Assets/Textures/Marble/Tiles075_1K-PNG_Color.png" id="1_l3lns"]
 [ext_resource type="Texture2D" uid="uid://bv05s7w578hvg" path="res://Assets/Textures/Marble/Tiles075_1K-PNG_Displacement.png" id="2_84efw"]
@@ -13,7 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://d3nuukdiaefhg" path="res://Scenes/SFIT/grill_minus.tscn" id="9_laqqw"]
 [ext_resource type="PackedScene" uid="uid://kpx16h3p0m0y" path="res://Scenes/SFIT/door.tscn" id="10_4x7dd"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Scenes/SFIT/CSGStairMaker3D.tscn" id="12_aioi8"]
-[ext_resource type="Texture2D" uid="uid://ctpekmke2btka" path="res://Assets/Textures/floor.jpg" id="13_1mfcl"]
+[ext_resource type="Texture2D" uid="uid://dv4r07km6jqyu" path="res://Assets/Textures/floor.jpg" id="13_1mfcl"]
+[ext_resource type="PackedScene" uid="uid://o1m7h1r8igkg" path="res://Scenes/LIGHTS/spot_light.tscn" id="15_2jt7g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbjfs"]
 albedo_texture = ExtResource("1_l3lns")
@@ -246,6 +247,9 @@ size = Vector3(4.3759108, 1, 2.8269172)
 [node name="MidLevel3" type="CSGBox3D" parent="Floors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.0241785, 2, 16.873913)
 size = Vector3(4.8759108, 1, 3.05984)
+
+[node name="SpotLight" parent="Floors" instance=ExtResource("15_2jt7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.2891655, 2.8655183, -2.4641557)
 
 [node name="Walls" type="CSGCombiner3D" parent="."]
 material_override = ExtResource("6_k13h1")
