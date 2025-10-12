@@ -28,6 +28,7 @@ editor_description = "IN 2ND LAYER OF COLLISION AND COLLIDES WITH OBJECTS IN LAY
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_3pa5o")
+can_freefly = true
 base_speed = 10.0
 jump_velocity = 9.0
 input_left = "left"

@@ -59,7 +59,7 @@ var ristrictMovement:=false
 
 
 #STAIRS
-const MAX_STEP_HEIGHT = 0.5
+const MAX_STEP_HEIGHT = 0.35
 var _snapped_to_stairs_last_frame:= false
 var _last_frame_was_on_floor= -INF
 
@@ -111,6 +111,8 @@ func _snap_down_to_stairs_check()->void:
 
 func _snap_up_stairs_check(delta) -> bool:
 	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
+	#if velocity.y > 0 or (velocity * Vector3(1,0,1)).length() == 0:
+		#return false
 	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
 	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
 	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
@@ -183,11 +185,18 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 		
 		# Use velocity to actually move
-		if not _snap_up_stairs_check(delta):
-			
-			move_and_slide()
-			_snap_down_to_stairs_check()
+		#if not _snap_up_stairs_check(delta):
+			#
+			#move_and_slide()
+			#_snap_down_to_stairs_check()
+		
+		# Use velocity to actually move
 
+		
+
+	if not _snap_up_stairs_check(delta):
+		move_and_slide()
+		_snap_down_to_stairs_check()
 
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
