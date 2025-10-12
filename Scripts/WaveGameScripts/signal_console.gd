@@ -38,7 +38,15 @@ var using_FreqRotor=false
 var using_AmpRotor=false
 var canChange:=true
 
+var playerWon:=false
+#var accept_input:=false
+
+signal PlayerWon
+
 func _ready():
+	
+	graph.playerWaveVanished.connect(_on_wave_vanished)
+	
 	randomize()
 	# randomize target wave
 	target_freq = int(randf_range(1.0, 25.0))
@@ -46,13 +54,16 @@ func _ready():
 	target_gain = int(randf_range(0.5, 10))
 	update_player()
 	graph.queue_redraw()
+	#await get_tree().create_timer(1).timeout
+	#accept_input=true
 
 func _process(_delta):
 
 	update_player()
 	graph.queue_redraw()
 	var diff=give_feedback()
-	phase=_updatePhase(_delta)
+	if(!playerWon):
+		phase=_updatePhase(_delta)
 	
 	# Update camera shake based on diff
 	shake_strength = lerp(shake_strength, diff * 2.0, 0.1)  # smoother transitions
@@ -63,10 +74,15 @@ func _process(_delta):
 
 	
 	#Wave reset logic:
-	if(!miss_alligned and Input.is_key_pressed(KEY_E)):
-		#WIN CASE
-		amplitude=amplitude*-1
-	elif(miss_alligned and Input.is_key_pressed(KEY_E)):
+	if(!miss_alligned and Input.is_key_pressed(KEY_F) and !playerWon):
+		#WIN CASE################################
+		playerWon=true
+		emit_signal("PlayerWon")
+		phase=phase*-1
+		Ai.ReduceHealth()
+		
+		
+	elif(miss_alligned and Input.is_key_pressed(KEY_F)):
 		resetWave()
 		
 	
@@ -89,13 +105,22 @@ func _process(_delta):
 		freq_rotor.scale=Vector2(.4,.4)
 		amp_rotor.modulate.a=1
 		freq_rotor.modulate.a=0.4
-		if(Input.is_action_pressed("Right_arrow") or Input.is_action_pressed("right")):
-			amplitude+=.05
-			amp_rotor.rotation+=.5*_delta
+		
+		if(!playerWon):
+			if(Input.is_action_pressed("Right_arrow") or Input.is_action_pressed("right")):
+				amplitude+=.05
+				amp_rotor.rotation+=.5*_delta
 
-		elif(Input.is_action_pressed("Left_arrow") or Input.is_action_pressed("left")):
-			amplitude-=.05
-			amp_rotor.rotation-=.5*_delta
+			elif(Input.is_action_pressed("Left_arrow") or Input.is_action_pressed("left")):
+				amplitude-=.05
+				amp_rotor.rotation-=.5*_delta
+		else:
+			amp_rotor.scale=Vector2(.4,.4)
+			freq_rotor.scale=Vector2(.4,.4)
+			freq_rotor.modulate.a=1
+			amp_rotor.modulate.a=1
+			freq_rotor.rotation-=40*_delta
+			amp_rotor.rotation+=40*_delta
 	
 	
 
@@ -209,3 +234,7 @@ func _on_amp_rotor_pressed() -> void:
 	using_FreqRotor=false
 	using_AmpRotor=true
 	get_viewport().set_input_as_handled()
+
+func _on_wave_vanished():
+	await get_tree().create_timer(1).timeout
+	self.queue_free()

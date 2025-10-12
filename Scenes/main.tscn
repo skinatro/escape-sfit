@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=22 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c0xw7wkai82jd" path="res://Scenes/ENEMIES/GasLeak.tscn" id="14_6vcvc"]
 [ext_resource type="PackedScene" uid="uid://jvg55xuxytxl" path="res://Scenes/SFIT/emissive.tscn" id="15_7k868"]
 [ext_resource type="PackedScene" uid="uid://kpx16h3p0m0y" path="res://Scenes/SFIT/door.tscn" id="16_hpc6h"]
+[ext_resource type="PackedScene" uid="uid://b54fydbav4ra2" path="res://Scenes/WaveGame/signal_console.tscn" id="16_k12tt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
 panorama = ExtResource("3_b3802")
@@ -38,6 +39,11 @@ volumetric_fog_gi_inject = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iyac"]
 albedo_texture = ExtResource("4_fevyy")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_k12tt"]
+properties/0/path = NodePath("ProgressBar:value")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
 script = ExtResource("1_k12tt")
@@ -71,16 +77,36 @@ offset_right = 1068.0
 offset_bottom = 551.0
 text = "JOIN"
 
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+custom_minimum_size = Vector2(100, 10)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.0
+offset_right = 2.0
+offset_bottom = 27.0
+grow_horizontal = 2
+value = 50.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CanvasLayer"]
+root_path = NodePath("../ProgressBar")
+replication_config = SubResource("SceneReplicationConfig_k12tt")
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bs72ogkvdd7d6")
 spawn_path = NodePath("..")
 
 [node name="SpawnPoint" parent="." instance=ExtResource("5_hibaj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2801, 4.679632, 9.643469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.783796, 8.901032, 9.643469)
 
 [node name="Button" parent="." instance=ExtResource("6_pdsj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.8, 0.6, 29.2)
 terminalGame = true
+
+[node name="Button2" parent="." instance=ExtResource("6_pdsj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.18697, 0.6, 29.2)
+Console = ExtResource("16_k12tt")
+waveGame = true
 
 [node name="CSGStairMaker3D" parent="." instance=ExtResource("7_ee4r6")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -27.9, 2.7, 10.246956)
@@ -188,6 +214,8 @@ transform = Transform3D(0.9999835, 0, 0.0057421015, 0, 1, 0, -0.0057421015, 0, 0
 
 [node name="Door" parent="." instance=ExtResource("16_hpc6h")]
 transform = Transform3D(0.666, 0, 0, 0, 0.666, 0, 0, 0, 0.666, -36.22868, 0.50000095, 15.089143)
+
+[node name="AI" type="Node" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

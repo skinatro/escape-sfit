@@ -10,9 +10,8 @@ signal terminalDisabled
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	terminalEnabled.emit()
+	#terminalEnabled.emit()
 	initialPush()
-	
 	checkValidity(" ")
 	
 func _exit_tree() -> void:
@@ -21,7 +20,7 @@ func _exit_tree() -> void:
 
 var canAdd:=true #ensure only one label is added at a time
 var expectedCommand=0
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if(Input.is_action_pressed("enter") and canAdd):
 		if(inputField.get_line(0)!=""):
@@ -63,8 +62,9 @@ func getInputLine():
 
 func initialPush():
 	addTextLable("")
-func checkValidity(input:String):
 	
+var isInitialPush:=true
+func checkValidity(input:String):
 	if(input==commandSequence[expectedCommand]):
 		print("Correct")
 		expectedCommand+=1
@@ -72,17 +72,21 @@ func checkValidity(input:String):
 		#Player Wins
 		if expectedCommand>5:
 			addTextLable("YOU WON :)")
+			Ai.ReduceHealth()
 			queue_free()
 	
 	else:
 		expectedCommand=0
-		addTextLable("Start Again You Fool :)")	
-		#Wait for 1 seconds
-		await get_tree().create_timer(1).timeout
+		if(!isInitialPush):
+			addTextLable("Start Again You Fool :)")	
+			#Wait for 1 seconds
+			await get_tree().create_timer(1).timeout
+		
 		
 		#reset terminal
 		resetTerminal()
 		initialPush()
+		isInitialPush=false
 
 func resetTerminal():
 	for child in v_box_container.get_children():

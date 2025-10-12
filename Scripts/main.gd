@@ -10,12 +10,14 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer=peer
 	multiplayer.peer_connected.connect(add_Player)
 	add_Player()
-	canvas_layer.hide()
+	canvas_layer.get_node("Host").hide()
+	canvas_layer.get_node("Join").hide()
 
 func _on_join_pressed() -> void:
 	peer.create_client("127.0.0.1",1027)
 	multiplayer.multiplayer_peer=peer
-	canvas_layer.hide()
+	canvas_layer.get_node("Host").hide()
+	canvas_layer.get_node("Join").hide()
 	
 func add_Player(id=1):
 	var player= playerScene.instantiate();
