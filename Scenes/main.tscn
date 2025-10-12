@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
 [ext_resource type="Texture2D" uid="uid://dpuoo4vprxnl7" path="res://Assets/Textures/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="3_b3802"]
 [ext_resource type="Texture2D" uid="uid://uahp3xu84uod" path="res://Assets/Textures/prototype_512x512_blue1.png" id="4_fevyy"]
 [ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="5_hibaj"]
@@ -26,8 +26,6 @@ sky_material = SubResource("PanoramaSkyMaterial_wsu2k")
 [sub_resource type="Environment" id="Environment_h1bgf"]
 background_mode = 2
 sky = SubResource("Sky_k12tt")
-ssao_enabled = true
-sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 glow_normalized = true
@@ -77,19 +75,21 @@ offset_right = 1068.0
 offset_bottom = 551.0
 text = "JOIN"
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+[node name="Boss Health" type="ProgressBar" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 10)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -2.0
-offset_right = 2.0
-offset_bottom = 27.0
+offset_left = -915.0
+offset_top = 25.0
+offset_right = 915.0
+offset_bottom = 52.0
 grow_horizontal = 2
 value = 50.0
+show_percentage = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CanvasLayer"]
-root_path = NodePath("../ProgressBar")
+root_path = NodePath("../Boss Health")
 replication_config = SubResource("SceneReplicationConfig_k12tt")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
