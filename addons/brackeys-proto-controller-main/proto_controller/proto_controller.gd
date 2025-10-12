@@ -65,7 +65,7 @@ var ristrictMovement:=false
 
 
 #STAIRS
-const MAX_STEP_HEIGHT = 0.5
+const MAX_STEP_HEIGHT = 0.35
 var _snapped_to_stairs_last_frame:= false
 var _last_frame_was_on_floor= -INF
 

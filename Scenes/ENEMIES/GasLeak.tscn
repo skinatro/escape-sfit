@@ -39,6 +39,7 @@ size = Vector3(5.2211304, 1.3905029, 1)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_voms8")
+smooth_speed = 2.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 200

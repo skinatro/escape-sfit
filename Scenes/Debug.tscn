@@ -26,4 +26,4 @@ use_collision = true
 size = Vector3(12.607178, 1, 59.740723)
 
 [node name="ProtoController" parent="." instance=ExtResource("2_8koso")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.661605, 4.394079, -31.763737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.494845, 14.545554, -9.417577)

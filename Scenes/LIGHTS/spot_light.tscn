@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://o1m7h1r8igkg"]
+
+[ext_resource type="PackedScene" uid="uid://c74q5d6l8ylk2" path="res://Scenes/LIGHTS/tube_light/scene.gltf" id="1_1fs0q"]
+[ext_resource type="Script" uid="uid://bw4o2f81lgoah" path="res://Scripts/Lighting/LightFlicker.gd" id="1_my1x6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_my1x6"]
+albedo_color = Color(0.98234254, 0.9823423, 0.9823424, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[node name="SpotLight" type="Node3D"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_energy = 2.768
+spot_range = 5.481
+spot_attenuation = 2.0
+spot_angle = 90.0
+script = ExtResource("1_my1x6")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_1fs0q")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="Object_4" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/Cube_005_3" index="0"]
+transform = Transform3D(1, 0, 2.1356735e-32, 0, 1, -3.5527137e-15, 8.4703295e-22, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="tube" type="CSGBox3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/Cube_005_3" index="2"]
+transform = Transform3D(1.752784, -5.293956e-23, 2.9361403e-27, -8.385907e-26, 2.237357e-10, 48.45214, -8.4703295e-22, -44.42158, 2.0486368e-10, 0.002, -0.056, 0)
+size = Vector3(1.6536255, 0.032646477, 0.03552246)
+material = SubResource("StandardMaterial3D_my1x6")
+
+[editable path="Sketchfab_Scene"]
