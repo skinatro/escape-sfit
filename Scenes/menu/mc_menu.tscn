@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://cco1klyhkbwff"]
+
+[ext_resource type="Script" uid="uid://bpurjd0cfgt7q" path="res://Scripts/UI/mc_menu_cam.gd" id="1_tcjrg"]
+[ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="2_7ftvm"]
+[ext_resource type="Script" uid="uid://d0yo3hswti7h1" path="res://Scripts/UI/mc_menu.gd" id="3_6smbx"]
+
+[sub_resource type="Gradient" id="Gradient_7jxbr"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_at2uv"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0k32"]
+noise = SubResource("FastNoiseLite_at2uv")
+color_ramp = SubResource("Gradient_7jxbr")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4hmep"]
+sky_top_color = Color(0.648901, 0.36198708, 0.21941224, 1)
+sky_horizon_color = Color(0.7411455, 0.6398893, 0.4643979, 1)
+
+[sub_resource type="Sky" id="Sky_m17t4"]
+sky_material = SubResource("ProceduralSkyMaterial_4hmep")
+
+[sub_resource type="Environment" id="Environment_kyy6m"]
+background_mode = 2
+sky = SubResource("Sky_m17t4")
+tonemap_mode = 2
+tonemap_exposure = 0.69
+tonemap_white = 2.27
+ssao_enabled = true
+ssao_radius = 2.08
+ssao_intensity = 3.84
+ssao_power = 1.8387328
+ssao_detail = 1.27
+ssao_horizon = 0.21
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_map = SubResource("NoiseTexture2D_b0k32")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.43460217, 0.4181339, 0.43436548, 1)
+fog_sun_scatter = 0.27
+fog_density = 1.0
+fog_depth_curve = 0.4775069
+fog_depth_begin = 30.0
+volumetric_fog_density = 0.0028
+volumetric_fog_length = 185.36
+
+[node name="Menu" type="Node3D"]
+script = ExtResource("1_tcjrg")
+
+[node name="SFIT" parent="." instance=ExtResource("2_7ftvm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3134868, -7.5317984, 0.28929377)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -109.5
+offset_top = -287.0
+offset_right = 109.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("3_6smbx")
+
+[node name="NewGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "New Game"
+
+[node name="Network" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Network"
+
+[node name="Password" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Password"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.82214403, 0.14829989, 0.54962385, 0, 0.96547264, -0.2605045, -0.56927955, 0.21417223, 0.79375756, 9.438762, 11.611804, 27.831774)
+environment = SubResource("Environment_kyy6m")
+far = 40.0
+
+[node name="TextEdit" type="TextEdit" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -36.0
+offset_right = 167.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Welcome to SFIT"
+placeholder_text = "Welcome to SFIT"
+
+[connection signal="pressed" from="VBoxContainer/NewGame" to="VBoxContainer" method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Network" to="VBoxContainer" method="_on_network_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="VBoxContainer" method="_on_quit_pressed"]

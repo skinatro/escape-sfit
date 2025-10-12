@@ -26,7 +26,7 @@ environment = SubResource("Environment_8koso")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3134868, -7.5317984, 0.28929377)
 
 [node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1610107, 3.5898042, 9.559555)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0821304, 3.589808, 9.485521)
 use_collision = true
 size = Vector3(12.607178, 1, 92.74744)
 
