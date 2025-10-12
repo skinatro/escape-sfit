@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0xw7wkai82jd"]
+[gd_scene load_steps=10 format=3 uid="uid://c0xw7wkai82jd"]
+
+[ext_resource type="Script" uid="uid://dtofuajf5n7il" path="res://Scripts/EnemyScripts/gas_leakSCRIPT.gd" id="1_voms8"]
 
 [sub_resource type="Curve" id="Curve_iaont"]
 _limits = [0.0, 20.0, 0.0, 1.0]
@@ -9,7 +11,7 @@ point_count = 5
 curve = SubResource("Curve_iaont")
 
 [sub_resource type="Curve" id="Curve_pxks8"]
-_data = [Vector2(0, 0.404433), 0.0, 0.0, 0, 0, Vector2(0.244898, 0.372414), 0.0, 0.0, 0, 0, Vector2(0.441327, 0.750246), -0.936696, -0.936696, 0, 0, Vector2(1, 0.000985265), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.027681664, 0.18059492), 0.0, 0.0, 0, 0, Vector2(0.3010381, 0.24504244), 0.0, 0.0, 0, 0, Vector2(0.9411765, 0.20821524), -0.936696, -0.936696, 0, 0, Vector2(1, 0.000985265), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_qr5f4"]
@@ -17,7 +19,7 @@ curve = SubResource("Curve_pxks8")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cobbh"]
 spread = 180.0
-initial_velocity_max = 1.5
+initial_velocity_max = 1.0
 gravity = Vector3(10, 0, 0)
 scale_curve = SubResource("CurveTexture_qr5f4")
 color = Color(5.0056e-06, 0.759724, 0.740341, 1)
@@ -30,10 +32,22 @@ vertex_color_use_as_albedo = true
 [sub_resource type="SphereMesh" id="SphereMesh_l0mdp"]
 material = SubResource("StandardMaterial3D_wybep")
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pxks8"]
+size = Vector3(5.2211304, 1.3905029, 1)
+
+[node name="Node3D" type="Area3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_voms8")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-amount = 400
-lifetime = 2.4
+amount = 200
+lifetime = 0.7
 process_material = SubResource("ParticleProcessMaterial_cobbh")
 draw_pass_1 = SubResource("SphereMesh_l0mdp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1105652, 0.19525146, 0)
+shape = SubResource("BoxShape3D_pxks8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

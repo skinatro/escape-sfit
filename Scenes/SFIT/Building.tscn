@@ -7,6 +7,14 @@
 [node name="Floor2" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96936, 0)
 
+[node name="StairsUp" parent="Floor2/Stairs" index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.7391198, 1.3300736, -11.296681)
+num_stairs = 9
+
+[node name="StairDown" parent="Floor2/Stairs" index="1"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1.01, 0, 1, 0, -4.371139e-08, 0.20063683, -1.1686606, -11.395778)
+size = Vector3(2.899, 2.4, 2.156)
+
 [node name="Floor3" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.89042, 0)
 
@@ -21,3 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.884546, 0)
 
 [node name="Floor7" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.926327, 0)
+
+[editable path="Floor2"]
+[editable path="Floor3"]
