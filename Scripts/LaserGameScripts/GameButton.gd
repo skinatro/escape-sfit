@@ -5,10 +5,12 @@ var playerInRange:=false;
 @onready var main_button: MeshInstance3D = $MainButton
 
 @export var terminal:PackedScene
+@export var Console:PackedScene
 
 @export_group("MODE (SELECT ONLY ONE)")
 @export var laserGame:=false
 @export var terminalGame:=false
+@export var waveGame:=false
 
 signal buttonPressed(body:CharacterBody3D)
 @onready var label_3d: Label3D = $Label3D
@@ -19,6 +21,8 @@ func _ready() -> void:
 		label_3d.text="Press E To Disable Lasers"
 	elif (terminalGame):
 		label_3d.text="Press E TO Access Terminal"
+	elif (waveGame):
+		label_3d.text="Press E TO Access Console"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,4 +65,8 @@ func _on_button_pressed():
 		# Add it to the main scene
 		get_tree().current_scene.add_child(terminal_instance)
 	elif laserGame:
+		Ai.ReduceHealth()
 		print("LASERS DISABLED")
+	elif waveGame:
+		var console_instance = Console.instantiate()
+		get_tree().current_scene.add_child(console_instance)

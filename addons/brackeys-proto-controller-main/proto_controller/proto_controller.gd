@@ -162,6 +162,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	checkForTerminal()
+	#checkForConsole()
 	
 	if(true and !ristrictMovement):#is_multiplayer_authority()):
 		# If freeflying, handle freefly and nothing else
@@ -274,13 +275,18 @@ func check_input_mappings():
 
 #If terminal is Active it Disables player mmovement
 func checkForTerminal():
-	if get_tree().current_scene.has_node("Terminal"):
+	if get_tree().current_scene.has_node("Terminal") or get_tree().current_scene.has_node("SignalConsole"):
 		ristrictMovement=true
 		release_mouse()
 	else:
 		ristrictMovement=false
 		#capture_mouse()
-		
+#func checkForConsole():
+	#if get_tree().current_scene.has_node("Signal_Console"):
+		#ristrictMovement=true
+		#release_mouse()
+	#else:
+		#ristrictMovement=false
 		
 		
 #Stairs Utility Functions
