@@ -24,5 +24,5 @@ func flash():
 		mat.emission = Color(1, 1, 0.8) * rand_intensity  # warm glow
 		mat.emission_energy_multiplier = rand_intensity * 2.0
 	
-	await get_tree().create_timer(randf_range(0.05, 0.1)).timeout
+	await get_tree().create_timer(randf_range(0.2, 0.5)).timeout
 	flash()

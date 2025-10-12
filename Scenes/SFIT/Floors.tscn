@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cbc8cne1c2xrs"]
+[gd_scene load_steps=24 format=3 uid="uid://cbc8cne1c2xrs"]
 
 [ext_resource type="Texture2D" uid="uid://brvhhmmh3mwha" path="res://Assets/Textures/Marble/Tiles075_1K-PNG_Color.png" id="1_l3lns"]
 [ext_resource type="Texture2D" uid="uid://bv05s7w578hvg" path="res://Assets/Textures/Marble/Tiles075_1K-PNG_Displacement.png" id="2_84efw"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Scenes/SFIT/CSGStairMaker3D.tscn" id="12_aioi8"]
 [ext_resource type="Texture2D" uid="uid://dv4r07km6jqyu" path="res://Assets/Textures/floor.jpg" id="13_1mfcl"]
 [ext_resource type="Material" uid="uid://cv1hs7cwq682b" path="res://Assets/Materials/Glass.tres" id="14_j48r0"]
+[ext_resource type="PackedScene" uid="uid://o1m7h1r8igkg" path="res://Scenes/LIGHTS/spot_light.tscn" id="15_cbnqh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbjfs"]
 albedo_texture = ExtResource("1_l3lns")
@@ -9750,3 +9751,89 @@ size = Vector3(4.6930184, 4.903792, 0.143616)
 [node name="WindowB8" type="CSGBox3D" parent="WindowPanes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.137036, 3.9919252, 51.947952)
 size = Vector3(4.960767, 4.9186954, 0.143616)
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="SpotLight" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.282499, 2.4389849, -8.59979)
+
+[node name="SpotLight13" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.3859086, 2.4389849, -8.59979)
+
+[node name="SpotLight14" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.9718199, 2.4389849, -8.59979)
+
+[node name="SpotLight2" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 2.4389849, -11.756741)
+
+[node name="SpotLight3" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 2.4389849, -4.62748)
+
+[node name="SpotLight4" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 2.4389849, 0.27513885)
+
+[node name="SpotLight5" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 2.4389849, 5.617089)
+
+[node name="SpotLight6" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 2.4389849, 9.488573)
+
+[node name="SpotLight15" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.282499, 5.215673, 16.30624)
+
+[node name="SpotLight16" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6181087, 5.215673, 16.30624)
+
+[node name="SpotLight17" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.244328, 6.0539308, 19.845278)
+
+[node name="SpotLight18" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.707852, 6.0539308, 23.572535)
+
+[node name="SpotLight19" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.707852, 6.0539308, 30.291779)
+
+[node name="SpotLight20" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.707852, 6.0539308, 35.3376)
+
+[node name="SpotLight21" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.707852, 6.0539308, 40.453053)
+
+[node name="SpotLight23" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.234031, 6.0539308, 23.572535)
+
+[node name="SpotLight25" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.234031, 6.0539308, 30.291779)
+
+[node name="SpotLight28" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.234031, 6.0539308, 35.3376)
+
+[node name="SpotLight29" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.234031, 6.0539308, 40.453053)
+
+[node name="SpotLight22" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6.6656923, 6.0539308, 41.529186)
+
+[node name="SpotLight24" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.4326781, 6.0539308, 41.529186)
+
+[node name="SpotLight26" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.9401073, 6.0539308, 41.529186)
+
+[node name="SpotLight7" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6.7936783, 2.4389849, -8.59979)
+
+[node name="SpotLight8" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7936783, 2.4389849, -11.756741)
+
+[node name="SpotLight9" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7936783, 2.4389849, -4.62748)
+
+[node name="SpotLight10" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7936783, 2.4389849, 0.27513885)
+
+[node name="SpotLight11" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7936783, 2.4389849, 5.617089)
+
+[node name="SpotLight12" parent="Lighting" instance=ExtResource("15_cbnqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7936783, 2.4389849, 9.488573)

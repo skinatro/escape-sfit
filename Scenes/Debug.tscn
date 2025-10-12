@@ -11,6 +11,11 @@ sky_material = SubResource("ProceduralSkyMaterial_4do8t")
 [sub_resource type="Environment" id="Environment_8koso"]
 background_mode = 2
 sky = SubResource("Sky_rwhvy")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+ssil_enabled = true
+sdfgi_use_occlusion = true
 
 [node name="Debug" type="Node3D"]
 
