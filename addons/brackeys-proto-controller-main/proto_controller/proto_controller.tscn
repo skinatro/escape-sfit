@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene load_steps=9 format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://d1g1p827swfsm" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.gd" id="1_3pa5o"]
 [ext_resource type="Script" uid="uid://bf80l5svttgpn" path="res://addons/brackeys-proto-controller-main/proto_controller/door_ray_cast_3d.gd" id="2_hniue"]
 [ext_resource type="Texture2D" uid="uid://bycf5jw2uysik" path="res://Assets/Textures/crosshair.png" id="2_kescs"]
+[ext_resource type="Script" uid="uid://ctjsn05qk3nck" path="res://Scripts/UI/AI_HealthBar.gd" id="4_2o2of"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -80,7 +81,13 @@ spot_attenuation = 0.9
 spot_angle = 28.3
 spot_angle_attenuation = 1.1095694
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Crosshair" type="Sprite2D" parent="."]
+position = Vector2(960, 545)
+texture = ExtResource("2_kescs")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="CrossHair" type="TextureRect" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -95,6 +102,19 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Crosshair" type="Sprite2D" parent="."]
-position = Vector2(960, 545)
-texture = ExtResource("2_kescs")
+[node name="Boss Health" type="ProgressBar" parent="HUD"]
+custom_minimum_size = Vector2(100, 10)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -917.0
+offset_top = -84.0
+offset_right = 915.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+show_percentage = false
+script = ExtResource("4_2o2of")

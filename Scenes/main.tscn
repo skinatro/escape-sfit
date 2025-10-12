@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=24 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
@@ -43,6 +43,16 @@ properties/0/path = NodePath("ProgressBar:value")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k12tt"]
+height = 0.48486328
+radius = 2.6948242
+
+[sub_resource type="TorusMesh" id="TorusMesh_k12tt"]
+inner_radius = 0.869
+outer_radius = 1.005
+rings = 18
+ring_segments = 6
+
 [node name="Main" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
 script = ExtResource("1_k12tt")
 playerScene = ExtResource("2_h1bgf")
@@ -75,21 +85,8 @@ offset_right = 1068.0
 offset_bottom = 551.0
 text = "JOIN"
 
-[node name="Boss Health" type="ProgressBar" parent="CanvasLayer"]
-custom_minimum_size = Vector2(100, 10)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -915.0
-offset_top = 25.0
-offset_right = 915.0
-offset_bottom = 52.0
-grow_horizontal = 2
-value = 50.0
-show_percentage = false
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CanvasLayer"]
-root_path = NodePath("../Boss Health")
+root_path = NodePath("")
 replication_config = SubResource("SceneReplicationConfig_k12tt")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -216,6 +213,21 @@ transform = Transform3D(0.9999835, 0, 0.0057421015, 0, 1, 0, -0.0057421015, 0, 0
 transform = Transform3D(0.666, 0, 0, 0, 0.666, 0, 0, 0, 0.666, -36.22868, 0.50000095, 15.089143)
 
 [node name="AI" type="Node" parent="."]
+
+[node name="BossArea" type="Node3D" parent="."]
+
+[node name="BossDmg1" type="Area3D" parent="BossArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.274553, 1.2046604, 26.074324)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BossArea/BossDmg1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2042203, 0)
+shape = SubResource("CylinderShape3D_k12tt")
+debug_color = Color(0.98039216, 0, 0.38431373, 0.7019608)
+
+[node name="VisMesh" type="MeshInstance3D" parent="BossArea/BossDmg1"]
+transform = Transform3D(2.5846019, 0, 0, 0, 1, 0, 0, 0, 2.4745777, 0.0043411255, 0, 0.0007247925)
+mesh = SubResource("TorusMesh_k12tt")
+skeleton = NodePath("../..")
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
