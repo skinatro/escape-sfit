@@ -10,6 +10,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4do8t")
 
 [sub_resource type="Environment" id="Environment_8koso"]
 background_mode = 2
+background_energy_multiplier = 0.1
 sky = SubResource("Sky_rwhvy")
 ambient_light_source = 3
 reflected_light_source = 2
@@ -19,7 +20,15 @@ ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
+fog_mode = 1
+fog_light_energy = 3.0
+fog_sun_scatter = 2.0
+fog_density = 1.0
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.2
+volumetric_fog_albedo = Color(0.13387778, 0.07394979, 0.07395729, 1)
+volumetric_fog_anisotropy = 0.8
+volumetric_fog_length = 128.0
 
 [node name="Debug" type="Node3D"]
 
@@ -36,3 +45,10 @@ size = Vector3(12.607178, 1, 92.74744)
 
 [node name="ProtoController" parent="." instance=ExtResource("2_8koso")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.661605, 4.394079, 49.350727)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9117047, 0.4108462, 0, -0.4108462, 0.9117047, -2.5627644, 70.69363, 173.96056)
+light_energy = 0.2
+light_volumetric_fog_energy = 3.0
+shadow_enabled = true
+shadow_blur = 0.3

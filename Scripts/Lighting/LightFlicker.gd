@@ -12,10 +12,10 @@ func _ready():
 
 
 func flash():
-	var rand_intensity = randf_range(0.2, 1.0)
+	var rand_intensity = randf_range(0.2, 0.4)
 	
 	# Light flicker
-	light_energy = rand_intensity * 3.0
+	light_energy = rand_intensity
 	
 	# Tube emissive flicker
 	if tube.material and tube.material is StandardMaterial3D:

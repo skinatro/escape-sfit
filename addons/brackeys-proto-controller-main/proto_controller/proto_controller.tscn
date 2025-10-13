@@ -48,6 +48,19 @@ shape = SubResource("CapsuleShape3D_iof21")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
+[node name="Headlight" type="SpotLight3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009682775, 0.52165854)
+light_energy = 3.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 10.0
+distance_fade_shadow = 12.0
+distance_fade_length = 15.0
+spot_range = 5.3298745
+spot_attenuation = 0.9
+spot_angle = 33.75
+spot_angle_attenuation = 1.1095694
+
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="DoorRayCast3D" type="RayCast3D" parent="Head/Camera3D"]
@@ -66,19 +79,6 @@ target_position = Vector3(0, -0.55, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.96046e-08, 0)
 target_position = Vector3(0, -0.75, 0)
-
-[node name="Headlight" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.937895, 0.34691927, 0, -0.34691927, 0.937895, 0, 1.6903173, -0.08946133)
-light_energy = 0.995
-shadow_enabled = true
-distance_fade_enabled = true
-distance_fade_begin = 10.0
-distance_fade_shadow = 12.0
-distance_fade_length = 5.0
-spot_range = 3.257
-spot_attenuation = 0.9
-spot_angle = 28.3
-spot_angle_attenuation = 1.1095694
 
 [node name="Crosshair" type="Sprite2D" parent="."]
 position = Vector2(960, 545)
