@@ -51,7 +51,7 @@ script = ExtResource("1_tcjrg")
 [node name="SFIT" parent="." instance=ExtResource("2_7ftvm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3134868, -7.5317984, 0.28929377)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MenuCont" type="VBoxContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -66,22 +66,22 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("3_6smbx")
 
-[node name="NewGame" type="Button" parent="VBoxContainer"]
+[node name="NewGame" type="Button" parent="MenuCont"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "New Game"
 
-[node name="Network" type="Button" parent="VBoxContainer"]
+[node name="Network" type="Button" parent="MenuCont"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Network"
 
-[node name="Password" type="Button" parent="VBoxContainer"]
+[node name="Password" type="Button" parent="MenuCont"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Password"
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="MenuCont"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
@@ -91,7 +91,7 @@ transform = Transform3D(0.82214403, 0.14829989, 0.54962385, 0, 0.96547264, -0.26
 environment = SubResource("Environment_kyy6m")
 far = 40.0
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="GameName" type="TextEdit" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -107,6 +107,50 @@ theme_override_font_sizes/font_size = 40
 text = "Welcome to SFIT"
 placeholder_text = "Welcome to SFIT"
 
-[connection signal="pressed" from="VBoxContainer/NewGame" to="VBoxContainer" method="_on_new_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/Network" to="VBoxContainer" method="_on_network_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="VBoxContainer" method="_on_quit_pressed"]
+[node name="ToastCont" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -74.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Toast" type="Label" parent="ToastCont"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="ToastTimer" type="Timer" parent="ToastCont"]
+
+[node name="PasswordMenu" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.5
+offset_top = -290.0
+offset_right = 250.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PasswordEntry" type="LineEdit" parent="PasswordMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+placeholder_text = "Enter Morse Code..."
+
+[node name="Validate" type="Button" parent="PasswordMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "Validate"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="PasswordMenu"]
+
+[connection signal="pressed" from="MenuCont/NewGame" to="MenuCont" method="_on_new_game_pressed"]
+[connection signal="pressed" from="MenuCont/Network" to="MenuCont" method="_on_network_pressed"]
+[connection signal="pressed" from="MenuCont/Password" to="MenuCont" method="_on_password_pressed"]
+[connection signal="pressed" from="MenuCont/Quit" to="MenuCont" method="_on_quit_pressed"]
+[connection signal="pressed" from="PasswordMenu/Validate" to="MenuCont" method="_on_validate_pressed"]

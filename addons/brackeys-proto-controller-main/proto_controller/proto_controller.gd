@@ -89,8 +89,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		pass
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
-	if Input.is_key_pressed(KEY_P):
-		$"../".exit(name.to_int())
+
 	
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:

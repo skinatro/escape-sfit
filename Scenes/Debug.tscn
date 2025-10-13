@@ -23,7 +23,7 @@ sdfgi_use_occlusion = true
 environment = SubResource("Environment_8koso")
 
 [node name="SFIT" parent="." instance=ExtResource("1_rwhvy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3134868, -7.5317984, 0.28929377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2348936, -7.584895, 0.5455022)
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0821304, 3.589808, 9.485521)
