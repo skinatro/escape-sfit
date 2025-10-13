@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d3nuukdiaefhg" path="res://Scenes/SFIT/grill_minus.tscn" id="9_laqqw"]
 [ext_resource type="PackedScene" uid="uid://kpx16h3p0m0y" path="res://Scenes/SFIT/door.tscn" id="10_4x7dd"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Scenes/SFIT/CSGStairMaker3D.tscn" id="12_aioi8"]
-[ext_resource type="Texture2D" uid="uid://dv4r07km6jqyu" path="res://Assets/Textures/floor.jpg" id="13_1mfcl"]
+[ext_resource type="Texture2D" uid="uid://dv4r07km6jqyu" path="res://Assets/Textures/stairs.jpg" id="13_1mfcl"]
 [ext_resource type="Material" uid="uid://cv1hs7cwq682b" path="res://Assets/Materials/Glass.tres" id="14_j48r0"]
 [ext_resource type="PackedScene" uid="uid://o1m7h1r8igkg" path="res://Scenes/LIGHTS/spot_light.tscn" id="15_cbnqh"]
 
