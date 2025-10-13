@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2nfdlf28lxkm"]
+[gd_scene load_steps=10 format=3 uid="uid://c2nfdlf28lxkm"]
 
 [ext_resource type="Script" uid="uid://bsu4xu1rx4yej" path="res://Scripts/LaserGameScripts/GameButton.gd" id="1_kwvxl"]
-[ext_resource type="PackedScene" uid="uid://b7b54wfwf8ut4" path="res://Scenes/TerminalGame/Terminal.tscn" id="2_c2ayt"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_dpep4"]
 
@@ -75,7 +74,6 @@ _data = {
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_kwvxl")
-terminal = ExtResource("2_c2ayt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -101,4 +99,3 @@ libraries = {
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="buttonPressed" from="." to="." method="_on_button_pressed"]

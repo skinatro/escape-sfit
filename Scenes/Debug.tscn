@@ -14,8 +14,12 @@ sky = SubResource("Sky_rwhvy")
 ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
 ssil_enabled = true
+sdfgi_enabled = true
 sdfgi_use_occlusion = true
+volumetric_fog_enabled = true
 
 [node name="Debug" type="Node3D"]
 

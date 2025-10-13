@@ -3,6 +3,10 @@ extends Area3D
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
+
+@export_group("RespawnPoint")
+@export var respawnPoint:Area3D
+
 @export_group("EMISSION DIRECTIONS (ONLY ONE)")
 @export var left := false
 @export var right := false
@@ -61,4 +65,4 @@ func leakStop():
 
 func _on_body_entered(body:CharacterBody3D) -> void:
 	print(body.name)
-	#body.position.z-=10
+	body.position=respawnPoint.position

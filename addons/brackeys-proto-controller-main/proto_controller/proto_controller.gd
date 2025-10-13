@@ -74,7 +74,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 
-	
+	add_to_group("players")
 	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x

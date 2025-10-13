@@ -6,6 +6,7 @@ var peer=ENetMultiplayerPeer.new()
 @export var Spawnpoint:Area3D
 
 func _on_host_pressed() -> void:
+	Ai.set_progress_bar($CanvasLayer/ProgressBar)
 	peer.create_server(1027)
 	multiplayer.multiplayer_peer=peer
 	multiplayer.peer_connected.connect(add_Player)
@@ -14,6 +15,8 @@ func _on_host_pressed() -> void:
 	canvas_layer.get_node("Join").hide()
 
 func _on_join_pressed() -> void:
+	#Ai.showBar=true
+	Ai.set_progress_bar($CanvasLayer/ProgressBar)
 	peer.create_client("127.0.0.1",1027)
 	multiplayer.multiplayer_peer=peer
 	canvas_layer.get_node("Host").hide()
