@@ -16,7 +16,7 @@ emission_energy_multiplier = 3.95
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -58,7 +58,7 @@ UPDOWN+ ROTATE
 LEFTRIGHT+ ROTATE
 
 IN 2ND LAYER OF COLLISION AND COLLIDES WITH OBJECTS IN LAYER 2(PLAYERS) ONLY"
-transform = Transform3D(-3.61999e-07, -1.564, -4.46638e-07, 0.1, -5.66166e-06, 0, -1.61683e-12, -6.98542e-06, 0.1, 0, 0, 0)
+transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, 0, 0, 0)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_68xc1")

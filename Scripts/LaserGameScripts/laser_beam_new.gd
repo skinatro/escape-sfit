@@ -1,11 +1,15 @@
 extends Area3D
 var init_positon_y:=0.0
-var init_positon_x:=0.0
+var init_positon_z:=0.0
 
 @export_group("MODES(SEE EDITOR DESCRIPTION)")
 @export var up_down:=true
 @export var left_right:=false
 @export var Rotate:=false
+
+@export_group("Initial Side?")
+@export var isMovingUp:=true
+@export var isMovingLeft:=false
 
 @export_group("ATTRIBUTES")
 @export var Rangee:=50
@@ -20,7 +24,7 @@ var init_positon_x:=0.0
 func _ready() -> void:
 	#set initial positions
 	init_positon_y=position.y
-	init_positon_x=position.x
+	init_positon_z=position.z
 	
 	#set animationSpeed
 	animation_player.speed_scale=rotateSpeed
@@ -35,13 +39,14 @@ func _process(delta: float) -> void:
 	elif left_right:			#ONLY HORIZONTAL
 		LeftRight(delta)
 	elif Rotate:  			#ONLY ROTATE
-		animation_player.play("RotateLaser")
+		rotation.y+=rotateSpeed*delta
 	pass
 
-var isMovingUp:=true
+
 func UpDown(delta:float):
 	if(Rotate): #ROTATE WITH UPDOWN 
-		animation_player.play("RotateLaser")
+		#animation_player.play("RotateLaser")
+		rotation.y+=rotateSpeed*delta
 	
 	if(isMovingUp):   #Up movement
 		if(position.y< init_positon_y+Rangee):
@@ -56,24 +61,28 @@ func UpDown(delta:float):
 			isMovingUp=true
 			init_positon_y=position.y
 			
-var isMovingLeft:=false
+			
+			
+			
+
 func LeftRight(delta:float):
 	if(Rotate):
-		animation_player.play("RotateLaser")
+		rotation.y+=rotateSpeed*delta
+		#animation_player.play("RotateLaser")
 	
 	
 	if !isMovingLeft:  #Right Movement
-		if position.x<init_positon_x+Rangee:
-			position.x+=moveSpeed*delta
-		elif position.x>= init_positon_x+Rangee:
+		if position.z<init_positon_z+Rangee:
+			position.z+=moveSpeed*delta
+		elif position.z>= init_positon_z+Rangee:
 			isMovingLeft=true
-			init_positon_x=position.x
+			init_positon_z=position.z
 	else:               #lEFT Movement
-		if position.x>init_positon_x-Rangee:
-			position.x-=moveSpeed*delta
-		elif position.x<= init_positon_x-Rangee:
+		if position.z>init_positon_z-Rangee:
+			position.z-=moveSpeed*delta
+		elif position.z<= init_positon_z-Rangee:
 			isMovingLeft=false
-			init_positon_x=position.x
+			init_positon_z=position.z
 			
 
 
@@ -82,6 +91,9 @@ func LeftRight(delta:float):
 
 func _on_body_entered(body: Node3D) -> void:
 	print(body.name)
-	body.position=spawnPoint.position
+	call_deferred("_teleport_body", body)
+
+func _teleport_body(body: Node3D) -> void:
+	body.global_position = Vector3(14.301, 37.492, 37.492)
 		
 	

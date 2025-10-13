@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=4 format=3 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
+[ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="4_bgxh0"]
 
 [node name="SFIT" type="Node3D"]
 
@@ -18,3 +20,65 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.79157, 0)
 
 [node name="Floor6" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.718155, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="SpawnPoint" type="Area3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.301, 37.492, 37.492)
+
+[node name="ProtoController" parent="Node3D" instance=ExtResource("4_bgxh0")]
+transform = Transform3D(0.034254123, 0, -0.99941313, 0, 1, 0, 0.99941313, 0, 0.034254123, 14.3014965, 37.492054, 40.38967)
+
+[node name="laserBeamNew" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.9106858e-16, 1.6827269e-07, 0.099999994, 0.10000002, -1.6827269e-07, 0, 4.3711395e-09, 3.8496304, -4.3711386e-09, 17.842365, 37.12161, 35.727062)
+up_down = false
+left_right = true
+Rangee = 6
+moveSpeed = 5.0
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="laserBeamNew5" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.9106858e-16, 1.6827269e-07, 0.099999994, 0.10000002, -1.6827269e-07, 0, 4.3711395e-09, 3.8496304, -4.3711386e-09, 22.910576, 36.763195, 35.727062)
+Rangee = 3
+moveSpeed = 7.0
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="laserBeamNew2" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.9106858e-16, 1.2056316e-07, 0.099999994, 0.10000002, -1.2056316e-07, 0, 4.3711395e-09, 2.7581635, -4.3711386e-09, 20.542, 37.121494, 43.205)
+up_down = false
+left_right = true
+isMovingUp = false
+isMovingLeft = true
+Rangee = 6
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="laserBeamNew6" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.9106858e-16, 1.2056316e-07, 0.099999994, 0.10000002, -1.2056316e-07, 0, 4.3711395e-09, 2.7581635, -4.3711386e-09, 20.542, 37.121494, 43.205)
+up_down = false
+left_right = true
+isMovingUp = false
+isMovingLeft = true
+Rangee = 6
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="laserBeamNew3" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.910687e-16, 6.266988e-08, 0.099999994, 0.10000002, -6.266988e-08, -1.2970542e-22, 4.3711395e-09, 1.4337199, -4.3711386e-09, 23.53712, 37.121494, 43.84985)
+up_down = false
+Rotate = true
+isMovingUp = false
+Rangee = 4
+moveSpeed = 9.0
+rotateSpeed = 15.0
+spawnPoint = NodePath("../SpawnPoint")
+
+[node name="laserBeamNew4" parent="Node3D" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.9106877e-16, 6.266988e-08, 0.099999994, 0.10000002, -6.266988e-08, -1.8176383e-22, 4.3711395e-09, 1.4337199, -4.3711386e-09, 21.773672, 37.121494, 37.189804)
+up_down = false
+left_right = true
+Rotate = true
+isMovingUp = false
+isMovingLeft = true
+Rangee = 4
+moveSpeed = 5.0
+rotateSpeed = 20.0
+spawnPoint = NodePath("../SpawnPoint")
