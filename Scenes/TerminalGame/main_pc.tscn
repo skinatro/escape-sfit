@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://ntxn8qba65a1"]
+
+[ext_resource type="PackedScene" uid="uid://dm1dw4wx05fxc" path="res://Assets/Models/desktop_pc/scene.gltf" id="1_oqn1y"]
+[ext_resource type="Script" uid="uid://dues6sqbewcq7" path="res://Scripts/TerminalGameScripts/Terminal_PC.gd" id="1_rpu12"]
+[ext_resource type="Texture2D" uid="uid://c8lgn0llxtcn6" path="res://Assets/Textures/Screenshot 2025-10-14 170707.png" id="2_rpu12"]
+[ext_resource type="Texture2D" uid="uid://b1l4b6lvvaf3f" path="res://Assets/Textures/Screenshot 2025-10-14 171640.png" id="3_eo34r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7umot"]
+albedo_texture = ExtResource("2_rpu12")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77vm0"]
+depth_draw_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("3_eo34r")
+detail_enabled = true
+detail_blend_mode = 3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eo34r"]
+height = 2.6020508
+radius = 4.453125
+
+[node name="MainPc" type="Node3D"]
+script = ExtResource("1_rpu12")
+is_working = null
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_oqn1y")]
+
+[node name="Plane_Screen_0" parent="Sketchfab_Scene/Sketchfab_model/7d314120e0bb4e639348614bff5f0e56_fbx/RootNode/Plane" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7umot")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Sketchfab_Scene"]
+transform = Transform3D(-0.96939397, 0, -0.24551041, 0, -1, 0, 0.24551041, 0, -0.96939397, -0.35333067, 1.063589, -1.1696799)
+size = Vector3(2.6174774, 1.5412178, 0.01763916)
+material = SubResource("StandardMaterial3D_77vm0")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07348633, 0)
+shape = SubResource("CylinderShape3D_eo34r")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="Sketchfab_Scene"]

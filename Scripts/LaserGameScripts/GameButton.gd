@@ -140,8 +140,9 @@ func _handle_button_press(sender_id: int):
 @rpc("any_peer", "call_local")
 func open_terminal_ui():
 	if terminal:
-		var terminal_instance = terminal.instantiate()
-		get_tree().current_scene.add_child(terminal_instance)
+		if(!get_tree().current_scene.has_node("Terminal")):
+			var terminal_instance = terminal.instantiate()
+			get_tree().current_scene.add_child(terminal_instance)
 
 @rpc("any_peer", "call_local")
 func open_console_ui():
@@ -151,3 +152,13 @@ func open_console_ui():
 		
 		
 		
+
+
+var initialVelo
+func _on_jump_disabler_body_entered(body: CharacterBody3D) -> void:
+	initialVelo=body.jump_velocity
+	body.jump_velocity=0
+
+
+func _on_jump_disabler_body_exited(body: CharacterBody3D) -> void:
+	body.jump_velocity=initialVelo

@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c6hunaplddd40"
-valid=false
+uid="uid://dm1dw4wx05fxc"
+path="res://.godot/imported/scene.gltf-5281c71963932b4876a9f53aa242fd89.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Jungle.blend"
+source_file="res://Assets/Models/desktop_pc/scene.gltf"
+dest_files=["res://.godot/imported/scene.gltf-5281c71963932b4876a9f53aa242fd89.scn"]
 
 [params]
 
@@ -37,3 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
+gltf/naming_version=2
+gltf/embedded_image_handling=1
