@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=23 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
-[ext_resource type="Texture2D" uid="uid://dpuoo4vprxnl7" path="res://Assets/Textures/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="3_b3802"]
 [ext_resource type="Texture2D" uid="uid://uahp3xu84uod" path="res://Assets/Textures/prototype_512x512_blue1.png" id="4_fevyy"]
 [ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="5_hibaj"]
 [ext_resource type="PackedScene" uid="uid://c2nfdlf28lxkm" path="res://Scenes/LaserGame/LaserGamebutton.tscn" id="6_pdsj5"]
@@ -14,27 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://m6uf8qjt3w0p" path="res://Scenes/ENEMIES/FlyingEnemy/scene.gltf" id="11_cbgmd"]
 [ext_resource type="PackedScene" uid="uid://bpsnbno2x2y82" path="res://Scenes/ENEMIES/WheelBOT/wheel_bot.tscn" id="12_1w6v2"]
 [ext_resource type="PackedScene" uid="uid://c0xw7wkai82jd" path="res://Scenes/ENEMIES/GasLeak.tscn" id="14_6vcvc"]
-[ext_resource type="PackedScene" uid="uid://jvg55xuxytxl" path="res://Scenes/SFIT/emissive.tscn" id="15_7k868"]
+[ext_resource type="PackedScene" uid="uid://jvg55xuxytxl" path="res://Scenes/ENEMIES/emissive.tscn" id="15_7k868"]
 [ext_resource type="PackedScene" uid="uid://kpx16h3p0m0y" path="res://Scenes/SFIT/door.tscn" id="16_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://b54fydbav4ra2" path="res://Scenes/WaveGame/signal_console.tscn" id="16_k12tt"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
-panorama = ExtResource("3_b3802")
-
-[sub_resource type="Sky" id="Sky_k12tt"]
-sky_material = SubResource("PanoramaSkyMaterial_wsu2k")
-
-[sub_resource type="Environment" id="Environment_h1bgf"]
-background_mode = 2
-sky = SubResource("Sky_k12tt")
-sdfgi_use_occlusion = true
-sdfgi_read_sky_light = false
-glow_normalized = true
-glow_intensity = 2.35
-glow_bloom = 0.65
-volumetric_fog_density = 0.0285
-volumetric_fog_albedo = Color(0.57700837, 0.5770084, 0.57700837, 1)
-volumetric_fog_gi_inject = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iyac"]
 albedo_texture = ExtResource("4_fevyy")
@@ -49,13 +30,33 @@ outer_radius = 1.005
 rings = 18
 ring_segments = 6
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k12tt"]
+
+[sub_resource type="Sky" id="Sky_rwhvy"]
+sky_material = SubResource("ProceduralSkyMaterial_k12tt")
+
+[sub_resource type="Environment" id="Environment_h1bgf"]
+background_mode = 2
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_rwhvy")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_light_energy = 3.0
+fog_sun_scatter = 2.0
+fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2
+volumetric_fog_albedo = Color(0.13387778, 0.07394979, 0.07395729, 1)
+volumetric_fog_anisotropy = 0.8
+volumetric_fog_length = 128.0
+
 [node name="Main" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
 script = ExtResource("1_k12tt")
 playerScene = ExtResource("2_h1bgf")
 Spawnpoint = NodePath("SpawnPoint")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_h1bgf")
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.235421, 0.0701704, 1.1101567)
@@ -231,6 +232,9 @@ debug_color = Color(0.98039216, 0, 0.38431373, 0.7019608)
 transform = Transform3D(2.5846019, 0, 0, 0, 1, 0, 0, 0, 2.4745777, 0.0043411255, 0, 0.0007247925)
 mesh = SubResource("TorusMesh_k12tt")
 skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h1bgf")
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

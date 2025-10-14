@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://b82mkktpex7se"]
+
+[ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_e10ry"]
+[ext_resource type="Texture2D" uid="uid://d21c1g0gon3ne" path="res://Assets/Textures/Tiles/square_tiles_diff_1k.jpg" id="3_a4sk2"]
+[ext_resource type="Texture2D" uid="uid://ddettx8dhubnp" path="res://Assets/Textures/Tiles/square_tiles_nor_gl_1k.png" id="4_omvt6"]
+[ext_resource type="Texture2D" uid="uid://crws1d2bgg37a" path="res://Assets/Textures/Tiles/square_tiles_rough_1k.png" id="5_e32mi"]
+[ext_resource type="PackedScene" uid="uid://drlik3gm0t2ic" path="res://Scenes/SFIT/jungle.tscn" id="6_5xwxy"]
+[ext_resource type="PackedScene" uid="uid://co2mhowvaurqg" path="res://Assets/Models/potted_plant_01/potted_plant_01_1k.gltf" id="7_e10ry"]
+[ext_resource type="PackedScene" uid="uid://xri0vv0pnkw6" path="res://Assets/Models/potted_plant_02/potted_plant_02_1k.gltf" id="8_a4sk2"]
+[ext_resource type="PackedScene" uid="uid://d4nblg7bsnfoc" path="res://Scenes/SFIT/gtashader.tscn" id="9_omvt6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5d6t"]
+albedo_color = Color(0.75686276, 0.6431373, 0, 1)
+albedo_texture = ExtResource("3_a4sk2")
+roughness_texture = ExtResource("5_e32mi")
+normal_enabled = true
+normal_texture = ExtResource("4_omvt6")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_a4sk2")
+uv1_scale = Vector3(4.809, 4.809, 4.809)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xmg8h"]
+size = Vector3(18.58812, 10.725464, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omvt6"]
+size = Vector3(11.13797, 1, 10.820984)
+
+[node name="Map" type="Node3D"]
+
+[node name="SFIT" parent="." instance=ExtResource("1_8lb3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2348936, -7.584895, 0.5455022)
+
+[node name="ProtoController" parent="." instance=ExtResource("2_e10ry")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.661605, 3.3095293, 43.175915)
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9117047, 0.4108462, 0, -0.4108462, 0.9117047, -2.5627644, 70.69363, 173.96056)
+light_energy = 0.2
+light_volumetric_fog_energy = 3.0
+shadow_enabled = true
+shadow_blur = 0.3
+
+[node name="Floor" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_b5d6t")
+
+[node name="Ground" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3505974, -3.909692, -5.8145065)
+use_collision = true
+size = Vector3(13.111549, 0.001, 29.21342)
+
+[node name="Ground2" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9085827, -1.9532967, 40.853874)
+use_collision = true
+size = Vector3(18.854862, 0.001, 36.315033)
+
+[node name="Ground3" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.9912155, 0.13225639, 0, -0.13225639, 0.9912155, -2.9343472, -2.9376163, 15.310694)
+use_collision = true
+size = Vector3(12.637257, 0.001, 15.200223)
+
+[node name="InvisibleWall" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1582947, 1.4857612, -18.954039)
+shape = SubResource("BoxShape3D_xmg8h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9740982, 3.471312, 51.265327)
+shape = SubResource("BoxShape3D_xmg8h")
+
+[node name="Jungle" parent="." instance=ExtResource("6_5xwxy")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 21.209206, -16.368088, 2.5596352)
+
+[node name="Decoration" type="Node3D" parent="."]
+
+[node name="PlantPotA" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -3.7519948, 4.072995)
+
+[node name="PlantPotB" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -3.8627255, 4.891943)
+
+[node name="PlantPotA2" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -3.7519948, 1.9597073)
+
+[node name="PlantPotB2" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -3.8627255, 2.778655)
+
+[node name="PlantPotA3" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -1.6437246, 25.81381)
+
+[node name="PlantPotB3" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -1.7544552, 26.63276)
+
+[node name="PlantPotA4" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -1.6437246, 34.22374)
+
+[node name="PlantPotB4" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -1.7544552, 35.042686)
+
+[node name="PlantPotA5" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -1.6437246, 28.279007)
+
+[node name="PlantPotB5" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -1.7544552, 29.097954)
+
+[node name="PlantPotA6" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4622908, -1.6437246, 30.699944)
+
+[node name="PlantPotB6" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6375055, -1.7544552, 31.51889)
+
+[node name="PlantPotA7" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.252398, -1.9094214, 30.699944)
+
+[node name="PlantPotB7" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.077183, -2.020152, 31.51889)
+
+[node name="PlantPotA8" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.252398, -1.9094214, 27.50646)
+
+[node name="PlantPotB8" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.077183, -2.020152, 28.325407)
+
+[node name="PlantPotA9" parent="Decoration" instance=ExtResource("7_e10ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.622287, -1.9094214, 33.56852)
+
+[node name="PlantPotB9" parent="Decoration" instance=ExtResource("8_a4sk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.447072, -2.020152, 34.387466)
+
+[node name="Exit" type="Node3D" parent="."]
+
+[node name="Shader" parent="Exit" instance=ExtResource("9_omvt6")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.4292226, -1.8620429, 41.424137)
+
+[node name="Area3D" type="Area3D" parent="Exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262993)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Exit/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44779706, -3.6931176, 3.176731)
+shape = SubResource("BoxShape3D_omvt6")
+debug_color = Color(0.49019608, 0, 0.36078432, 0.91764706)

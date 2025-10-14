@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://drlik3gm0t2ic"]
+
+[ext_resource type="PackedScene" uid="uid://c6hunaplddd40" path="res://Assets/Models/Jungle.blend" id="1_28o6k"]
+
+[node name="Jungle" instance=ExtResource("1_28o6k")]
+
+[node name="Mesh_0_001" parent="." index="3"]
+visible = false
+
+[node name="Mesh_0_002" parent="." index="4"]
+visible = false
+
+[node name="Mesh_0_004" parent="." index="6"]
+visible = false
+
+[node name="Mesh_0_005" parent="." index="7"]
+visible = false
+
+[node name="Mesh_0_006" parent="." index="8"]
+visible = false
+
+[node name="Mesh_0_007" parent="." index="9"]
+visible = false
+
+[node name="Mesh_0_009" parent="." index="11"]
+visible = false
+
+[node name="Mesh_0_010" parent="." index="12"]
+visible = false
+
+[node name="Mesh_0_011" parent="." index="13"]
+visible = false

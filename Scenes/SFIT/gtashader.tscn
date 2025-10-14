@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4nblg7bsnfoc"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jwvvo"]
+gravity = Vector3(0, 9.8, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jwvvo"]
+albedo_color = Color(1, 1, 0.105882354, 0.19607843)
+emission_enabled = true
+emission = Color(0.7372549, 0.81960785, 0.06666667, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_jwvvo"]
+material = SubResource("StandardMaterial3D_jwvvo")
+inner_radius = 7.5
+outer_radius = 7.6
+rings = 4
+ring_segments = 4
+
+[node name="Shader" type="Node3D"]
+
+[node name="GTA" type="GPUParticles3D" parent="."]
+amount = 25
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_jwvvo")
+draw_pass_1 = SubResource("TorusMesh_jwvvo")
