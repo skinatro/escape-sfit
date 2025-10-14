@@ -1,7 +1,10 @@
 extends Node3D
 
-@onready var camera_3d: Camera3D = $Camera3D
+@onready var menu_cam: Camera3D = $MenuCam
 var rotation_speed = 25
 
 func _process(delta: float) -> void:
-	camera_3d.rotation.y += delta * deg_to_rad(rotation_speed)
+	menu_cam.rotation.y += delta * deg_to_rad(rotation_speed)
+
+func _ready() -> void:
+	menu_cam.current = true

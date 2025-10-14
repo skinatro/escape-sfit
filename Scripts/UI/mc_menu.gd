@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+var map = preload("res://Scenes/SFIT/Map.tscn")
+
 var stored_password: String = ""
 var user_password: String = ""
 var http_request: HTTPRequest
@@ -65,14 +67,31 @@ func _on_validate_pressed() -> void:
 		$Quit.visible = true
 	else:
 		show_toast("Wrong password. Try again.")
-		$NewGame.disabled = true
+		$Network.disabled = true
 
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_network_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/SFIT/Map.tscn")
+	$".".visible = false
+	
+	# Store old scene before adding the new one
+	var old_scene = get_tree().current_scene
+
+	# Instantiate and add new scene instance
+	var map_instance = map.instantiate()
+	var root = get_tree().get_root()
+	root.add_child(map_instance)
+
+	# Set new instance as current scene
+	get_tree().current_scene = map_instance
+
+	# Free old scene if different
+	if old_scene and old_scene != map_instance:
+		old_scene.queue_free()
+
+
 	
 func show_toast(message: String, duration: float = 2.0):
 	var toast_label = get_node("../ToastCont/Toast")

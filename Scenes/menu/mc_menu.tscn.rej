@@ -1,0 +1,76 @@
+diff a/Scenes/menu/mc_menu.tscn b/Scenes/menu/mc_menu.tscn	(rejected hunks)
+@@ -66,15 +66,10 @@ size_flags_horizontal = 4
+ size_flags_vertical = 4
+ script = ExtResource("3_6smbx")
+ 
+-[node name="NewGame" type="Button" parent="MenuCont"]
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 40
+-text = "New Game"
+-
+ [node name="Network" type="Button" parent="MenuCont"]
+ layout_mode = 2
+ theme_override_font_sizes/font_size = 40
+-text = "Network"
++text = "Start"
+ 
+ [node name="Password" type="Button" parent="MenuCont"]
+ layout_mode = 2
+@@ -149,57 +144,7 @@ text = "Validate"
+ 
+ [node name="HTTPRequest" type="HTTPRequest" parent="PasswordMenu"]
+ 
+-[node name="NetworkMenu" type="VBoxContainer" parent="."]
+-anchors_preset = 4
+-anchor_top = 0.5
+-anchor_bottom = 0.5
+-offset_left = 53.0
+-offset_top = -83.5
+-offset_right = 605.0
+-offset_bottom = 83.5
+-grow_vertical = 2
+-
+-[node name="HostCont" type="HBoxContainer" parent="NetworkMenu"]
+-layout_mode = 2
+-
+-[node name="Host" type="Button" parent="NetworkMenu/HostCont"]
+-custom_minimum_size = Vector2(40, 40)
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 32
+-text = "Host"
+-icon_alignment = 1
+-
+-[node name="IP" type="Label" parent="NetworkMenu/HostCont"]
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 32
+-text = "IP Addr"
+-vertical_alignment = 1
+-
+-[node name="JoinCont" type="HBoxContainer" parent="NetworkMenu"]
+-layout_mode = 2
+-
+-[node name="Join" type="Button" parent="NetworkMenu/JoinCont"]
+-custom_minimum_size = Vector2(40, 40)
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 32
+-text = "Join "
+-icon_alignment = 1
+-
+-[node name="LineEdit" type="LineEdit" parent="NetworkMenu/JoinCont"]
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 32
+-placeholder_text = "Type IP"
+-
+-[node name="Back" type="Button" parent="NetworkMenu"]
+-layout_mode = 2
+-theme_override_font_sizes/font_size = 32
+-text = "Back"
+-
+-[connection signal="pressed" from="MenuCont/NewGame" to="MenuCont" method="_on_new_game_pressed"]
+ [connection signal="pressed" from="MenuCont/Network" to="MenuCont" method="_on_network_pressed"]
+ [connection signal="pressed" from="MenuCont/Password" to="MenuCont" method="_on_password_pressed"]
+ [connection signal="pressed" from="MenuCont/Quit" to="MenuCont" method="_on_quit_pressed"]
+ [connection signal="pressed" from="PasswordMenu/Validate" to="MenuCont" method="_on_validate_pressed"]
+-[connection signal="pressed" from="NetworkMenu/HostCont/Host" to="MenuCont" method="_on_host_pressed"]
+-[connection signal="pressed" from="NetworkMenu/JoinCont/Join" to="MenuCont" method="_on_join_pressed"]
+-[connection signal="pressed" from="NetworkMenu/Back" to="MenuCont" method="_on_back_pressed"]

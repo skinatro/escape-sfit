@@ -22,7 +22,7 @@ func _ready():
 func _update_player_count():
 	player_count_label.text = "Players: %d" % connected_players
 	# Enable start if host and 4 or more players joined
-	if multiplayer.get_unique_id() == 1 and connected_players >= 4: #change to 4 during actual game
+	if multiplayer.get_unique_id() == 1 and connected_players >= 0: #change to 4 during actual game
 		start_button.disabled = false
 	else:
 		start_button.disabled = true
