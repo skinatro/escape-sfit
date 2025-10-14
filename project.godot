@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="EscapeSFIT"
-run/main_scene="uid://c1luelue526sf"
+run/main_scene="uid://cco1klyhkbwff"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://bllsnpvprg60n"
 

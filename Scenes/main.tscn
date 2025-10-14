@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d2f3sn771t0f5"]
+[gd_scene load_steps=20 format=3 uid="uid://d2f3sn771t0f5"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_h1bgf"]
@@ -29,29 +29,6 @@ inner_radius = 0.869
 outer_radius = 1.005
 rings = 18
 ring_segments = 6
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k12tt"]
-
-[sub_resource type="Sky" id="Sky_rwhvy"]
-sky_material = SubResource("ProceduralSkyMaterial_k12tt")
-
-[sub_resource type="Environment" id="Environment_h1bgf"]
-background_mode = 2
-background_energy_multiplier = 0.1
-sky = SubResource("Sky_rwhvy")
-ambient_light_source = 3
-reflected_light_source = 2
-tonemap_mode = 2
-sdfgi_use_occlusion = true
-fog_mode = 1
-fog_light_energy = 3.0
-fog_sun_scatter = 2.0
-fog_density = 1.0
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.2
-volumetric_fog_albedo = Color(0.13387778, 0.07394979, 0.07395729, 1)
-volumetric_fog_anisotropy = 0.8
-volumetric_fog_length = 128.0
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
 script = ExtResource("1_k12tt")
@@ -232,9 +209,6 @@ debug_color = Color(0.98039216, 0, 0.38431373, 0.7019608)
 transform = Transform3D(2.5846019, 0, 0, 0, 1, 0, 0, 0, 2.4745777, 0.0043411255, 0, 0.0007247925)
 mesh = SubResource("TorusMesh_k12tt")
 skeleton = NodePath("../..")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_h1bgf")
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

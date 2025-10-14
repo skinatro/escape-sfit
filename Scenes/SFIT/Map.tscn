@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b82mkktpex7se"]
+[gd_scene load_steps=17 format=3 uid="uid://b82mkktpex7se"]
 
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_e10ry"]
@@ -26,10 +26,45 @@ size = Vector3(18.58812, 10.725464, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_omvt6"]
 size = Vector3(11.13797, 1, 10.820984)
 
+[sub_resource type="Environment" id="Environment_omvt6"]
+tonemap_mode = 2
+tonemap_exposure = 1.18
+tonemap_white = 0.7
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1326
+volumetric_fog_albedo = Color(0.4533428, 0.4533428, 0.4533428, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omvt6"]
+
+[sub_resource type="Sky" id="Sky_rwhvy"]
+sky_material = SubResource("ProceduralSkyMaterial_omvt6")
+
+[sub_resource type="Environment" id="Environment_e32mi"]
+background_mode = 2
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_rwhvy")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_light_energy = 3.0
+fog_sun_scatter = 2.0
+fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2
+volumetric_fog_albedo = Color(0.13387778, 0.07394979, 0.07395729, 1)
+volumetric_fog_anisotropy = 0.8
+volumetric_fog_length = 128.0
+
 [node name="Map" type="Node3D"]
 
 [node name="SFIT" parent="." instance=ExtResource("1_8lb3l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2348936, -7.584895, 0.5455022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.387809, -6.946082, 0.9865937)
 
 [node name="ProtoController" parent="." instance=ExtResource("2_e10ry")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.661605, 3.3095293, 43.175915)
@@ -132,7 +167,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.447072, -2.020152, 34.3874
 [node name="Exit" type="Node3D" parent="."]
 
 [node name="Shader" parent="Exit" instance=ExtResource("9_omvt6")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.4292226, -1.8620429, 41.424137)
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -2.4292226, -1.8620429, 43.424137)
 
 [node name="Area3D" type="Area3D" parent="Exit"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262993)
@@ -141,3 +176,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44779706, -3.6931176, 3.176731)
 shape = SubResource("BoxShape3D_omvt6")
 debug_color = Color(0.49019608, 0, 0.36078432, 0.91764706)
+
+[node name="Cutscene" type="Camera3D" parent="."]
+transform = Transform3D(-1, 4.357918e-08, -7.5786524e-08, 0, 0.86689675, 0.49848774, 8.742278e-08, 0.49848774, -0.86689675, -2.6710398, 9.111832, 30.596298)
+environment = SubResource("Environment_omvt6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e32mi")

@@ -81,7 +81,7 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_network_pressed() -> void:
-	get_tree().change_scene_to_packed(MAIN)
+	$"../NetworkMenu".visible = true
 
 func show_toast(message: String, duration: float = 2.0):
 	var toast_label = get_node("../ToastCont/Toast")
@@ -94,3 +94,17 @@ func show_toast(message: String, duration: float = 2.0):
 func _on_ToastTimer_timeout():
 	var toast_label = get_node("../ToastCont/Toast")
 	toast_label.visible = false
+
+
+func _on_host_pressed() -> void:
+	$"../NetworkMenu/JoinCont".visible = false
+
+
+func _on_join_pressed() -> void:
+	$"../NetworkMenu/HostCont".visible = false
+
+
+func _on_back_pressed() -> void:
+	$"../NetworkMenu/JoinCont".visible = false
+	$"../NetworkMenu/HostCont".visible = false
+	$"../NetworkMenu".visible = false
