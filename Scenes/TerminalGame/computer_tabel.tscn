@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://gw8jv5olfpml"]
+
+[ext_resource type="PackedScene" uid="uid://brckwkj064krb" path="res://Assets/Models/computerTabel/scene.gltf" id="1_v7ipl"]
+[ext_resource type="PackedScene" uid="uid://ntxn8qba65a1" path="res://Scenes/TerminalGame/main_pc.tscn" id="2_3gnli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3gnli"]
+size = Vector3(1, 0.72509766, 1)
+
+[node name="ComputerTabel" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_v7ipl")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sketchfab_Scene"]
+transform = Transform3D(186.72194, 0, 0, 0, 32.57001, 0, 0, 0, 98.1322, 0, 73.78037, 0)
+shape = SubResource("BoxShape3D_3gnli")
+
+[node name="MainPc" parent="." instance=ExtResource("2_3gnli")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.1513453, 9.196814, 1.4392066)

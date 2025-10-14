@@ -31,6 +31,10 @@ window/vsync/vsync_mode=2
 
 project/assembly_name="3dgame"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 left={

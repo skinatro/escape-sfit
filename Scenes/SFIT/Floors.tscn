@@ -519,17 +519,12 @@ use_collision = true
 size = Vector3(0.15, 3, 15)
 
 [node name="Wall2" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.5741, 0.424252, -15.0622)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.5741, 0.42425203, -13.720712)
 use_collision = true
 size = Vector3(0.15, 3, 12)
 
-[node name="VLSILab" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
-transform = Transform3D(-4.37114e-08, 0, 0.25858, 0, 1, 0, -1, 0, -1.13029e-08, -6.93064, 0.424252, -15.0622)
-use_collision = true
-size = Vector3(0.15, 3, 3.09869)
-
 [node name="VLSILab2" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
-transform = Transform3D(-4.37114e-08, 0, 0.25858, 0, 1, 0, -1, 0, -1.13029e-08, -6.98114, 0.424252, -15.0622)
+transform = Transform3D(-4.37114e-08, 0, 0.25858, 0, 1, 0, -1, 0, -1.13029e-08, -6.9370346, 0.42425203, -13.605589)
 use_collision = true
 size = Vector3(0.15, 3, 3.48889)
 
@@ -599,9 +594,9 @@ use_collision = true
 size = Vector3(0.15, 3, 0.977905)
 
 [node name="AntennaLab2" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.60174, 0.424252, -13.6724)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.60174, 0.42425203, -12.972029)
 use_collision = true
-size = Vector3(0.15, 3, 2.91086)
+size = Vector3(0.15, 3, 1.5101175)
 
 [node name="AntennaLab4" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.14709, 0.424252, -9.62087)
@@ -619,9 +614,9 @@ use_collision = true
 size = Vector3(0.15, 3, 4)
 
 [node name="Wall24" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63204, 0.424252, -12.4933)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63204, 0.42425203, -12.62123)
 use_collision = true
-size = Vector3(0.15, 3, 5)
+size = Vector3(0.15, 3, 5.2558594)
 
 [node name="Wall27" type="CSGBox3D" parent="Walls/ActualWalls/BldgA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71062, 0.473996, -11.3711)
@@ -9632,7 +9627,7 @@ transform = Transform3D(0.499994, 0, 0.00476471, 0, 0.77, 0, -0.00238236, 0, 0.9
 transform = Transform3D(0.499994, 0, 0.00476471, 0, 0.77, 0, -0.00238236, 0, 0.999989, -9.60104, 5.41711, -1.11247)
 
 [node name="LabLast" parent="DOORS" instance=ExtResource("10_4x7dd")]
-transform = Transform3D(5.96244e-09, 0, -1, 0, 0.77, 0, 0.5, 0, 1.19249e-08, -8.48524, 5.40954, -14.9952)
+transform = Transform3D(5.96244e-09, 0, -1, 0, 0.77, 0, 0.5, 0, 1.19249e-08, -8.48524, 5.40954, -13.551966)
 
 [node name="LabLast3" parent="DOORS" instance=ExtResource("10_4x7dd")]
 transform = Transform3D(5.96244e-09, 0, -1, 0, 0.77, 0, 0.5, 0, 1.19249e-08, 6.2888, 5.40954, -14.978)
