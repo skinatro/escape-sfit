@@ -119,8 +119,8 @@ func _process(_delta):
 			freq_rotor.scale=Vector2(.4,.4)
 			freq_rotor.modulate.a=1
 			amp_rotor.modulate.a=1
-			freq_rotor.rotation-=40*_delta
-			amp_rotor.rotation+=40*_delta
+			#freq_rotor.rotation-=40*_delta
+			#amp_rotor.rotation+=40*_delta
 	
 	
 

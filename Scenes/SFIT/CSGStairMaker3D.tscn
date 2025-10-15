@@ -52,6 +52,10 @@ func make_stairs():
 func _process(_delta):
 	if _cur_num_stairs != num_stairs or _cur_size != self.size:
 		make_stairs()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
 "
 
 [node name="CSGStairMaker3D" type="CSGBox3D"]

@@ -66,13 +66,16 @@ var freeflying : bool = false
 @onready var cam: Camera3D = $Head/Camera3D
 
 
-var ristrictMovement:=false
+var active_block_count := 0
+var ristrictMovement := false
 
 
 #STAIRS
 const MAX_STEP_HEIGHT = 0.34
 var _snapped_to_stairs_last_frame:= false
 var _last_frame_was_on_floor= -INF
+
+var blockGameActive=false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -89,7 +92,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !blockGameActive:
 		capture_mouse()#################################################
 		pass
 	if Input.is_key_pressed(KEY_ESCAPE):
@@ -148,12 +151,25 @@ func _snap_up_stairs_check(delta) -> bool:
 			_snapped_to_stairs_last_frame = true
 			return true
 	return false
+func enter_block():
+	active_block_count += 1
+	ristrictMovement = true
+	release_mouse()
+	print("Player movement blocked, active blocks: ", active_block_count)
 
+func exit_block():
+	active_block_count = max(active_block_count - 1, 0)
+	if active_block_count == 0:
+		ristrictMovement = false
+		capture_mouse()
+		print("Player movement restored")
+		
+		
 func _physics_process(delta: float) -> void:
-	#if ristrictMovement or not movement_enabled:
-		#velocity.x = 0
-		#velocity.z = 0
-		#return  
+	if ristrictMovement:
+		velocity.x = 0
+		velocity.z = 0
+		return  
 	# inside _physics_process(delta) where you handle sprint
 	var target_fov: float = base_fov
 	if can_sprint and Input.is_action_pressed(input_sprint):

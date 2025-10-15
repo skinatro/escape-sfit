@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=48 format=3 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -18,8 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Scenes/SFIT/CSGStairMaker3D.tscn" id="16_av8qv"]
 [ext_resource type="Material" uid="uid://cv1hs7cwq682b" path="res://Assets/Materials/Glass.tres" id="17_iflpc"]
 [ext_resource type="PackedScene" uid="uid://btliei80l6ca0" path="res://Assets/Models/lowpoly_notice_board/scene.gltf" id="17_j4lmw"]
+[ext_resource type="Script" uid="uid://bkdfqgh3ibc4x" path="res://Scripts/WaveGameScripts/blockGroup.gd" id="18_c5wn4"]
 [ext_resource type="PackedScene" uid="uid://o1m7h1r8igkg" path="res://Scenes/LIGHTS/spot_light.tscn" id="18_kgops"]
 [ext_resource type="PackedScene" uid="uid://d1n2m178eykjv" path="res://Scenes/WaveGame/console_panel.tscn" id="18_svoaa"]
+[ext_resource type="PackedScene" uid="uid://dsb4l8jkavooh" path="res://Scenes/Block Game/puzzle_blockHEXA.tscn" id="18_v3jug"]
 [ext_resource type="PackedScene" uid="uid://gw8jv5olfpml" path="res://Scenes/TerminalGame/computer_tabel.tscn" id="19_cypxe"]
 [ext_resource type="PackedScene" uid="uid://b54fydbav4ra2" path="res://Scenes/WaveGame/signal_console.tscn" id="19_t08ej"]
 [ext_resource type="PackedScene" uid="uid://b7b54wfwf8ut4" path="res://Scenes/TerminalGame/Terminal.tscn" id="20_3k8sb"]
@@ -57,6 +59,9 @@ load_path = "res://.godot/imported/floor.jpg-bcdf8b04e9a330a26a16e980de6bc504.s3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mfcl"]
 albedo_texture = SubResource("CompressedTexture2D_aioi8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8nihp"]
+size = Vector3(3.3432617, 1, 7.782593)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3k8sb"]
 size = Vector3(14.415405, 1, 1.4556274)
@@ -14296,8 +14301,94 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.00
 [node name="Floor2" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 14.527945, 1.5412483)
 
+[node name="FloorA" parent="Floor2/Floors" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5562296, -1.0310497, -3.2697186)
+size = Vector3(42.076897, 2, 31.472427)
+
+[node name="StairCutterMain2" parent="Floor2/Floors" index="8"]
+transform = Transform3D(1.01419, 0, 0, 0, 2.03201, 0, 0, 0, 1.01419, -0.715299, 4.2665195, -15.9628)
+
+[node name="Wall29" parent="Floor2/Walls/ActualWalls/BldgA" index="41"]
+transform = Transform3D(4.37114e-08, 8.74228e-08, -1, 3.82137e-15, -1, -8.74228e-08, -1, 0, -4.37114e-08, 12.6046, 0.424252, -19.219076)
+
+[node name="Wall37" parent="Floor2/Walls/ActualWalls/BldgA" index="46"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 20.0323, 0.42425156, -17.228886)
+size = Vector3(0.15, 3, 4.2719727)
+
+[node name="Wall41" parent="Floor2/Walls/ActualWalls/BldgA" index="49"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5.15619, 0.4242506, -17.22164)
+size = Vector3(0.15, 3, 4.205078)
+
+[node name="BlockGame" type="Node3D" parent="Floor2"]
+
+[node name="Blocks" type="Node3D" parent="Floor2/BlockGame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.12052, -4.442935, -18.9108)
+script = ExtResource("18_c5wn4")
+
+[node name="Puzzle_Block" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.6147738, -0.8196945)
+
+[node name="Puzzle_Block12" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 7.329524, 0.20643997)
+
+[node name="Puzzle_Block6" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.6147738, -1.4220066)
+
+[node name="Puzzle_Block4" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.092847, -1.1199875)
+
+[node name="Puzzle_Block14" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, -0.81627464)
+
+[node name="Puzzle_Block15" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.571966, -1.4115314)
+
+[node name="Puzzle_Block16" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, 0.3966732)
+
+[node name="Puzzle_Block18" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, 1.000412)
+
+[node name="Puzzle_Block17" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.571966, -0.1985836)
+
+[node name="Puzzle_Block7" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.092847, -1.7217216)
+
+[node name="Puzzle_Block2" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.0959177, -0.5139656)
+
+[node name="Puzzle_Block5" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.102151, 0.097745895)
+
+[node name="Puzzle_Block9" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.0959177, 0.7017174)
+
+[node name="Puzzle_Block10" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.102151, 1.3134289)
+
+[node name="Puzzle_Block3" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, -0.20631981)
+
+[node name="Puzzle_Block8" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, 0.39699173)
+
+[node name="Puzzle_Block11" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, 1.0107918)
+
+[node name="Area3D" type="Area3D" parent="Floor2/BlockGame/Blocks"]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2/BlockGame/Blocks/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8695393, 4.9011736, -0.0030136108)
+shape = SubResource("BoxShape3D_8nihp")
+
+[node name="ProtoController" parent="Floor2/BlockGame" instance=ExtResource("4_bgxh0")]
+transform = Transform3D(-0.014189173, 0, -0.99989927, 0, 1, 0, 0.99989927, 0, -0.014189173, 9.129345, -0.2551613, -16.97598)
+
 [node name="Floor3" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 19.431223, 1.5412483)
+visible = false
 
 [node name="WaveGame" type="Node3D" parent="Floor3"]
 
@@ -14309,14 +14400,13 @@ cutSceneCam = NodePath("Camera3D")
 [node name="Camera3D" type="Camera3D" parent="Floor3/CONSOLE_PANEL"]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999998, 1.7969017, 3.2293148, 7.002393)
 
-[node name="ProtoController" parent="Floor3" instance=ExtResource("4_bgxh0")]
-transform = Transform3D(0.067423254, 0, 0.9977244, 0, 1, 0, -0.9977244, 0, 0.067423254, -18.221315, 3.1203308, 36.232708)
-
 [node name="Floor4" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 24.309902, 1.5412483)
+visible = false
 
 [node name="Floor5" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 29.241655, 1.5412483)
+visible = false
 
 [node name="TerminalGame" type="Node3D" parent="Floor5"]
 
@@ -14392,6 +14482,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.
 
 [node name="Floor6" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 34.16824, 1.5412483)
+visible = false
 
 [node name="Lift" type="Node3D" parent="Floor6"]
 transform = Transform3D(1.00007, 0, 0, 0, 1.00007, 0, 0, 0, 1.00007, 0, 0, 0)
@@ -24284,7 +24375,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106903e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -4.0940922e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
+transform = Transform3D(1.9106911e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -5.073491e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -24293,7 +24384,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew14" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106836e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 2.4353254e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
+transform = Transform3D(1.910683e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 2.8853293e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -30384,9 +30475,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_svoaa")
 }
 
+[connection signal="body_entered" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_exited"]
 [connection signal="body_entered" from="Floor6/LazerGame/JumpDisabler" to="Floor6/LazerGame/GameButton" method="_on_jump_disabler_body_entered"]
 [connection signal="body_exited" from="Floor6/LazerGame/JumpDisabler" to="Floor6/LazerGame/GameButton" method="_on_jump_disabler_body_exited"]
 
+[editable path="Floor2"]
 [editable path="Floor3"]
 [editable path="Floor3/CONSOLE_PANEL"]
 [editable path="Floor3/CONSOLE_PANEL/Sketchfab_Scene"]

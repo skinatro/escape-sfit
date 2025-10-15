@@ -12,15 +12,25 @@ var target_angle := 0
 var rotation_speed := 180.0 # degrees per second
 
 var blockSelected:=false
+var canSelect:=false
+
 @onready var label_3d: Label3D = $Area3D/CSGPolygon3D/Label3D
 @onready var label_3d_2: Label3D = $Area3D/CSGPolygon3D/Label3D2
 
+
+var parent_node:Node3D=null
+
 func _ready() -> void:
+	area3d.input_event.connect(_on_area3d_input_event)
 	area3d.input_event.connect(_on_area3d_input_event)
 	block.rotation_degrees.z=[30,90,150,210,270].pick_random() #initial rotation (random)
 	
 func _process(delta: float) -> void:
-	label_3d.text=str(blockSelected)
+	label_3d.text=str(blockSelected)	
+
+	if(parent_node!=null):
+		if(parent_node.canSelectBlocks): canSelect=true
+	else: canSelect=false
 	
 	if(blockSelected):
 		rotateBlock(delta)
@@ -47,21 +57,52 @@ func rotateBlock(delta:float):
 			block.rotation_degrees.z = target_angle
 			rotating = false
 
-
+#
+#func _on_area3d_input_event(camera: Camera3D, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	## Detect left mouse click
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
+		#blockSelected=true
+		#parent_node.is_blockSelected=true
+		#animation_player.speed_scale = 1
+		#animation_player.play("HEXA_HOVER_ANIM")
+		
 func _on_area3d_input_event(camera: Camera3D, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
-	# Detect left mouse click
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		blockSelected=true
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
+		blockSelected = true
+		parent_node.is_blockSelected = true
+		
+		# Restrict player movement
+		#if parent_node.get_node("Player") != null:  # adjust path to your player
+		var player = parent_node.Player
+		if(player!=null):
+			player.ristrictMovement = true
+			player.release_mouse()
+		
 		animation_player.speed_scale = 1
 		animation_player.play("HEXA_HOVER_ANIM")
-		
 
 		
-# Called when you click anywhere else
+## Called when you click anywhere else
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
+			#if(blockSelected):
+				#animation_player.speed_scale = -1
+				#animation_player.play("HEXA_HOVER_ANIM")  # play backward
+				#animation_player.seek(animation_player.current_animation_length)
+			#blockSelected = false
+			#parent_node.is_blockSelected=false
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if(blockSelected):
-				animation_player.speed_scale = -1
-				animation_player.play("HEXA_HOVER_ANIM")  # play backward
-				animation_player.seek(animation_player.current_animation_length)
-			blockSelected = false
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
+		if blockSelected:
+			animation_player.speed_scale = -1
+			animation_player.play("HEXA_HOVER_ANIM")  # play backward
+			animation_player.seek(animation_player.current_animation_length)
+
+		blockSelected = false
+		parent_node.is_blockSelected = false
+
+		# Restore player movement
+	
+		var player = parent_node.Player
+		if(player!=null):player.ristrictMovement = false
+		#player.capture_mouse()
