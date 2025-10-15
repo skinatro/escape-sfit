@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bunch of Electric Wires
+* source:	https://sketchfab.com/3d-models/bunch-of-electric-wires-b45c18880f9147429394274411e97dc8
+* author:	romullus (https://sketchfab.com/romullus)
+
+Model License:
+* license type:	CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
+* requirements:	Author must be credited. Modified versions must have the same license. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bunch of Electric Wires" (https://sketchfab.com/3d-models/bunch-of-electric-wires-b45c18880f9147429394274411e97dc8) by romullus (https://sketchfab.com/romullus) licensed under CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)

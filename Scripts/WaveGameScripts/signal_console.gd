@@ -237,4 +237,23 @@ func _on_amp_rotor_pressed() -> void:
 
 func _on_wave_vanished():
 	await get_tree().create_timer(1).timeout
+	var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
+	#print("SearchingPlayer")
+	for obj in get_tree().current_scene.get_children():
+		if obj is CharacterBody3D:
+			player=obj
+			#print("GotPlayer")
+			break
+	player.ristrictMovement=false
+	#print("SET")
 	self.queue_free()
+
+func find_node_of_type(type_ref: Object, root: Node = get_tree().get_root()) -> Node:
+	for child in root.get_children():
+		# Use class name comparison instead of `is`
+		if child.get_class() == type_ref.get_class():
+			return child
+		var found = find_node_of_type(type_ref, child)
+		if found:
+			return found
+	return null

@@ -153,7 +153,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				print("TerminalCam Removed")
 			
 			# 🎥 Switch back to player camera
-			var player_cam = find_camera_by_path_fragment("ProtoController/Head")
+			var player_cam = find_camera_by_path_fragment("/Head")
 			if player_cam:
 				player_cam.current = true
 				print("Switched to Player Camera:", player_cam.get_path())

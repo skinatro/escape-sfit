@@ -7,11 +7,13 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7umot"]
 albedo_texture = ExtResource("2_rpu12")
+emission = Color(0.16206557, 0.1620656, 0.16206557, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77vm0"]
 depth_draw_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("3_eo34r")
+refraction_scale = 0.1
 detail_enabled = true
 detail_blend_mode = 3
 

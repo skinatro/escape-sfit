@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://xwgkklnmrs4v"]
+
+[ext_resource type="PackedScene" uid="uid://32ijtuf6x5v8" path="res://Assets/Models/Wires/bunch_of_electric_wires/scene.gltf" id="1_qy5x7"]
+
+[node name="WireBundle2" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_qy5x7")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://h66sht4at7nq"]
+
+[ext_resource type="PackedScene" uid="uid://dyc3ltdw44cw5" path="res://Assets/Models/Wires/wires_right_side/scene.gltf" id="1_7wbyn"]
+
+[node name="WallWires" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_7wbyn")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

@@ -300,10 +300,12 @@ func check_input_mappings():
 #If terminal is Active it Disables player mmovement
 func checkForTerminal():
 	if get_tree().current_scene.has_node("Terminal") or get_tree().current_scene.has_node("SignalConsole"):
+		print("currentScene: "+str(get_tree().current_scene))
 		ristrictMovement=true
 		release_mouse()
 	else:
-		ristrictMovement=false
+		#print("done")
+		ristrictMovement = false
 		#capture_mouse()
 #func checkForConsole():
 	#if get_tree().current_scene.has_node("Signal_Console"):

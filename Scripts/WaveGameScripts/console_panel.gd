@@ -8,12 +8,48 @@ extends Node3D
 var inRange=false
 var terminalUsed=false
 var initialSet=false
-
+var player
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+		#print_all_cameras()
+	var player_cam =find_camera_by_path_fragment("/Head")
+	#print(player_cam.get_path())
+	if player_cam:
+		player_cam.current = true
+	
 	#playAnimation()
 	pass
+# 🔍 Utility: Print all cameras
+func print_all_cameras() -> void:
+	var cameras = get_all_cameras()
+	print("---- All Cameras in Scene ----")
+	for cam in cameras:
+		print(cam.get_path())
+	print("------------------------------")
 
+
+# 🔍 Utility: Get all cameras recursively
+func get_all_cameras() -> Array:
+	var cameras: Array = []
+	var root = get_tree().current_scene
+	if root:
+		_find_cameras_recursive(root, cameras)
+	return cameras
+
+
+# Recursive helper
+func _find_cameras_recursive(node: Node, cameras: Array) -> void:
+	if node is Camera3D:
+		cameras.append(node)
+	for child in node.get_children():
+		_find_cameras_recursive(child, cameras)
+
+
+func find_camera_by_path_fragment(fragment: String) -> Camera3D:
+	for cam in get_all_cameras():
+		if fragment in str(cam.get_path()):
+			return cam
+	return null
 
 
 	
@@ -22,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if(is_working and inRange and !terminalUsed and Input.is_action_pressed("interact")):
 		terminalUsed=true
 		var parent=get_parent().get_parent()
-		var playerCam=parent.get_parent().get
+		
 		if(cutSceneCam!=null): cutSceneCam.current=true
 		
 		var animPlayer:AnimationPlayer=parent.get_node("AnimationPlayer")
@@ -32,14 +68,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		await get_tree().create_timer(3).timeout
 		
 		if(terminal!=null):
-			get_tree().current_scene.add_child(terminal.instantiate())
+			var console=terminal.instantiate()
+			get_tree().current_scene.add_child(console)
+			print(console.get_path())
 			if(cutSceneCam!=null):cutSceneCam.current=false
 			animPlayer.play("RESET")
 			cutSceneCam.queue_free()
-			#for c in get_children():
-				#if c is Camera3D:
-					#c.queue_free()
-			print("ConsoleCam Removed")
+			###############################
+			var player_cam =find_camera_by_path_fragment("/Head")
+			#print(player_cam.get_path())
+			if player_cam:
+				player_cam.current = true
+				#######################################
+			print_all_cameras()
+			
 			
 func _process(delta: float) -> void:
 	if(cutSceneCam!=null and !initialSet):
@@ -48,6 +90,7 @@ func _process(delta: float) -> void:
 		
 
 func _on_area_3d_body_entered(body: CharacterBody3D) -> void:
+	player=body
 	if(is_working):inRange=true
 
 

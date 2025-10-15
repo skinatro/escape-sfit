@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx1yd62wn4g8h"]
+
+[ext_resource type="PackedScene" uid="uid://dgbhijdkisddi" path="res://Assets/Models/Wires/wired_cube/scene.gltf" id="1_qd3wv"]
+[ext_resource type="Texture2D" uid="uid://qenjsdvs4g5y" path="res://Assets/Models/Wires/electrical_wires_bundle/textures/wire_neutral_baseColor.png" id="2_opdjj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y1vxy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kctg3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cl5pd"]
+albedo_texture = ExtResource("2_opdjj")
+
+[node name="WiredCube" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_qd3wv")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+
+[node name="Cube_1__0" parent="Sketchfab_Scene/Sketchfab_model/Wired Cube_fbx/RootNode/Cube_1" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_y1vxy")
+
+[node name="Cube_2__0" parent="Sketchfab_Scene/Sketchfab_model/Wired Cube_fbx/RootNode/Cube_2" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_kctg3")
+
+[node name="Topowire__0" parent="Sketchfab_Scene/Sketchfab_model/Wired Cube_fbx/RootNode/Topowire" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_cl5pd")
+
+[editable path="Sketchfab_Scene"]

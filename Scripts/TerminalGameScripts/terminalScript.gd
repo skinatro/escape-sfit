@@ -39,6 +39,19 @@ func _process(_delta: float) -> void:
 		canAdd=true
 		
 	if(Input.is_key_pressed(KEY_ESCAPE)):
+		var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
+	#print("SearchingPlayer")
+		for obj in get_tree().current_scene.get_children():
+			if obj is CharacterBody3D:
+				player=obj
+			#print("GotPlayer")
+				break
+		player.ristrictMovement=false
+		
+		var player_cam =find_camera_by_path_fragment("/Head")
+			#print(player_cam.get_path())
+		if player_cam:
+			player_cam.current = true
 		queue_free()
 
 		
@@ -71,8 +84,21 @@ func checkValidity(input:String):
 		
 		#Player Wins
 		if expectedCommand>5:
-			addTextLable("YOU WON :)")
-			Ai.ReduceHealth()
+			for i in range(50):
+				var text=["jgdldvdvdehj","ughdeudbjwkadg","utibfdt............uidgOWDIDGIHD","IUAGDLIDGQW...UIGAYDVahj=-=-=-="].pick_random()
+				addTextLable(text)
+				await get_tree().current_scene.create_timer(.1).timeout
+				
+			#Ai.ReduceHealth()
+			
+			var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
+	#print("SearchingPlayer")
+			for obj in get_tree().current_scene.get_children():
+				if obj is CharacterBody3D:
+					player=obj
+			#print("GotPlayer")
+					break
+			player.ristrictMovement=false
 			queue_free()
 	
 	else:
@@ -93,3 +119,34 @@ func resetTerminal():
 		v_box_container.remove_child(child)
 		child.free()
 		
+# 🔍 Utility: Print all cameras
+func print_all_cameras() -> void:
+	var cameras = get_all_cameras()
+	print("---- All Cameras in Scene ----")
+	for cam in cameras:
+		print(cam.get_path())
+	print("------------------------------")
+
+
+# 🔍 Utility: Get all cameras recursively
+func get_all_cameras() -> Array:
+	var cameras: Array = []
+	var root = get_tree().current_scene
+	if root:
+		_find_cameras_recursive(root, cameras)
+	return cameras
+
+
+# Recursive helper
+func _find_cameras_recursive(node: Node, cameras: Array) -> void:
+	if node is Camera3D:
+		cameras.append(node)
+	for child in node.get_children():
+		_find_cameras_recursive(child, cameras)
+
+
+func find_camera_by_path_fragment(fragment: String) -> Camera3D:
+	for cam in get_all_cameras():
+		if fragment in str(cam.get_path()):
+			return cam
+	return null

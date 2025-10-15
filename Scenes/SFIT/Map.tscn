@@ -239,7 +239,7 @@ offset_bottom = 764.0
 theme_override_font_sizes/font_size = 40
 
 [node name="Gamespawn" parent="." instance=ExtResource("10_e32mi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4893067, 0.9373292, 41.477596)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.769076, 18.149944, 39.996975)
 
 [node name="AIHealth" type="ProgressBar" parent="." node_paths=PackedStringArray("progress_bar")]
 anchors_preset = 5

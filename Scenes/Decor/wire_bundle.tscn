@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://be2o41r073fis"]
+
+[ext_resource type="PackedScene" uid="uid://cnauj6ptkqkom" path="res://Assets/Models/Wires/electrical_wires_bundle/scene.gltf" id="1_lmwdc"]
+
+[node name="WireBundle" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_lmwdc")]
