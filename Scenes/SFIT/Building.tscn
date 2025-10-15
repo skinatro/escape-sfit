@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=45 format=3 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -19,7 +19,9 @@
 [ext_resource type="Material" uid="uid://cv1hs7cwq682b" path="res://Assets/Materials/Glass.tres" id="17_iflpc"]
 [ext_resource type="PackedScene" uid="uid://btliei80l6ca0" path="res://Assets/Models/lowpoly_notice_board/scene.gltf" id="17_j4lmw"]
 [ext_resource type="PackedScene" uid="uid://o1m7h1r8igkg" path="res://Scenes/LIGHTS/spot_light.tscn" id="18_kgops"]
+[ext_resource type="PackedScene" uid="uid://d1n2m178eykjv" path="res://Scenes/WaveGame/console_panel.tscn" id="18_svoaa"]
 [ext_resource type="PackedScene" uid="uid://gw8jv5olfpml" path="res://Scenes/TerminalGame/computer_tabel.tscn" id="19_cypxe"]
+[ext_resource type="PackedScene" uid="uid://b54fydbav4ra2" path="res://Scenes/WaveGame/signal_console.tscn" id="19_t08ej"]
 [ext_resource type="PackedScene" uid="uid://b7b54wfwf8ut4" path="res://Scenes/TerminalGame/Terminal.tscn" id="20_3k8sb"]
 [ext_resource type="PackedScene" uid="uid://c2nfdlf28lxkm" path="res://Scenes/LaserGame/LaserGamebutton.tscn" id="20_p71kt"]
 [ext_resource type="Script" uid="uid://cy533lmwrqdsp" path="res://Scripts/jump_disabler.gd" id="23_ibycq"]
@@ -104,6 +106,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 1.5707964, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Floor3/CONSOLE_PANEL/Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.7969017, 3.2293148, 7.002393)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Floor3/CONSOLE_PANEL/Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_3k8sb"]
 resource_name = "TerminalFocus"
@@ -133,8 +159,37 @@ tracks/1/keys = {
 "values": [Vector3(0, 1.5707964, 0), Vector3(-0.2353402, 1.5707964, 0), Vector3(0.066671595, 1.5707964, 0), Vector3(-0.0043345294, 1.636613, -0.0032170122)]
 }
 
+[sub_resource type="Animation" id="Animation_v3jug"]
+resource_name = "ConsoleFoucs"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor3/CONSOLE_PANEL/Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03, 1.7, 2.05, 2.41, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.7969017, 3.2293148, 7.002393), Vector3(1.8074882, 2.8180163, 3.6926355), Vector3(0.057254434, 2.1076598, 0.82907754), Vector3(-0.13444208, 1.8715119, -0.3655783), Vector3(-0.07198551, 1.2201151, -1.4573494), Vector3(-0.001559943, 1.2493848, -1.9392141)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Floor3/CONSOLE_PANEL/Camera3D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.03, 1.7, 2.05, 2.41, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.24312113, -0.018072091, 0.004350997), Vector3(-0.19275036, 0.15910538, -0.03819863), Vector3(-0.19645004, -0.032403413, -0.0010563601), Vector3(0.110867396, -0.03272494, -0.0010424419), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_svoaa"]
 _data = {
+&"ConsoleFoucs": SubResource("Animation_v3jug"),
 &"RESET": SubResource("Animation_ibycq"),
 &"TerminalFocus": SubResource("Animation_3k8sb")
 }
@@ -14244,14 +14299,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 14.527945, 1.541
 [node name="Floor3" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 19.431223, 1.5412483)
 
+[node name="WaveGame" type="Node3D" parent="Floor3"]
+
+[node name="CONSOLE_PANEL" parent="Floor3" node_paths=PackedStringArray("cutSceneCam") instance=ExtResource("18_svoaa")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -22.524275, 2.8701706, 36.625103)
+terminal = ExtResource("19_t08ej")
+cutSceneCam = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Floor3/CONSOLE_PANEL"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999998, 1.7969017, 3.2293148, 7.002393)
+
+[node name="ProtoController" parent="Floor3" instance=ExtResource("4_bgxh0")]
+transform = Transform3D(0.067423254, 0, 0.9977244, 0, 1, 0, -0.9977244, 0, 0.067423254, -18.221315, 3.1203308, 36.232708)
+
 [node name="Floor4" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 24.309902, 1.5412483)
 
 [node name="Floor5" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 29.241655, 1.5412483)
-
-[node name="ProtoController" parent="Floor5" instance=ExtResource("4_bgxh0")]
-transform = Transform3D(0.067423254, 0, 0.9977244, 0, 1, 0, -0.9977244, 0, 0.067423254, -8.383619, 0.1305561, -16.761261)
 
 [node name="TerminalGame" type="Node3D" parent="Floor5"]
 
@@ -24219,7 +24284,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.910688e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -1.8176383e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
+transform = Transform3D(1.9106903e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -4.0940922e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -24228,7 +24293,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew14" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106844e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 1.6147094e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
+transform = Transform3D(1.9106836e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 2.4353254e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -30322,6 +30387,9 @@ libraries = {
 [connection signal="body_entered" from="Floor6/LazerGame/JumpDisabler" to="Floor6/LazerGame/GameButton" method="_on_jump_disabler_body_entered"]
 [connection signal="body_exited" from="Floor6/LazerGame/JumpDisabler" to="Floor6/LazerGame/GameButton" method="_on_jump_disabler_body_exited"]
 
+[editable path="Floor3"]
+[editable path="Floor3/CONSOLE_PANEL"]
+[editable path="Floor3/CONSOLE_PANEL/Sketchfab_Scene"]
 [editable path="Floor5/TerminalGame/TableRow2/ComputerTabel6"]
 [editable path="Floor5/TerminalGame/TableRow2/ComputerTabel6/MainPc"]
 [editable path="Floor5/TerminalGame/TableRow2/ComputerTabel6/MainPc/Sketchfab_Scene"]

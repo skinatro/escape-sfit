@@ -47,12 +47,13 @@ sky_material = SubResource("ProceduralSkyMaterial_omvt6")
 
 [sub_resource type="Environment" id="Environment_e32mi"]
 background_mode = 2
-background_energy_multiplier = 0.1
 sky = SubResource("Sky_rwhvy")
 ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
 sdfgi_use_occlusion = true
+glow_enabled = true
+fog_enabled = true
 fog_mode = 1
 fog_light_energy = 3.0
 fog_sun_scatter = 2.0

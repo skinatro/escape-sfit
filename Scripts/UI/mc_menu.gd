@@ -57,7 +57,7 @@ func _on_get_completed(_result, response_code, _headers, body):
 
 func _on_validate_pressed() -> void:
 	user_password = $"../PasswordMenu".get_node("PasswordEntry").text
-	var backup_password = "ladder&67"
+	var backup_password = "ladder&67"#IMPORTANT#####################################################
 	if (user_password == stored_password and stored_password != "") or user_password == backup_password:
 		show_toast("Password correct! You may start a new game.")
 		$Network.disabled = false

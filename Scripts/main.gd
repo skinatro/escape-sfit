@@ -104,7 +104,8 @@ func add_Player(id: int) -> void:
 	var player = playerScene.instantiate()
 	player.name = str(id)
 	add_child(player)
-	player.global_position = Spawnpoint.global_position
+	player.global_position = Spawnpoint.global_position 
+	print(player)
 
 func delete_Player(id: int) -> void:
 	var node_name = str(id)

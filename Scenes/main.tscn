@@ -83,7 +83,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.26313, 2.54614, 4.57
 
 [node name="LaserGame" type="Node" parent="."]
 
-[node name="laserBeamNew" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("10_u50mg")]
+[node name="laserBeamNew" parent="LaserGame" instance=ExtResource("10_u50mg")]
 transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -11.8, 1, 28.8)
 collision_layer = 13311
 collision_mask = 13311
@@ -93,9 +93,8 @@ Rotate = true
 Rangee = 5
 moveSpeed = 5.0
 rotateSpeed = 3.0
-spawnPoint = NodePath("")
 
-[node name="laserBeamNew4" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("10_u50mg")]
+[node name="laserBeamNew4" parent="LaserGame" instance=ExtResource("10_u50mg")]
 transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -8.7, 1, 24.5)
 collision_layer = 13311
 collision_mask = 13311
@@ -104,9 +103,8 @@ left_right = true
 Rangee = 10
 moveSpeed = 5.0
 rotateSpeed = 3.0
-spawnPoint = NodePath("")
 
-[node name="laserBeamNew3" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("10_u50mg")]
+[node name="laserBeamNew3" parent="LaserGame" instance=ExtResource("10_u50mg")]
 transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -20.1, 1, 24.5)
 collision_layer = 13311
 collision_mask = 13311
@@ -114,16 +112,14 @@ Rotate = true
 Rangee = 5
 moveSpeed = 5.0
 rotateSpeed = 3.0
-spawnPoint = NodePath("")
 
-[node name="laserBeamNew2" parent="LaserGame" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("10_u50mg")]
+[node name="laserBeamNew2" parent="LaserGame" instance=ExtResource("10_u50mg")]
 transform = Transform3D(-3.61999e-07, -1.564, -4.4663798e-07, 0.1, -5.6616645e-06, 0, -1.6168251e-12, -6.985418e-06, 0.1, -20.1, 1, 28.3)
 collision_layer = 13311
 collision_mask = 13311
 Rangee = 5
 moveSpeed = 5.0
 rotateSpeed = 3.0
-spawnPoint = NodePath("")
 
 [node name="Button2" parent="LaserGame" instance=ExtResource("6_pdsj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0.6, 22.723331)
@@ -135,9 +131,8 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 [node name="WheelBot" parent="." instance=ExtResource("12_1w6v2")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 17.3, 0.2, 0.4)
 
-[node name="Gasleak" parent="." node_paths=PackedStringArray("respawnPoint") instance=ExtResource("14_6vcvc")]
+[node name="Gasleak" parent="." instance=ExtResource("14_6vcvc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.001111, 1, 9.105782)
-respawnPoint = NodePath("")
 left = true
 
 [node name="Emissive" parent="." instance=ExtResource("15_7k868")]

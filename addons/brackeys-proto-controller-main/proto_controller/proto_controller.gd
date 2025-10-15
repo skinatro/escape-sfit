@@ -150,10 +150,10 @@ func _snap_up_stairs_check(delta) -> bool:
 	return false
 
 func _physics_process(delta: float) -> void:
-	if ristrictMovement or not movement_enabled:
-		velocity.x = 0
-		velocity.z = 0
-		return  
+	#if ristrictMovement or not movement_enabled:
+		#velocity.x = 0
+		#velocity.z = 0
+		#return  
 	# inside _physics_process(delta) where you handle sprint
 	var target_fov: float = base_fov
 	if can_sprint and Input.is_action_pressed(input_sprint):
