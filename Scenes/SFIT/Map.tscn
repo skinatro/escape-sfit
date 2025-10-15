@@ -1,14 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://b82mkktpex7se"]
+[gd_scene load_steps=20 format=3 uid="uid://b82mkktpex7se"]
 
+[ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_5xwxy"]
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="2_e10ry"]
 [ext_resource type="Texture2D" uid="uid://d21c1g0gon3ne" path="res://Assets/Textures/Tiles/square_tiles_diff_1k.jpg" id="3_a4sk2"]
 [ext_resource type="Texture2D" uid="uid://ddettx8dhubnp" path="res://Assets/Textures/Tiles/square_tiles_nor_gl_1k.png" id="4_omvt6"]
 [ext_resource type="Texture2D" uid="uid://crws1d2bgg37a" path="res://Assets/Textures/Tiles/square_tiles_rough_1k.png" id="5_e32mi"]
-[ext_resource type="PackedScene" uid="uid://drlik3gm0t2ic" path="res://Scenes/SFIT/jungle.tscn" id="6_5xwxy"]
 [ext_resource type="PackedScene" uid="uid://co2mhowvaurqg" path="res://Assets/Models/potted_plant_01/potted_plant_01_1k.gltf" id="7_e10ry"]
 [ext_resource type="PackedScene" uid="uid://xri0vv0pnkw6" path="res://Assets/Models/potted_plant_02/potted_plant_02_1k.gltf" id="8_a4sk2"]
 [ext_resource type="PackedScene" uid="uid://d4nblg7bsnfoc" path="res://Scenes/SFIT/gtashader.tscn" id="9_omvt6"]
+[ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="10_e32mi"]
+[ext_resource type="Script" uid="uid://ctjsn05qk3nck" path="res://Scripts/UI/AI_HealthBar.gd" id="11_amylj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5d6t"]
 albedo_color = Color(0.75686276, 0.6431373, 0, 1)
@@ -61,14 +63,15 @@ volumetric_fog_albedo = Color(0.13387778, 0.07394979, 0.07395729, 1)
 volumetric_fog_anisotropy = 0.8
 volumetric_fog_length = 128.0
 
-[node name="Map" type="Node3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_omvt6"]
+
+[node name="Map" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
+script = ExtResource("1_5xwxy")
+playerScene = ExtResource("2_e10ry")
+Spawnpoint = NodePath("Gamespawn")
 
 [node name="SFIT" parent="." instance=ExtResource("1_8lb3l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.387809, -6.946082, 0.9865937)
-
-[node name="ProtoController" parent="." instance=ExtResource("2_e10ry")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.661605, 3.3095293, 43.175915)
-visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9117047, 0.4108462, 0, -0.4108462, 0.9117047, -2.5627644, 70.69363, 173.96056)
@@ -79,6 +82,7 @@ shadow_blur = 0.3
 
 [node name="Floor" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_b5d6t")
+use_collision = true
 
 [node name="Ground" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3505974, -3.909692, -5.8145065)
@@ -104,9 +108,6 @@ shape = SubResource("BoxShape3D_xmg8h")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="InvisibleWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9740982, 3.471312, 51.265327)
 shape = SubResource("BoxShape3D_xmg8h")
-
-[node name="Jungle" parent="." instance=ExtResource("6_5xwxy")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 21.209206, -16.368088, 2.5596352)
 
 [node name="Decoration" type="Node3D" parent="."]
 
@@ -183,3 +184,74 @@ environment = SubResource("Environment_omvt6")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e32mi")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Gamespawn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_omvt6")
+
+[node name="Hosting" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="Hosting"]
+offset_left = 950.0
+offset_top = 580.0
+offset_right = 1070.0
+offset_bottom = 670.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="Hosting"]
+offset_left = 948.0
+offset_top = 461.0
+offset_right = 1068.0
+offset_bottom = 551.0
+text = "JOIN"
+
+[node name="IP" type="LineEdit" parent="Hosting"]
+offset_left = 1121.0
+offset_top = 473.0
+offset_right = 1461.0
+offset_bottom = 536.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Enter IP"
+
+[node name="ShowIP" type="Label" parent="Hosting"]
+offset_left = 1140.0
+offset_top = 602.0
+offset_right = 1180.0
+offset_bottom = 657.0
+theme_override_font_sizes/font_size = 40
+
+[node name="Start" type="Button" parent="Hosting"]
+offset_left = 950.0
+offset_top = 709.0
+offset_right = 1052.0
+offset_bottom = 772.0
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="Players" type="Label" parent="Hosting"]
+offset_left = 1070.0
+offset_top = 709.0
+offset_right = 1110.0
+offset_bottom = 764.0
+theme_override_font_sizes/font_size = 40
+
+[node name="Gamespawn" parent="." instance=ExtResource("10_e32mi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4893067, 0.9373292, 41.477596)
+
+[node name="AIHealth" type="ProgressBar" parent="." node_paths=PackedStringArray("progress_bar")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -331.0
+offset_top = 17.0
+offset_right = 400.0
+offset_bottom = 44.0
+grow_horizontal = 2
+script = ExtResource("11_amylj")
+progress_bar = NodePath(".")
+
+[connection signal="pressed" from="Hosting/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Hosting/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Hosting/Start" to="." method="_on_start_pressed"]

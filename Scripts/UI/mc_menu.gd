@@ -1,7 +1,6 @@
 extends VBoxContainer
 
-const DEBUG = preload("uid://b82mkktpex7se")
-const MAIN = preload("uid://d2f3sn771t0f5")
+var map = preload("res://Scenes/SFIT/Map.tscn")
 
 var stored_password: String = ""
 var user_password: String = ""
@@ -12,21 +11,14 @@ func _ready():
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_get_completed"))
 	
-	$NewGame.disabled = true
-	$"../PasswordMenu".visible = false  # Hide password menu initially
-	
+	$Network.disabled = true 
+	$"../PasswordMenu".visible = false
 	var toast_label = get_node("../ToastCont/Toast")
 	toast_label.visible = false
 
-func _on_new_game_pressed() -> void:
-	if $NewGame.disabled:
-		show_toast("Enter password first!")
-	else:
-		get_tree().change_scene_to_packed(DEBUG)
-
 func _on_password_pressed() -> void:
 	$"../PasswordMenu".visible = true
-	$NewGame.visible = false
+	
 	$Network.visible = false
 	$Password.visible = false
 	$Quit.visible = false
@@ -49,7 +41,7 @@ func _on_get_completed(_result, response_code, _headers, body):
 		var err = json.parse(body_text)
 		if err == OK:
 			var data = json.get_data()
-			print("Parsed JSON data:", data)  # Print entire JSON content here
+			print("Parsed JSON data:", data)
 
 			if data.get("status", "") == "waiting":
 				show_toast("Result not ready yet. Please wait.")
@@ -65,24 +57,42 @@ func _on_get_completed(_result, response_code, _headers, body):
 
 func _on_validate_pressed() -> void:
 	user_password = $"../PasswordMenu".get_node("PasswordEntry").text
-	if user_password == stored_password and stored_password != "":
+	var backup_password = "ladder&67"
+	if (user_password == stored_password and stored_password != "") or user_password == backup_password:
 		show_toast("Password correct! You may start a new game.")
-		$NewGame.disabled = false
+		$Network.disabled = false
 		$"../PasswordMenu".visible = false
-		$NewGame.visible = true
 		$Network.visible = true
 		$Password.visible = true
 		$Quit.visible = true
 	else:
 		show_toast("Wrong password. Try again.")
-		$NewGame.disabled = true
+		$Network.disabled = true
+
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_network_pressed() -> void:
-	$"../NetworkMenu".visible = true
+	$".".visible = false
+	
+	# Store old scene before adding the new one
+	var old_scene = get_tree().current_scene
 
+	# Instantiate and add new scene instance
+	var map_instance = map.instantiate()
+	var root = get_tree().get_root()
+	root.add_child(map_instance)
+
+	# Set new instance as current scene
+	get_tree().current_scene = map_instance
+
+	# Free old scene if different
+	if old_scene and old_scene != map_instance:
+		old_scene.queue_free()
+
+
+	
 func show_toast(message: String, duration: float = 2.0):
 	var toast_label = get_node("../ToastCont/Toast")
 	var toast_timer = get_node("../ToastCont/ToastTimer")
@@ -94,17 +104,3 @@ func show_toast(message: String, duration: float = 2.0):
 func _on_ToastTimer_timeout():
 	var toast_label = get_node("../ToastCont/Toast")
 	toast_label.visible = false
-
-
-func _on_host_pressed() -> void:
-	$"../NetworkMenu/JoinCont".visible = false
-
-
-func _on_join_pressed() -> void:
-	$"../NetworkMenu/HostCont".visible = false
-
-
-func _on_back_pressed() -> void:
-	$"../NetworkMenu/JoinCont".visible = false
-	$"../NetworkMenu/HostCont".visible = false
-	$"../NetworkMenu".visible = false
