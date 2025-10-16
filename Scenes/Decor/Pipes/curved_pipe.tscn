@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd5s22726uonj"]
+
+[ext_resource type="PackedScene" uid="uid://b6vki60geuxuk" path="res://Assets/Models/PipeLines/gaz_pipe/scene.gltf" id="1_pdtxy"]
+
+[node name="CurvedPipe" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_pdtxy")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)

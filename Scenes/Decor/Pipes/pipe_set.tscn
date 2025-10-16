@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2dw3nqtm87y4"]
+
+[ext_resource type="PackedScene" uid="uid://wx47x11hce5h" path="res://Assets/Models/PipeLines/big_gas_pipe_part1_poppy_playtime_chapter_4/scene.gltf" id="1_x11pg"]
+
+[node name="Pipe_Set" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_x11pg")]
+
+[editable path="Sketchfab_Scene"]

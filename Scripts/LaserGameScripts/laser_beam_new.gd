@@ -94,6 +94,6 @@ func _on_body_entered(body: Node3D) -> void:
 	call_deferred("_teleport_body", body)
 
 func _teleport_body(body: Node3D) -> void:
-	body.global_position = Vector3(14.301, 37.492, 37.492)
+	body.position = spawnPoint.position
 		
 	

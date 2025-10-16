@@ -1,0 +1,11 @@
+Model Information:
+* title:	Metal gas pipe
+* source:	https://sketchfab.com/3d-models/metal-gas-pipe-bafcd5e1eacb4f7ba65707df96969e62
+* author:	ForevereQ (https://sketchfab.com/ForevereQ)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Metal gas pipe" (https://sketchfab.com/3d-models/metal-gas-pipe-bafcd5e1eacb4f7ba65707df96969e62) by ForevereQ (https://sketchfab.com/ForevereQ) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

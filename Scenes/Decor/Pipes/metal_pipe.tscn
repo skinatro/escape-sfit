@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxbtyivnmj0us"]
+
+[ext_resource type="PackedScene" uid="uid://k1vivonnn0pk" path="res://Assets/Models/PipeLines/metal_gas_pipe/scene.gltf" id="1_mfmx6"]
+
+[node name="MetalPipe" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_mfmx6")]

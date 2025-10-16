@@ -451,8 +451,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.331177, 2, 16.757452)
 size = Vector3(4.3759108, 1, 2.8269172)
 
 [node name="FloorB" type="CSGBox3D" parent="Floors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3101892, 2.180872, 32.003895)
-size = Vector3(63.11071, 1.4101563, 27.836914)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3101892, 2.180872, 32.103992)
+size = Vector3(63.11071, 1.4101563, 28.03711)
 
 [node name="MidLevel3" type="CSGBox3D" parent="Floors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.0241785, 2, 16.873913)
