@@ -148,12 +148,7 @@ transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, -1.13668, 0.6, 
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, -0.936683, 0.999999, 0.6)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Area3D/CSGPolygon3D"]
-transform = Transform3D(-2.16371e-08, -1.47, 0, 0.495, -6.42558e-08, 0, 0, 0, 0.45, -0.136684, -7.45058e-09, -0.06815)
-mesh = SubResource("CylinderMesh_jyof0")
-skeleton = NodePath("")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Area3D/CSGPolygon3D"]
-transform = Transform3D(0.495, -5.68434e-14, 0, 1.77636e-15, 1.47, 0, 0, 0, 0.45, 0.0633159, 0, -0.06815)
+transform = Transform3D(0.4286826, -0.735, 0, 0.2475, 1.2730575, 0, 0, 0, 0.45, -0.136684, -7.45058e-09, -0.06815)
 mesh = SubResource("CylinderMesh_jyof0")
 skeleton = NodePath("")
 

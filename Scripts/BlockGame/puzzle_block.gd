@@ -14,6 +14,8 @@ var rotation_speed := 180.0 # degrees per second
 var blockSelected:=false
 var canSelect:=false
 
+var currentRotation:float
+
 @onready var label_3d: Label3D = $Area3D/CSGPolygon3D/Label3D
 @onready var label_3d_2: Label3D = $Area3D/CSGPolygon3D/Label3D2
 
@@ -23,7 +25,9 @@ var parent_node:Node3D=null
 func _ready() -> void:
 	area3d.input_event.connect(_on_area3d_input_event)
 	area3d.input_event.connect(_on_area3d_input_event)
+	
 	block.rotation_degrees.z=[30,90,150,210,270].pick_random() #initial rotation (random)
+	currentRotation=block.rotation_degrees.z
 	
 func _process(delta: float) -> void:
 	label_3d.text=str(blockSelected)	
@@ -82,15 +86,7 @@ func _on_area3d_input_event(camera: Camera3D, event: InputEvent, position: Vecto
 		animation_player.play("HEXA_HOVER_ANIM")
 
 		
-## Called when you click anywhere else
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
-			#if(blockSelected):
-				#animation_player.speed_scale = -1
-				#animation_player.play("HEXA_HOVER_ANIM")  # play backward
-				#animation_player.seek(animation_player.current_animation_length)
-			#blockSelected = false
-			#parent_node.is_blockSelected=false
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canSelect:
 		if blockSelected:

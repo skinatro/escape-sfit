@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=88 format=4 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://d1n2m178eykjv" path="res://Scenes/WaveGame/console_panel.tscn" id="18_svoaa"]
 [ext_resource type="PackedScene" uid="uid://dsb4l8jkavooh" path="res://Scenes/Block Game/puzzle_blockHEXA.tscn" id="18_v3jug"]
 [ext_resource type="PackedScene" uid="uid://gw8jv5olfpml" path="res://Scenes/TerminalGame/computer_tabel.tscn" id="19_cypxe"]
+[ext_resource type="PackedScene" uid="uid://durq041py6pld" path="res://Scenes/Block Game/puzzle_manager.tscn" id="19_ku42k"]
 [ext_resource type="PackedScene" uid="uid://b54fydbav4ra2" path="res://Scenes/WaveGame/signal_console.tscn" id="19_t08ej"]
 [ext_resource type="PackedScene" uid="uid://b7b54wfwf8ut4" path="res://Scenes/TerminalGame/Terminal.tscn" id="20_3k8sb"]
 [ext_resource type="PackedScene" uid="uid://c2nfdlf28lxkm" path="res://Scenes/LaserGame/LaserGamebutton.tscn" id="20_p71kt"]
@@ -71,6 +72,15 @@ load_path = "res://.godot/imported/floor.jpg-bcdf8b04e9a330a26a16e980de6bc504.s3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mfcl"]
 albedo_texture = SubResource("CompressedTexture2D_aioi8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l55se"]
+albedo_color = Color(1, 1, 0.0745098, 1)
+emission_enabled = true
+emission = Color(0.985159, 0.635418, 3.85046e-07, 1)
+emission_energy_multiplier = 3.79
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jyof0"]
+material = SubResource("StandardMaterial3D_l55se")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8nihp"]
 size = Vector3(3.3432617, 1, 8.999573)
@@ -409,6 +419,34 @@ load_path = "res://.godot/imported/floor.jpg-bcdf8b04e9a330a26a16e980de6bc504.s3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c5wn4"]
 albedo_texture = SubResource("CompressedTexture2D_v3jug")
 
+[sub_resource type="Animation" id="Animation_gjl24"]
+resource_name = "BlockAnim"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor2/BlockGame/Camera3D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.59, 1.02, 1.62, 2.53),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.2399517, 0), Vector3(0, -1.2043645, 0), Vector3(0, -1.5293449, 0), Vector3(0, -1.5707964, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Floor2/BlockGame/Camera3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.59, 1.02, 1.62, 2.53),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(12.616674, 2.1694164, -15.298252), Vector3(13.499783, 2.1694164, -16.085999), Vector3(15.288441, 2.1694164, -17.749565), Vector3(16.643805, 1.3233814, -19.591045), Vector3(17.645891, 1.1557655, -19.1368)]
+}
+
 [sub_resource type="Animation" id="Animation_v3jug"]
 resource_name = "ConsoleFoucs"
 length = 3.0
@@ -538,34 +576,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-19.132196, 1.6451015, -16.489592), Vector3(-19.674658, 1.6451015, -16.489592), Vector3(-20.177736, 1.4540552, -16.489592), Vector3(-20.80915, 1.2142069, -16.487709)]
-}
-
-[sub_resource type="Animation" id="Animation_gjl24"]
-resource_name = "BlockAnim"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Floor2/BlockGame/Camera3D:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.59, 1.02, 1.62, 2.53),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.2399517, 0), Vector3(0, -1.2043645, 0), Vector3(0, -1.5293449, 0), Vector3(0, -1.5707964, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Floor2/BlockGame/Camera3D:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.59, 1.02, 1.62, 2.53),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(12.616674, 2.1694164, -15.298252), Vector3(13.499783, 2.1694164, -16.085999), Vector3(15.288441, 2.1694164, -17.749565), Vector3(16.643805, 1.3233814, -19.591045), Vector3(17.645891, 1.1557655, -19.1368)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_svoaa"]
@@ -14701,6 +14711,9 @@ size = Vector3(0.15, 3, 9.369141)
 
 [node name="BlockGame" type="Node3D" parent="Floor2"]
 
+[node name="PuzzleManager" parent="Floor2/BlockGame" node_paths=PackedStringArray("blocks") instance=ExtResource("19_ku42k")]
+blocks = [NodePath("../Blocks/Puzzle_Block"), NodePath("../Blocks/Puzzle_Block6"), NodePath("../Blocks/Puzzle_Block4"), NodePath("../Blocks/Puzzle_Block14"), NodePath("../Blocks/Puzzle_Block15"), NodePath("../Blocks/Puzzle_Block16"), NodePath("../Blocks/Puzzle_Block18"), NodePath("../Blocks/Puzzle_Block17"), NodePath("../Blocks/Puzzle_Block7"), NodePath("../Blocks/Puzzle_Block2"), NodePath("../Blocks/Puzzle_Block5"), NodePath("../Blocks/Puzzle_Block9"), NodePath("../Blocks/Puzzle_Block10"), NodePath("../Blocks/Puzzle_Block3"), NodePath("../Blocks/Puzzle_Block8"), NodePath("../Blocks/Puzzle_Block11")]
+
 [node name="Blocks" type="Node3D" parent="Floor2/BlockGame" node_paths=PackedStringArray("cutSceneCam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.12052, -4.442935, -18.9108)
 script = ExtResource("18_c5wn4")
@@ -14709,50 +14722,241 @@ cutSceneCam = NodePath("../Camera3D")
 [node name="Puzzle_Block" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.6147738, -0.8196945)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.122900695, -1.4239707, -2.1918607e-08, 0.47950023, -0.36497775, 9.21913e-09, -1.5809743e-08, -6.188148e-08, 0.44999993, -0.18626404, 0.2825241, -0.06814575)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block/Area3D/CSGPolygon3D" index="3"]
+transform = Transform3D(-0.31992924, -0.41039273, -3.3984573e-08, 0.18839265, -0.69693077, 1.4591439e-10, -2.4222544e-08, -3.0767378e-08, 0.44999993, -1.0472565, 0.6975899, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block/Area3D/CSGPolygon3D" index="5"]
+transform = Transform3D(0.1859562, -0.43006232, 1.2434498e-14, 0.10736191, 0.7448894, 2.1316282e-14, 7.1054274e-15, 5.836017e-16, 0.45, -1.1861725, -0.7051964, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block6" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.6147738, -1.4220066)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block6/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.09849246, -1.0682051, -2.0948681e-08, 0.4851024, -0.21688235, 9.441748e-09, -1.4763332e-08, -4.51772e-08, 0.45, -0.21205139, -0.617012, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block6/Area3D/CSGPolygon3D" index="3"]
+transform = Transform3D(0.43284905, -0.5287919, -1.5178703e-09, 0.24013959, 0.9531419, 2.2536986e-09, 2.5735858e-10, -6.5571673e-09, 0.44999993, 0.32472992, 0.43806458, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Puzzle_Block4" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.092847, -1.1199875)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block4/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.31797117, 0.44514206, -3.774785e-10, -0.19970271, 0.708765, -2.029675e-08, -8.740632e-09, 3.2341454e-08, 0.44999993, -0.13066864, -0.7892113, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block4/Area3D/CSGPolygon3D" index="3"]
+transform = Transform3D(-0.00723435, 0.83680344, -1.7413813e-08, -0.3754126, -0.016125977, -2.9501546e-08, -2.4891607e-08, 3.132487e-08, 0.45000002, -0.6994629, -0.17333221, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block14" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, -0.81627464)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block14/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.36267948, -1.0004344, -8.0168014e-09, 0.336881, -1.0770484, 7.646046e-09, -1.2185177e-08, 4.774705e-10, 0.45000002, 0.28910828, -0.3634262, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block14/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.18595622, -0.44513157, 1.4210855e-14, 0.10736194, 0.7709899, 2.6645353e-14, 8.881784e-15, 7.723958e-16, 0.45, -1.1650085, -0.7211113, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Puzzle_Block15" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.571966, -1.4115314)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block15/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.32166862, 0.7890841, -3.0702143e-09, -0.31909627, 0.7954451, -2.3687981e-08, -1.4602554e-08, 4.725589e-08, 0.44999987, -0.47618866, 0.083976746, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block15/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.43284905, -0.5287919, -1.5178667e-09, 0.24013963, 0.9531419, 2.2537021e-09, 2.5736036e-10, -6.5571673e-09, 0.44999993, 0.6443176, 0.045589447, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block16" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, 0.3966732)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block16/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.10280649, 1.4379467, -1.2949535e-08, -0.4842064, 0.30530414, -2.9076269e-08, -2.832804e-08, 6.1106306e-08, 0.44999993, 0.046401978, -0.3171234, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block16/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.18595622, -0.44513157, 1.4210855e-14, 0.10736194, 0.7709899, 2.6645353e-14, 8.881784e-15, 7.723958e-16, 0.45, 1.1250458, 0.60105896, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Puzzle_Block18" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.5712557, 1.000412)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block18/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.4286827, -0.545, 1.7763568e-15, 0.24750009, 0.9439677, 4.440892e-15, 7.1054274e-15, -4.3430124e-15, 0.45, -0.3156128, -0.49848557, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block18/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.11100162, 1.0862968, -1.22159145e-08, -0.43928558, 0.27449247, -2.8905749e-08, -2.5204203e-08, 4.7121137e-08, 0.44999984, 0.07260132, 0.60658646, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block17" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 5.571966, -0.1985836)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.35951513, -0.33810332, 2.048016e-09, 0.13774577, -0.88244635, -5.0644298e-09, 3.186437e-09, -8.392568e-09, 0.45000002, 0.5126724, 0.53896713, -0.06814575)
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="3"]
+transform = Transform3D(-0.35951513, -0.33810332, 2.048016e-09, 0.13774577, -0.88244635, -5.0644298e-09, 3.186437e-09, -8.392568e-09, 0.45000002, -0.10861969, -1.1177406, -0.06815338)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.070649534, -0.928953, -8.900877e-09, 0.37846243, 0.1734123, -2.7744614e-08, 2.4731417e-08, -7.682745e-09, 0.45000002, -0.67157745, -0.14575195, -0.06815338)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="6"]
+transform = Transform3D(0.18595622, -0.44513154, 1.4210855e-14, 0.10736194, 0.7709899, 2.5757174e-14, 8.881784e-15, 1.0913676e-15, 0.45, 1.262886, 0.68063354, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="7"]
+transform = Transform3D(0.18595622, -0.44513157, 1.4210855e-14, 0.10736194, 0.7709899, 2.6645353e-14, 8.881784e-15, 7.723958e-16, 0.45, -1.2139053, -0.74934006, -0.06815338)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block17/Area3D/CSGPolygon3D" index="8"]
+transform = Transform3D(-0.06137514, 0.9329158, -2.5604256e-08, -0.38007653, -0.15064815, 7.870292e-09, 3.1552103e-09, 5.5716008e-08, 0.45000002, 0.85582733, -0.379673, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Puzzle_Block7" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.092847, -1.7217216)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block7/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.4286828, -0.585172, 7.1054274e-15, 0.24750015, 1.0135477, 9.769963e-15, 1.2434498e-14, 1.6113142e-15, 0.45, -0.84851074, -0.48746872, -0.06814575)
+
 [node name="Puzzle_Block2" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.0959177, -0.5139656)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block2/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.42868274, -0.8152141, 3.5527137e-15, 0.2475001, 1.4119921, 6.217249e-15, 8.881784e-15, 7.910586e-15, 0.45, 0.034065247, -0.033332825, -0.06814575)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block2/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(-0.055843055, 0.9350071, -2.5860732e-08, -0.38092864, -0.1370694, 7.743823e-09, 3.3460026e-09, 5.609195e-08, 0.45000005, -0.34631348, -1.0404015, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block2/Area3D/CSGPolygon3D" index="5"]
+transform = Transform3D(-0.37208247, -0.27612764, 1.4353869e-09, 0.09889226, -1.0389317, -3.0700837e-09, 1.8615287e-09, -6.207264e-09, 0.45, -0.9434509, 0.14561844, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block2/Area3D/CSGPolygon3D" index="6"]
+transform = Transform3D(5.1781535e-05, 0.80878615, -1.7032072e-08, -0.37127692, 0.00011283159, -2.9505198e-08, -2.4341583e-08, 3.0619205e-08, 0.44999993, 0.081329346, 1.2544861, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block5" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
-transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.102151, 0.097745895)
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.1421003, 0.097745895)
+
+[node name="CSGPolygon3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D" index="1"]
+transform = Transform3D(-0.86602503, -0.5, 0, 0.5, -0.86602503, 0, -3.5527137e-15, 0, 1, -0.063, 0, 0)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.4286828, -0.779643, 7.1054274e-15, 0.24750015, 1.3503805, 9.769963e-15, 1.7763568e-15, 5.0893822e-15, 0.45, -0.043052673, -0.04125595, -0.06814575)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(-0.35951513, -0.33810332, 2.048016e-09, 0.13774577, -0.88244635, -5.0644298e-09, 3.186436e-09, -8.392568e-09, 0.45000002, 1.083458, -0.29875565, -0.06813049)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D/CSGPolygon3D" index="5"]
+transform = Transform3D(-0.08412287, 1.0490247, -2.4523837e-08, -0.3756972, -0.23488858, 8.3536085e-09, 2.3898004e-09, 6.152949e-08, 0.45, 0.32208252, 0.8762741, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D/CSGPolygon3D" index="6"]
+transform = Transform3D(-0.311809, -0.4390514, -3.3554365e-08, 0.2015486, -0.6792419, 8.4291374e-10, -2.362762e-08, -3.146566e-08, 0.44999993, -1.1317062, 0.6201019, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block5/Area3D/CSGPolygon3D" index="7"]
+transform = Transform3D(5.1781535e-05, 0.80878615, -1.7032072e-08, -0.37127692, 0.00011283159, -2.9505198e-08, -2.4341583e-08, 3.06192e-08, 0.44999993, -0.13861847, -1.2876701, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Puzzle_Block9" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.0959177, 0.7017174)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block9/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.02062191, -0.7902775, -8.268178e-09, 0.5236954, -0.031119108, 4.559105e-09, -1.2244081e-08, -3.059622e-08, 0.20892373, 0.7961197, 0.12763977, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block9/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.31797117, 0.44514206, -3.7747228e-10, -0.19970271, 0.708765, -2.029675e-08, -8.740632e-09, 3.2341454e-08, 0.44999993, 0.45311737, 0.67116165, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block10" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.102151, 1.3134289)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block10/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.4286827, -0.53449905, 1.7763568e-15, 0.24750009, 0.92577946, 4.440892e-15, 7.1054274e-15, 4.742175e-15, 0.45, 0.91371155, 0.52241135, -0.06814575)
 
 [node name="Puzzle_Block3" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, -0.20631981)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.1859562, -0.43006232, 1.2434498e-14, 0.10736191, 0.7448894, 2.1316282e-14, 7.1054274e-15, 5.836017e-16, 0.45, 1.2271805, 0.74246216, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="3"]
+transform = Transform3D(0.1859562, -0.43006232, 1.2434498e-14, 0.10736191, 0.7448894, 2.1316282e-14, 7.1054274e-15, 5.836017e-16, 0.45, -1.2255402, -0.679821, -0.06815338)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="5"]
+transform = Transform3D(-0.35951513, -0.33810332, 2.048016e-09, 0.13774577, -0.88244635, -5.0644298e-09, 3.186437e-09, -8.392568e-09, 0.45000002, -0.41236115, -0.5184326, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="6"]
+transform = Transform3D(-0.35951513, -0.33810332, 2.048016e-09, 0.13774577, -0.88244635, -5.0644298e-09, 3.186437e-09, -8.392568e-09, 0.45000002, 0.09402466, 0.8059311, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="7"]
+transform = Transform3D(-0.055843055, 0.93500686, -2.5860729e-08, -0.38092864, -0.1370694, 7.7438225e-09, 3.3460026e-09, 5.6091945e-08, 0.45000005, 0.6574478, 0.099220276, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block3/Area3D/CSGPolygon3D" index="8"]
+transform = Transform3D(-0.06137511, 0.9329158, -2.560425e-08, -0.38007653, -0.15064815, 7.870288e-09, 3.1552112e-09, 5.5716008e-08, 0.45000002, -0.69088745, 0.29825592, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block8" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, 0.39699173)
 
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block8/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(-0.36260876, -1.00066, 0, 0.3369569, -1.0768383, 1.7763568e-15, 4.440892e-16, -7.1054274e-15, 0.45, -0.21100616, 0.12873459, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block8/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.18595622, -0.43006232, 1.4210855e-14, 0.10736194, 0.7448894, 2.4868996e-14, 8.881784e-15, 1.9346205e-15, 0.45, 1.1521606, 0.6929512, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
+
 [node name="Puzzle_Block11" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.623185, 1.0107918)
+
+[node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block11/Area3D/CSGPolygon3D" index="2"]
+transform = Transform3D(0.4286827, -0.545, 1.7763568e-15, 0.24750009, 0.9439677, 4.440892e-15, 7.1054274e-15, -4.3430124e-15, 0.45, -0.5270386, -0.02917099, -0.06814575)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block11/Area3D/CSGPolygon3D" index="4"]
+transform = Transform3D(0.3216687, 0.7890841, -3.0702205e-09, -0.31909627, 0.7954451, -2.3687981e-08, -1.46025485e-08, 4.725589e-08, 0.44999987, 0.62480927, -0.2839203, -0.06814575)
+mesh = SubResource("CylinderMesh_jyof0")
+skeleton = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="Floor2/BlockGame/Blocks"]
 collision_mask = 2
@@ -14950,7 +15154,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.6
 
 [node name="Floor3" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 19.431223, 1.5412483)
-visible = false
 
 [node name="WaveGame" type="Node3D" parent="Floor3"]
 
@@ -15012,11 +15215,9 @@ transform = Transform3D(-4.371139e-07, 0, -10, 0, 10, 0, 10, 0, -4.371139e-07, -
 
 [node name="Floor4" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 24.309902, 1.5412483)
-visible = false
 
 [node name="Floor5" parent="." instance=ExtResource("1_33ows")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 29.241655, 1.5412483)
-visible = false
 
 [node name="TerminalGame" type="Node3D" parent="Floor5"]
 
@@ -15130,7 +15331,6 @@ transform = Transform3D(1.0147618, 0, 0, 0, 0.34488118, 0, 0, 0, 0.6, -12.002068
 
 [node name="Floor6" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 34.16824, 1.5412483)
-visible = false
 
 [node name="Lift" type="Node3D" parent="Floor6"]
 transform = Transform3D(1.00007, 0, 0, 0, 1.00007, 0, 0, 0, 1.00007, 0, 0, 0)
@@ -25023,7 +25223,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106935e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.3499425e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
+transform = Transform3D(1.9106939e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.8705256e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -25032,7 +25232,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew14" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106816e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 4.500038e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
+transform = Transform3D(1.9106812e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 4.755924e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -25067,7 +25267,6 @@ shape = SubResource("BoxShape3D_3k8sb")
 
 [node name="Floor7" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 39.0454, 1.5412483)
-visible = false
 
 [node name="Lift" type="Node3D" parent="Floor7"]
 transform = Transform3D(1.00007, 0, 0, 0, 1.00007, 0, 0, 0, 1.00007, 0, 0, 0)
@@ -31135,6 +31334,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 23.227673, 38.24696)
 [connection signal="body_exited" from="Floor6/LazerGame/JumpDisabler" to="Floor6/LazerGame/GameButton" method="_on_jump_disabler_body_exited"]
 
 [editable path="Floor2"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block6"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block4"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block14"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block15"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block16"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block18"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block17"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block7"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block2"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block5"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block9"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block10"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block3"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block8"]
+[editable path="Floor2/BlockGame/Blocks/Puzzle_Block11"]
 [editable path="Floor2/BlockGame/RoomDecor/Pipe_Set"]
 [editable path="Floor2/BlockGame/RoomDecor/Pipe_Set/Sketchfab_Scene"]
 [editable path="Floor3"]

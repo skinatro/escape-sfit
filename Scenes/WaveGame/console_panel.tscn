@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://d1n2m178eykjv"]
+[gd_scene load_steps=17 format=4 uid="uid://d1n2m178eykjv"]
 
 [ext_resource type="PackedScene" uid="uid://c5t3rqfoqdo8v" path="res://Assets/Models/cctv_console/scene.gltf" id="1_2nlt1"]
 [ext_resource type="Script" uid="uid://cbetmjk5bs8im" path="res://Scripts/WaveGameScripts/console_panel.gd" id="1_ebo4l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://r44brpnrobsj" path="res://Assets/Models/cctv_console/textures/Material.001_metallicRoughness.png" id="3_enx04"]
 [ext_resource type="Texture2D" uid="uid://bsqipvrg15qv4" path="res://Assets/Models/cctv_console/textures/Material.001_normal.png" id="4_hj5lm"]
 [ext_resource type="Texture2D" uid="uid://bbioy2ck1dyil" path="res://Assets/Textures/OscilloScopeBG.png" id="5_uporo"]
+[ext_resource type="Animation" uid="uid://cs8pk4gtjg3ux" path="res://Animationsssssssss/animationn.res" id="7_enx04"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0m3w"]
 resource_name = "Material.001"
@@ -63,6 +64,144 @@ clearcoat_roughness = 1.0
 backlight_enabled = true
 backlight = Color(0.27387273, 0.27387273, 0.27387273, 1)
 
+[sub_resource type="Animation" id="Animation_hj5lm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_002_31/Object_66:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_003_32/Object_68:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_001_30/Object_64:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_004_33/Object_70:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/main TV_001_29/Object_62:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tg1eh"]
+_data = {
+&"Animation": ExtResource("7_enx04"),
+&"RESET": SubResource("Animation_hj5lm")
+}
+
+[sub_resource type="Animation" id="Animation_uporo"]
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_002_31/Object_66:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.39, 0.61, 0.71, 0.84, 1.04, 1.4, 1.47, 1.78, 2.54, 2.64, 2.76, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_003_32/Object_68:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.28, 0.74, 0.83, 0.91, 1, 1.23, 1.39, 1.78, 1.87, 2.26, 2.83, 2.88, 2.94, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_001_30/Object_64:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.78, 0.83, 0.93, 2.15, 2.41, 2.63, 2.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/second TV_004_33/Object_70:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.2, 0.44, 0.67, 2.45, 2.55, 2.69, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sketchfab_model/root/GLTF_SceneRootNode/main TV_001_29/Object_62:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.24, 0.32, 0.69, 0.97, 1.17, 1.62, 2.31, 2.33, 2.82, 2.85, 2.88, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6fh7f"]
+_data = {
+&"Flickker": SubResource("Animation_uporo")
+}
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebo4l"]
 radius = 1.6147461
 
@@ -82,11 +221,18 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0031535625)
 surface_material_override/0 = SubResource("StandardMaterial3D_6fh7f")
 
+[node name="Object_68" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/second TV_003_32" index="0"]
+visible = false
+
 [node name="Object_70" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/second TV_004_33" index="0"]
 visible = false
 
 [node name="AnimationPlayer" parent="Sketchfab_Scene" index="1"]
-autoplay = "Animation"
+libraries = {
+&"": SubResource("AnimationLibrary_tg1eh"),
+&"NEW": SubResource("AnimationLibrary_6fh7f")
+}
+autoplay = "NEW/Flickker"
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23897564, 0, -2.2304382)

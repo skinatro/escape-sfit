@@ -84,19 +84,63 @@ func checkValidity(input:String):
 		
 		#Player Wins
 		if expectedCommand>5:
-			for i in range(50):
-				var text=["jgdldvdvdehj","ughdeudbjwkadg","utibfdt............uidgOWDIDGIHD","IUAGDLIDGQW...UIGAYDVahj=-=-=-="].pick_random()
+			for i in range(200):
+				var text = [
+	"..........---===---..........",
+	"ughdeudbjwkadg",
+	"jgdldvdvdehj",
+	"utibfdt............uidgOWDIDGIHD",
+	"IUAGDLIDGQW...UIGAYDVahj=-=-=-=",
+	"---/////---/////---/////",
+	"==--==--==--==--==--==--",
+	"..::..::..::..::..::..::",
+	"###@@@###@@@###@@@###",
+	"__--__--__--__--__--__--",
+	"..--==[ERROR]===--..",
+	"||>>-->>..<<--<<||",
+	"....LOADING...0xFFF....",
+	"%%$$##!!??>>--<<++==",
+	"[[[[[[[[[]]]]]]]]]",
+	"//\\//\\//\\//\\//\\//\\",
+	"000111000111000111",
+	"!!@@##$$%%^^&&**((",
+	"....../..../..../....",
+	"::DATA_CORRUPT::",
+	"|||||||||||||||||||",
+	"==-=--=---=--=-==--=",
+	"....--===>REBOOT<===--....",
+	"^_^_^_^_^_^_^_^_^_^_^_",
+	"{{{[[[<<<>>>]]]}}}",
+	"::::SYSTEM::::BREACH::::",
+	"---...---...---...---...",
+	"@@##@@##@@##@@##@@##",
+	"<<>>><<>>><<>>><<>>",
+	"0xADFF--0x9EF3--0x77C9",
+	"..::..::UPLINK LOST::..::..",
+	"----[SIGNAL NOISE]----",
+	"==//==\\==//==\\==//==",
+	"||||\\||||/||||\\||||/",
+	"......::::::......::::::",
+	"---CRITICAL FAILURE---",
+	"///\\\\///\\\\///\\\\",
+	"##==##==##==##==##==##",
+	"--==[RETRYING CONNECTION]==--",
+	"==--==--==--==--==--==--",
+	"..........////..........",
+	"......--SYSTEM OVERRIDE--......",
+	"!!##@@$$%%^^&&**((()))",
+	"===>>> TRANSMISSION LOST <<<===",
+	".................:::::................."
+	].pick_random()
 				addTextLable(text)
-				await get_tree().current_scene.create_timer(.1).timeout
+				await get_tree().create_timer(.005).timeout
 				
-			#Ai.ReduceHealth()
+			Ai.ReduceHealth()
 			
-			var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
-	#print("SearchingPlayer")
+			var player
 			for obj in get_tree().current_scene.get_children():
 				if obj is CharacterBody3D:
 					player=obj
-			#print("GotPlayer")
 					break
 			player.ristrictMovement=false
 			queue_free()
