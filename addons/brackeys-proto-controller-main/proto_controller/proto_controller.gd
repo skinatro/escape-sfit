@@ -88,7 +88,7 @@ func _ready() -> void:
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 	
-	cam.current=is_multiplayer_authority()
+	cam.current=true
 	
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -169,6 +169,9 @@ func exit_block():
 		
 		
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	if ristrictMovement:
 		velocity.x = 0
 		velocity.z = 0

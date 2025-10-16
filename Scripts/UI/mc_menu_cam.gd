@@ -8,3 +8,11 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	menu_cam.current = true
+
+
+func _on_host_pressed() -> void:
+	NetworkHandler.start_server()
+
+
+func _on_join_pressed() -> void:
+	NetworkHandler.start_client()
