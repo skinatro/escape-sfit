@@ -9,6 +9,8 @@ extends CharacterBody3D
 @export var base_fov: float = 75.0
 @export var sprint_fov: float = 85.0
 @export var fov_change_speed: float = 6.0
+@onready var animation_player: AnimationPlayer = $Model/AnimationPlayer
+var current_animation: String = ""
 
 #movement enable for spawn
 var movement_enabled: bool = false
@@ -61,9 +63,9 @@ var move_speed : float = 0.0
 var freeflying : bool = false
 
 ## IMPORTANT REFERENCES
-@onready var head: Node3D = $Head
+@onready var head: Node3D = $Model/Head
 @onready var collider: CollisionShape3D = $Collider
-@onready var cam: Camera3D = $Head/Camera3D
+@onready var cam: Camera3D = $Model/Head/Camera3D
 
 
 var active_block_count := 0
@@ -81,7 +83,6 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-
 	add_to_group("players")
 	check_input_mappings()
 	look_rotation.y = rotation.y
@@ -93,10 +94,12 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !blockGameActive:
-		capture_mouse()#################################################
+		capture_mouse()
 		pass
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
+	if event.is_action_pressed("interact"):  
+		do_interact_animation()
 
 	
 	# Look around
@@ -171,6 +174,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0
 		return  
 	# inside _physics_process(delta) where you handle sprint
+	update_animation()
 	var target_fov: float = base_fov
 	if can_sprint and Input.is_action_pressed(input_sprint):
 		target_fov = sprint_fov
@@ -326,3 +330,29 @@ func _run_body_test_motion(from:Transform3D, motion:Vector3, result=null)->bool:
 	params.motion=motion
 	return PhysicsServer3D.body_test_motion(self.get_rid(),params,result)
 	
+func play_animation(anim_name: String) -> void:
+	if current_animation == anim_name:
+		return  # Avoid restarting same animation
+	if animation_player and animation_player.has_animation(anim_name):
+		animation_player.play(anim_name)
+		current_animation = anim_name
+	else:
+		print("Animation not found:", anim_name)
+
+func update_animation():
+	if not is_on_floor():
+		if velocity.y > 0.1:
+			play_animation("Jump_Start")
+		elif velocity.y < -0.1:
+			play_animation("Jump_Land")
+	else:
+		var speed = Vector3(velocity.x, 0, velocity.z).length()
+		if speed > sprint_speed * 0.7:
+			play_animation("Jog_Fwd")
+		elif speed > 0.1:
+			play_animation("Walk")
+		else:
+			play_animation("Idle")
+
+func do_interact_animation():
+	play_animation("Interact")

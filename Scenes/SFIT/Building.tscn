@@ -25224,6 +25224,7 @@ spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
 transform = Transform3D(1.9106939e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.8705256e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
+transform = Transform3D(1.9106936e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.54406e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false

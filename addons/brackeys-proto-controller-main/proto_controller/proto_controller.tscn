@@ -1,15 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://d1g1p827swfsm" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.gd" id="1_3pa5o"]
+[ext_resource type="PackedScene" uid="uid://cw71pwqj275sv" path="res://Assets/Models/Player/exported-model.glb" id="2_2o2of"]
 [ext_resource type="Script" uid="uid://bf80l5svttgpn" path="res://addons/brackeys-proto-controller-main/proto_controller/door_ray_cast_3d.gd" id="2_hniue"]
 [ext_resource type="Texture2D" uid="uid://bycf5jw2uysik" path="res://Assets/Textures/crosshair.png" id="2_kescs"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
-albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ucva2"]
-radius = 0.4
-height = 1.8
+[ext_resource type="PackedScene" uid="uid://iavdsh25khu6" path="res://Scenes/SFIT/dust_shader.tscn" id="5_0gfhr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
 radius = 0.4
@@ -35,20 +30,13 @@ input_right = "right"
 input_forward = "up"
 input_back = "down"
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-material_override = SubResource("StandardMaterial3D_iof21")
-cast_shadow = 0
-mesh = SubResource("CapsuleMesh_ucva2")
+[node name="Model" parent="." instance=ExtResource("2_2o2of")]
+transform = Transform3D(1, 0, 0, 0, 1.241, 0, 0, 0, 1, 0, 0, 0.028499186)
 
-[node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_iof21")
+[node name="Head" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0.80580175, 0, 0, 0, 1, -4.3032573e-09, 1.3950748, 0.028499186)
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
-
-[node name="Headlight" type="SpotLight3D" parent="Head"]
+[node name="Headlight" type="SpotLight3D" parent="Model/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009682775, 0.52165854)
 light_energy = 3.0
 shadow_enabled = true
@@ -61,12 +49,17 @@ spot_attenuation = 0.9
 spot_angle = 33.75
 spot_angle_attenuation = 1.1095694
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Model/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14544654, 0.019523233)
 current = true
 
-[node name="DoorRayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+[node name="DoorRayCast3D" type="RayCast3D" parent="Model/Head/Camera3D"]
 transform = Transform3D(1.452, 0, 0, 0, -6.346894e-08, -1.452, 0, 1.452, -6.346894e-08, 0, 0, 0)
 script = ExtResource("2_hniue")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_iof21")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3pa5o")
@@ -101,3 +94,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="DustShader" parent="." instance=ExtResource("5_0gfhr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9250281, 0)
+visible = false

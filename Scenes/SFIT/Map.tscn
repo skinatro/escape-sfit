@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b82mkktpex7se"]
+[gd_scene load_steps=24 format=3 uid="uid://b82mkktpex7se"]
 
 [ext_resource type="Script" uid="uid://407lxle4oi8u" path="res://Scripts/main.gd" id="1_5xwxy"]
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://co2mhowvaurqg" path="res://Assets/Models/potted_plant_01/potted_plant_01_1k.gltf" id="7_e10ry"]
 [ext_resource type="PackedScene" uid="uid://xri0vv0pnkw6" path="res://Assets/Models/potted_plant_02/potted_plant_02_1k.gltf" id="8_a4sk2"]
 [ext_resource type="PackedScene" uid="uid://d4nblg7bsnfoc" path="res://Scenes/SFIT/gtashader.tscn" id="9_omvt6"]
+[ext_resource type="Script" uid="uid://bqc307setvepi" path="res://Scripts/game_over.gd" id="10_amylj"]
 [ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="10_e32mi"]
 [ext_resource type="Script" uid="uid://ctjsn05qk3nck" path="res://Scripts/UI/AI_HealthBar.gd" id="11_amylj"]
 
@@ -25,9 +26,6 @@ uv1_scale = Vector3(4.809, 4.809, 4.809)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmg8h"]
 size = Vector3(18.58812, 10.725464, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_omvt6"]
-size = Vector3(11.13797, 1, 10.820984)
-
 [sub_resource type="Environment" id="Environment_omvt6"]
 tonemap_mode = 2
 tonemap_exposure = 1.18
@@ -39,6 +37,43 @@ sdfgi_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.1326
 volumetric_fog_albedo = Color(0.4533428, 0.4533428, 0.4533428, 1)
+
+[sub_resource type="Animation" id="Animation_amylj"]
+resource_name = "ai_defeated"
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.8856497, 10.444104, 31.16994), Vector3(-7.46725, 10.444104, 31.16994)]
+}
+
+[sub_resource type="Animation" id="Animation_cfrmt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.8856497, 10.444104, 31.16994)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qakt5"]
+_data = {
+&"RESET": SubResource("Animation_cfrmt"),
+&"ai_defeated": SubResource("Animation_amylj")
+}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omvt6"]
 
@@ -65,6 +100,9 @@ volumetric_fog_anisotropy = 0.8
 volumetric_fog_length = 128.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_omvt6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omvt6"]
+size = Vector3(11, 1, 10.735474)
 
 [node name="Map" type="Node3D" node_paths=PackedStringArray("Spawnpoint")]
 script = ExtResource("1_5xwxy")
@@ -166,22 +204,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.622287, -1.9094214, 33.568
 [node name="PlantPotB9" parent="Decoration" instance=ExtResource("8_a4sk2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.447072, -2.020152, 34.387466)
 
-[node name="Exit" type="Node3D" parent="."]
-
-[node name="Shader" parent="Exit" instance=ExtResource("9_omvt6")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -2.4292226, -1.8620429, 43.424137)
-
-[node name="Area3D" type="Area3D" parent="Exit"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262993)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Exit/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44779706, -3.6931176, 3.176731)
-shape = SubResource("BoxShape3D_omvt6")
-debug_color = Color(0.49019608, 0, 0.36078432, 0.91764706)
-
 [node name="Cutscene" type="Camera3D" parent="."]
-transform = Transform3D(-1, 4.357918e-08, -7.5786524e-08, 0, 0.86689675, 0.49848774, 8.742278e-08, 0.49848774, -0.86689675, -2.6710398, 9.111832, 30.596298)
+transform = Transform3D(-1, 4.357918e-08, -7.5786524e-08, 0, 0.86689675, 0.49848774, 8.742278e-08, 0.49848774, -0.86689675, 2.8856497, 10.444104, 31.16994)
 environment = SubResource("Environment_omvt6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscene"]
+libraries = {
+&"": SubResource("AnimationLibrary_qakt5")
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e32mi")
@@ -239,7 +269,7 @@ offset_bottom = 764.0
 theme_override_font_sizes/font_size = 40
 
 [node name="Gamespawn" parent="." instance=ExtResource("10_e32mi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.769076, 18.149944, 39.996975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7645822, 0.49161983, 39.996975)
 
 [node name="AIHealth" type="ProgressBar" parent="." node_paths=PackedStringArray("progress_bar")]
 anchors_preset = 5
@@ -253,6 +283,20 @@ grow_horizontal = 2
 script = ExtResource("11_amylj")
 progress_bar = NodePath(".")
 
+[node name="ExitArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262993)
+script = ExtResource("10_amylj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17134356, -3.52427, 4.95496)
+shape = SubResource("BoxShape3D_omvt6")
+debug_color = Color(0.49019608, 0, 0.36078432, 0.91764706)
+
+[node name="Shader" parent="ExitArea" instance=ExtResource("9_omvt6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023781061, -4.1687574, 4.9547653)
+
 [connection signal="pressed" from="Hosting/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Hosting/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Hosting/Start" to="." method="_on_start_pressed"]
+[connection signal="body_entered" from="ExitArea" to="ExitArea" method="_on_body_entered"]
+[connection signal="body_exited" from="ExitArea" to="ExitArea" method="_on_body_exited"]

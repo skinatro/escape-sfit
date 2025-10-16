@@ -1,3 +1,6 @@
+extends Node
+
+
 #extends Node
 #
 #@export var progress_bar: ProgressBar
@@ -26,11 +29,12 @@
 #func update_progress_bar():
 	#if progress_bar:
 		#progress_bar.value = health
-extends Node
 
 @export var progress_bar: ProgressBar
 var health: int = 100
 var showBar=true
+@onready var cutscene_camera: Camera3D = $"../Cutscene"
+@onready var anim_player: AnimationPlayer = $"../Cutscene/AnimationPlayer"
 
 func _ready():
 	call_deferred("_assign_progress_bar")
@@ -66,8 +70,11 @@ func ReduceHealth():
 	health -= 25
 	rpc("sync_health", health)
 	update_progress_bar()
+	
+	#if health <= 0:
+		#cutscene_camera.current = true
 
-@rpc("any_peer")  # Server calls this -> all peers receive
+@rpc("any_peer") 
 func sync_health(new_health: int):
 	health = new_health
 	update_progress_bar()
