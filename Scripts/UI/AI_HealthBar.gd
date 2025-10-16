@@ -128,3 +128,14 @@ func find_camera_by_path_fragment(fragment: String) -> Camera3D:
 		if fragment in str(cam.get_path()):
 			return cam
 	return null
+
+#@rpc("any_peer")
+#func enableDust():
+	#for plyr in get_tree().current_scene.get_children():
+		#if plyr is CharacterBody3D:
+			#plyr.get_child(1).get_child(0).visible=true
+			#break
+#
+#func _unhandled_input(event: InputEvent) -> void:
+	#if(Input.is_key_pressed(KEY_0)):
+		#enableDust()
