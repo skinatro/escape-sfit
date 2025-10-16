@@ -253,16 +253,4 @@ func _enable_movement_locally() -> void:
 			pass
 		if p.has_method("set_movement_enabled"):
 			p.set_movement_enabled(true)
-			
-@rpc("reliable", "call_local")
-func _rpc_enable_player_particles(active: bool) -> void:
-	var player := get_tree().get_first_node_in_group("player")
-	if player and player.has_method("set_particles_emitting"):
-		player.set_particles_emitting(active)
-
-func trigger_cutscene_effect() -> void:
-	# Broadcast so all peers run the same effect
-	if multiplayer.is_server():
-		rpc("_rpc_enable_player_particles", true)
-	else:
-		rpc_id(1, "_rpc_enable_player_particles", true)
+				
