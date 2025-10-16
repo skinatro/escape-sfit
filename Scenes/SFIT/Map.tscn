@@ -38,6 +38,21 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.1326
 volumetric_fog_albedo = Color(0.4533428, 0.4533428, 0.4533428, 1)
 
+[sub_resource type="Animation" id="Animation_cfrmt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.8856497, 10.444104, 31.16994)]
+}
+
 [sub_resource type="Animation" id="Animation_amylj"]
 resource_name = "ai_defeated"
 step = 0.016666668
@@ -52,21 +67,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(2.8856497, 10.444104, 31.16994), Vector3(-7.46725, 10.444104, 31.16994)]
-}
-
-[sub_resource type="Animation" id="Animation_cfrmt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2.8856497, 10.444104, 31.16994)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qakt5"]
@@ -269,7 +269,7 @@ offset_bottom = 764.0
 theme_override_font_sizes/font_size = 40
 
 [node name="Gamespawn" parent="." instance=ExtResource("10_e32mi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7645822, 0.49161983, 39.996975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7645822, 0.49161983, 21.473076)
 
 [node name="AIHealth" type="ProgressBar" parent="." node_paths=PackedStringArray("progress_bar")]
 anchors_preset = 5
@@ -285,10 +285,11 @@ progress_bar = NodePath(".")
 
 [node name="ExitArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7817905, 2.2837043, 38.262993)
+collision_mask = 2
 script = ExtResource("10_amylj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ExitArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17134356, -3.52427, 4.95496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17134356, -3.5264342, 4.95496)
 shape = SubResource("BoxShape3D_omvt6")
 debug_color = Color(0.49019608, 0, 0.36078432, 0.91764706)
 

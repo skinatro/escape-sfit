@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=4 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=87 format=4 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -39,7 +39,6 @@
 [ext_resource type="PackedScene" uid="uid://h66sht4at7nq" path="res://Scenes/Decor/wall_wires.tscn" id="25_3ib2a"]
 [ext_resource type="Texture2D" uid="uid://bpvpkvihfupjk" path="res://Assets/Models/PipeLines/big_gas_pipe_part1_poppy_playtime_chapter_4/textures/MI_RedSmokeTubes_baseColor.png" id="25_gjl24"]
 [ext_resource type="PackedScene" uid="uid://be2o41r073fis" path="res://Scenes/Decor/wire_bundle.tscn" id="26_xwm7q"]
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.tscn" id="39_7d1ee"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbjfs"]
 albedo_texture = ExtResource("4_8fa3p")
@@ -587,9 +586,6 @@ _data = {
 }
 
 [node name="SFIT" type="Node3D"]
-
-[node name="ProtoController" parent="." instance=ExtResource("39_7d1ee")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.1026335, 14.002379, -17.732586)
 
 [node name="Floor0" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07576895, 4.523382, 1.4420586)
@@ -25224,7 +25220,6 @@ spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
 transform = Transform3D(1.9106939e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.8705256e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
-transform = Transform3D(1.9106936e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -7.54406e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -25233,7 +25228,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew14" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106812e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 4.755924e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
+transform = Transform3D(1.910681e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 4.9500413e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
 up_down = false
 Rotate = true
 isMovingUp = false

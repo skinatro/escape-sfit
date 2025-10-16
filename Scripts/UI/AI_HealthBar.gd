@@ -33,8 +33,9 @@ extends Node
 @export var progress_bar: ProgressBar
 var health: int = 100
 var showBar=true
-@onready var cutscene_camera: Camera3D = $"../Cutscene"
-@onready var anim_player: AnimationPlayer = $"../Cutscene/AnimationPlayer"
+@onready var cutscene_camera: Camera3D = get_tree().root.get_node("Map/Cutscene")
+@onready var anim_player: AnimationPlayer = get_tree().root.get_node("Map/Cutscene/AnimationPlayer")
+
 
 func _ready():
 	call_deferred("_assign_progress_bar")
@@ -71,10 +72,59 @@ func ReduceHealth():
 	rpc("sync_health", health)
 	update_progress_bar()
 	
-	#if health <= 0:
-		#cutscene_camera.current = true
+	if health <= 0:
+		play_cutscene()
+		
+		
 
 @rpc("any_peer") 
 func sync_health(new_health: int):
 	health = new_health
 	update_progress_bar()
+	
+@rpc("any_peer")
+func play_cutscene():
+	print("--- CUTSCENE START ---")
+	cutscene_camera.current = true
+	anim_player.play("ai_defeated")
+
+	await get_tree().create_timer(1).timeout
+
+	cutscene_camera.current = false
+
+	#print("Searching for player camera...")
+	#for cam in get_all_cameras():
+		#print("Found:", cam.get_path())
+
+	var player_cam = find_camera_by_path_fragment("Head")  # Adjust if needed
+	if player_cam:
+		player_cam.current = true
+		print("✅ Switched to player camera:", player_cam.get_path())
+	else:
+		print("❌ Player camera not found!")
+	
+	anim_player.play("RESET")
+
+	
+# 🔍 Utility: Get all cameras recursively
+func get_all_cameras() -> Array:
+	var cameras: Array = []
+	var root = get_tree().current_scene
+	if root:
+		_find_cameras_recursive(root, cameras)
+	return cameras
+
+
+# Recursive helper
+func _find_cameras_recursive(node: Node, cameras: Array) -> void:
+	if node is Camera3D:
+		cameras.append(node)
+	for child in node.get_children():
+		_find_cameras_recursive(child, cameras)
+
+
+func find_camera_by_path_fragment(fragment: String) -> Camera3D:
+	for cam in get_all_cameras():
+		if fragment in str(cam.get_path()):
+			return cam
+	return null
