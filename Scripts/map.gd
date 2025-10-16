@@ -66,7 +66,7 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer = _enet
 
 	var ips := IP.get_local_addresses()
-	var ip_text := ips[0] if ips.size() > 0 else "unknown"
+	var ip_text := get_ipv4_address()
 	host_label.text = "Host: %s:%d" % [ip_text, DEFAULT_PORT]
 
 	_connected_ids[1] = true
@@ -206,3 +206,30 @@ func _on_start_pressed() -> void:
 @rpc("reliable", "call_local")
 func _game_start_all() -> void:
 	start_btn.disabled = true
+
+func get_ipv4_address() -> String:
+	var ipv4_candidates: Array[String] = []
+
+	for ip in IP.get_local_addresses():
+		# Skip anything that's not IPv4
+		if ":" in ip:
+			continue
+		# Skip loopback, link-local, and "0.0.0.0"
+		if ip.begins_with("127.") or ip.begins_with("169.254.") or ip == "0.0.0.0":
+			continue
+		ipv4_candidates.append(ip)
+
+	# Prefer private networks (RFC1918)
+	for ip in ipv4_candidates:
+		if ip.begins_with("192.168.") or ip.begins_with("10.") or (ip.begins_with("172.") and _is_private_172(ip)):
+			return ip
+
+	# If nothing found, return first IPv4 or "unknown"
+	return ipv4_candidates[0] if ipv4_candidates.size() > 0 else "unknown"
+
+func _is_private_172(ip: String) -> bool:
+	var parts := ip.split(".")
+	if parts.size() < 2:
+		return false
+	var second_octet: int = int(parts[1])
+	return second_octet >= 16 and second_octet <= 31
