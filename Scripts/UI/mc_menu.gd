@@ -5,8 +5,10 @@ var map = preload("res://Scenes/SFIT/Map.tscn")
 var stored_password: String = ""
 var user_password: String = ""
 var http_request: HTTPRequest
+var bg_music: AudioStreamPlayer
 
 func _ready():
+	bg_music = get_node("../AudioStreamPlayer")  as AudioStreamPlayer
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_get_completed"))
@@ -75,7 +77,7 @@ func _on_quit_pressed() -> void:
 
 func _on_network_pressed() -> void:
 	$".".visible = false
-	
+	bg_music.stop()
 	# Store old scene before adding the new one
 	var old_scene = get_tree().current_scene
 

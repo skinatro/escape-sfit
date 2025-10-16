@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cco1klyhkbwff"]
+[gd_scene load_steps=11 format=3 uid="uid://cco1klyhkbwff"]
 
 [ext_resource type="Script" uid="uid://bpurjd0cfgt7q" path="res://Scripts/UI/mc_menu_cam.gd" id="1_tcjrg"]
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="2_7ftvm"]
 [ext_resource type="Script" uid="uid://d0yo3hswti7h1" path="res://Scripts/UI/mc_menu.gd" id="3_6smbx"]
+[ext_resource type="AudioStream" uid="uid://df1vrnh8l47a5" path="res://music/menu.mp3" id="4_7ftvm"]
 
 [sub_resource type="Gradient" id="Gradient_7jxbr"]
 
@@ -21,6 +22,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4hmep")
 
 [sub_resource type="Environment" id="Environment_kyy6m"]
 background_mode = 2
+background_energy_multiplier = 1.5
 sky = SubResource("Sky_m17t4")
 tonemap_mode = 2
 tonemap_exposure = 0.69
@@ -143,6 +145,11 @@ theme_override_font_sizes/font_size = 34
 text = "Validate"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="PasswordMenu"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7ftvm")
+volume_db = -8.0
+autoplay = true
 
 [connection signal="pressed" from="MenuCont/Network" to="MenuCont" method="_on_network_pressed"]
 [connection signal="pressed" from="MenuCont/Password" to="MenuCont" method="_on_password_pressed"]

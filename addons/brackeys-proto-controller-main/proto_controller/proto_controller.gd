@@ -1,5 +1,4 @@
 # ProtoController v1.0 by Brackeys (trimmed/fixed for multiplayer)
-
 extends CharacterBody3D
 
 @export_group("Camera")
@@ -8,17 +7,17 @@ extends CharacterBody3D
 @export var fov_change_speed: float = 6.0
 @onready var animation_player: AnimationPlayer = $Model/AnimationPlayer
 var current_animation: String = ""
-
-var movement_enabled: bool = false
-@rpc("any_peer")
-func enable_movement():
-	movement_enabled = true
+@onready var particles: GPUParticles3D = $DustShader/GPUParticles3D
+@onready var head: Node3D = $Model/Head
+@onready var collider: CollisionShape3D = $Collider
+@onready var cam: Camera3D = $Model/Head/Camera3D
 
 @export var can_move : bool = true
 @export var has_gravity : bool = true
 @export var can_jump : bool = true
 @export var can_sprint : bool = true
 @export var can_freefly : bool = false
+@export var movement_enabled: bool = false
 
 @export_group("Speeds")
 @export var look_speed : float = 0.002
@@ -41,25 +40,38 @@ var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
 
-@onready var head: Node3D = $Model/Head
-@onready var collider: CollisionShape3D = $Collider
-@onready var cam: Camera3D = $Model/Head/Camera3D
-
 var active_block_count := 0
 var ristrictMovement := false
 
 const MAX_STEP_HEIGHT = 0.34
-var _snapped_to_stairs_last_frame:= false
-var _last_frame_was_on_floor= -INF
+var _snapped_to_stairs_last_frame := false
+var _last_frame_was_on_floor := -INF
 
-var blockGameActive=false
+var blockGameActive := false
+
+# --- Quake (camera shake) state ---
+var _shake_t: float = 0.0
+var _shake_dur: float = 0.0
+var _base_xform: Transform3D
+var _pos_amp: float = 0.0       # meters
+var _rot_amp: float = 0.0       # radians
+var _freq: float = 0.0          # Hz-like
+var _decay: float = 1.0         # >= 1.0
+var _noise := FastNoiseLite.new()
 
 # ❌ REMOVE this; it breaks host authority when name is "P_1" etc.
 # func _enter_tree() -> void:
 # 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
+	# Particles off at start
+	if particles:
+		particles.emitting = false
+
+	# Groups for lookup from cutscene/controller
 	add_to_group("players")
+	add_to_group("player")
+
 	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
@@ -69,9 +81,18 @@ func _ready() -> void:
 		cam.current = false
 		cam.add_to_group("player_cameras")
 
+	# Quake baseline + noise config
+	_base_xform = cam.transform
+	_noise.seed = randi()
+	_noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	_noise.frequency = 1.0
+
 func _unhandled_input(event: InputEvent) -> void:
 	# ✅ Local-only input
 	if not is_multiplayer_authority():
+		return
+
+	if not movement_enabled:
 		return
 
 	# Mouse capturing
@@ -93,51 +114,35 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			disable_freefly()
 
-func _snap_down_to_stairs_check()->void:
-	var did_snap=false
-	var was_on_floor_last_frame= Engine.get_physics_frames()- _last_frame_was_on_floor ==1
-	var floor_below:bool=%StairsBelowRayCast3D.is_colliding() and not is_surface_too_steep(%StairsBelowRayCast3D.get_collision_normal())
-	if not is_on_floor() and velocity.y<0 and (was_on_floor_last_frame or _snapped_to_stairs_last_frame) and floor_below:
-		var body_test_result=PhysicsTestMotionResult3D.new()
-		if _run_body_test_motion(self.global_transform,Vector3(0,-MAX_STEP_HEIGHT,0),body_test_result):
-			var translate_y=body_test_result.get_travel().y
-			self.position.y+= translate_y
-			apply_floor_snap()
-	_snapped_to_stairs_last_frame=did_snap
-
-func _snap_up_stairs_check(delta) -> bool:
-	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
-	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
-	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
-	var step_pos_with_clearance = self.global_transform.translated(expected_move_motion + Vector3(0, MAX_STEP_HEIGHT * 2, 0))
-	var down_check_result = KinematicCollision3D.new()
-	if (self.test_move(step_pos_with_clearance, Vector3(0,-MAX_STEP_HEIGHT*2,0), down_check_result)
-	and (down_check_result.get_collider().is_class("StaticBody3D") or down_check_result.get_collider().is_class("CSGShape3D"))):
-		var step_height = ((step_pos_with_clearance.origin + down_check_result.get_travel()) - self.global_position).y
-		if step_height > MAX_STEP_HEIGHT or step_height <= 0.01 or (down_check_result.get_position() - self.global_position).y > MAX_STEP_HEIGHT: return false
-		%StairsAheadRayCast3D.global_position = down_check_result.get_position() + Vector3(0,MAX_STEP_HEIGHT,0) + expected_move_motion.normalized() * 0.1
-		%StairsAheadRayCast3D.force_raycast_update()
-		if %StairsAheadRayCast3D.is_colliding() and not is_surface_too_steep(%StairsAheadRayCast3D.get_collision_normal()):
-			self.global_position = step_pos_with_clearance.origin + down_check_result.get_travel()
-			apply_floor_snap()
-			_snapped_to_stairs_last_frame = true
-			return true
-	return false
-
-func enter_block():
-	active_block_count += 1
-	ristrictMovement = true
-	release_mouse()
-
-func exit_block():
-	active_block_count = max(active_block_count - 1, 0)
-	if active_block_count == 0:
-		ristrictMovement = false
-		capture_mouse()
-
 func _physics_process(delta: float) -> void:
+	if quake_infinite or _shake_t < _shake_dur:
+		_shake_t += delta
+		var t := _shake_t
+		var envelope := 1.0 if quake_infinite else pow(1.0 - (t / _shake_dur), _decay)
+
+		var n1 := _noise.get_noise_2d(t * _freq, 37.0)
+		var n2 := _noise.get_noise_2d(91.0, t * _freq)
+		var n3 := _noise.get_noise_2d(t * _freq * 0.77, 153.0)
+
+		var pos_offset := Vector3(n1, n2, 0.0) * (_pos_amp * envelope)
+		var rot_offset := Vector3(n2, n3, 0.0) * (_rot_amp * envelope)
+
+		var basis := Basis()
+		basis = basis.rotated(Vector3.RIGHT,  rot_offset.x)
+		basis = basis.rotated(Vector3.UP,     rot_offset.y)
+		basis = basis.rotated(Vector3.FORWARD,rot_offset.z)
+
+		cam.transform = Transform3D(
+			basis * _base_xform.basis,
+			_base_xform.origin + pos_offset
+		)
+	elif _shake_dur > 0.0 and cam.transform != _base_xform and not quake_infinite:
+		cam.transform = _base_xform
 	# ✅ Local-only movement
 	if not is_multiplayer_authority():
+		return
+
+	if not movement_enabled:
 		return
 
 	if ristrictMovement:
@@ -154,7 +159,8 @@ func _physics_process(delta: float) -> void:
 	if cam:
 		cam.fov = lerp(cam.fov, target_fov, w)
 
-	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
+	if is_on_floor():
+		_last_frame_was_on_floor = Engine.get_physics_frames()
 
 	checkForTerminal()
 
@@ -194,6 +200,34 @@ func _physics_process(delta: float) -> void:
 	if not _snap_up_stairs_check(delta):
 		move_and_slide()
 		_snap_down_to_stairs_check()
+
+func _process(delta: float) -> void:
+	# Camera shake driver
+	if _shake_t < _shake_dur:
+		_shake_t += delta
+		var t := _shake_t
+		var norm := clamp(1.0 - (t / _shake_dur), 0.0, 1.0)
+		var envelope := pow(norm, _decay)  # exponential falloff
+
+		var n1 := _noise.get_noise_2d(t * _freq, 37.0)
+		var n2 := _noise.get_noise_2d(91.0, t * _freq)
+		var n3 := _noise.get_noise_2d(t * _freq * 0.77, 153.0)
+
+		var pos_offset := Vector3(n1, n2, 0.0) * (_pos_amp * envelope)
+		var rot_offset := Vector3(n2, n3, 0.0) * (_rot_amp * envelope)  # pitch,yaw,roll
+
+		var basis := Basis()
+		basis = basis.rotated(Vector3.RIGHT,  rot_offset.x)
+		basis = basis.rotated(Vector3.UP,     rot_offset.y)
+		basis = basis.rotated(Vector3.FORWARD,rot_offset.z)
+
+		cam.transform = Transform3D(
+			basis * _base_xform.basis,
+			_base_xform.origin + pos_offset
+		)
+	elif _shake_dur > 0.0 and cam.transform != _base_xform:
+		# snap back when finished
+		cam.transform = _base_xform
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * look_speed
@@ -238,12 +272,11 @@ func check_input_mappings():
 		push_error("Freefly disabled. No InputAction for " + input_freefly); can_freefly = false
 
 func checkForTerminal():
-	# If you truly need this, gate with your own flag; leaving as is per your code.
 	if get_tree().current_scene.has_node("Terminal") or get_tree().current_scene.has_node("SignalConsole"):
-		ristrictMovement=true
+		ristrictMovement = true
 		release_mouse()
 	else:
-		ristrictMovement=false
+		ristrictMovement = false
 
 func is_surface_too_steep(normal:Vector3)-> bool:
 	return normal.angle_to(Vector3.UP) > self.floor_max_angle
@@ -287,4 +320,72 @@ func make_camera_current_deferred() -> void:
 		cam.current = true
 		var c := get_viewport().get_camera_3d()
 		print("[Player] promoted camera; viewport has:", c, " path=", c and c.get_path())
-	
+
+@rpc("reliable", "call_local")
+func set_movement_enabled(state: bool) -> void:
+	movement_enabled = state
+	if state:
+		capture_mouse()
+	else:
+		release_mouse()
+		velocity = Vector3.ZERO
+
+# --- VFX hooks used by cutscene/controller RPCs -------------------------------
+
+func set_particles_emitting(active: bool) -> void:
+	if particles:
+		particles.emitting = active
+
+# Add this new flag
+var quake_infinite: bool = false
+
+func start_quake(
+	meters_amplitude: float = 0.03,
+	seconds_duration: float = 1.5,
+	frequency: float = 8.0,
+	rot_radians_amplitude: float = 0.015,
+	decay_power: float = 1.2,
+	infinite: bool = false     # new optional argument
+) -> void:
+	_pos_amp = meters_amplitude
+	_rot_amp = rot_radians_amplitude
+	_freq = frequency
+	_shake_dur = seconds_duration
+	_decay = decay_power
+	_shake_t = 0.0
+	quake_infinite = infinite
+	_base_xform = cam.transform
+
+
+# --- Stair snapping helpers ---------------------------------------------------
+
+func _snap_down_to_stairs_check() -> void:
+	var did_snap := false
+	var was_on_floor_last_frame := Engine.get_physics_frames() - _last_frame_was_on_floor == 1
+	var floor_below: bool = %StairsBelowRayCast3D.is_colliding() and not is_surface_too_steep(%StairsBelowRayCast3D.get_collision_normal())
+	if not is_on_floor() and velocity.y < 0 and (was_on_floor_last_frame or _snapped_to_stairs_last_frame) and floor_below:
+		var body_test_result := PhysicsTestMotionResult3D.new()
+		if _run_body_test_motion(self.global_transform, Vector3(0, -MAX_STEP_HEIGHT, 0), body_test_result):
+			var translate_y = body_test_result.get_travel().y
+			self.position.y += translate_y
+			apply_floor_snap()
+	_snapped_to_stairs_last_frame = did_snap
+
+func _snap_up_stairs_check(delta) -> bool:
+	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
+	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
+	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
+	var step_pos_with_clearance = self.global_transform.translated(expected_move_motion + Vector3(0, MAX_STEP_HEIGHT * 2, 0))
+	var down_check_result = KinematicCollision3D.new()
+	if (self.test_move(step_pos_with_clearance, Vector3(0,-MAX_STEP_HEIGHT*2,0), down_check_result)
+	and (down_check_result.get_collider().is_class("StaticBody3D") or down_check_result.get_collider().is_class("CSGShape3D"))):
+		var step_height = ((step_pos_with_clearance.origin + down_check_result.get_travel()) - self.global_position).y
+		if step_height > MAX_STEP_HEIGHT or step_height <= 0.01 or (down_check_result.get_position() - self.global_position).y > MAX_STEP_HEIGHT: return false
+		%StairsAheadRayCast3D.global_position = down_check_result.get_position() + Vector3(0,MAX_STEP_HEIGHT,0) + expected_move_motion.normalized() * 0.1
+		%StairsAheadRayCast3D.force_raycast_update()
+		if %StairsAheadRayCast3D.is_colliding() and not is_surface_too_steep(%StairsAheadRayCast3D.get_collision_normal()):
+			self.global_position = step_pos_with_clearance.origin + down_check_result.get_travel()
+			apply_floor_snap()
+			_snapped_to_stairs_last_frame = true
+			return true
+	return false

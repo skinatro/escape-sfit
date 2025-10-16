@@ -1,18 +1,21 @@
 extends Node3D
 
 const DEFAULT_PORT: int = 42069
-const MAX_CLIENTS: int = 4
+const MAX_CLIENTS: int = 1
 
 @export var player_scene: PackedScene
 @export var min_players_to_start: int = 1
 
 # --- UI (adjust paths to match your scene) ---
+@onready var host_mnu: CanvasLayer = $Hosting
 @onready var host_btn: Button     = $Hosting/Host
 @onready var join_btn: Button     = $Hosting/Join
 @onready var start_btn: Button    = $Hosting/Start
 @onready var ip_edit: LineEdit    = $Hosting/IP
 @onready var host_label: Label    = $Hosting/ShowIP
 @onready var players_label: Label = $Hosting/Players
+@onready var game_over: CanvasLayer = $GameOver
+
 
 #Set Menu Cam
 @onready var wanted_cam: Camera3D = $Cutscene
@@ -23,12 +26,14 @@ const MAX_CLIENTS: int = 4
 
 var _enet := ENetMultiplayerPeer.new()
 
+
 # Connected peers known to this instance (id -> true)
 var _connected_ids: Dictionary = {}
 # Remember spawn positions to resync late joiners (id -> Vector3)
 var _spawn_pos: Dictionary = {}
 
 func _ready() -> void:
+	start_btn.disabled = true
 	wanted_cam.current = true
 	# Wire UI signals safely (avoid duplicate connects)
 	if host_btn and not host_btn.pressed.is_connected(_on_host_pressed):
@@ -53,6 +58,8 @@ func _ready() -> void:
 	host_label.text = "Not host"
 	start_btn.disabled = true
 	_update_player_count()
+	
+	game_over.visible = false
 
 # ---------------------------
 # Hosting / Joining
@@ -64,6 +71,9 @@ func _on_host_pressed() -> void:
 		return
 
 	multiplayer.multiplayer_peer = _enet
+	_connected_ids.clear()
+	_connected_ids[multiplayer.get_unique_id()] = true
+	_update_player_count()
 
 	var ips := IP.get_local_addresses()
 	var ip_text := get_ipv4_address()
@@ -202,10 +212,11 @@ func _on_start_pressed() -> void:
 	if !multiplayer.is_server():
 		return
 	_game_start_all.rpc()
+	_enable_movement_locally.rpc() 
 
 @rpc("reliable", "call_local")
 func _game_start_all() -> void:
-	start_btn.disabled = true
+	host_mnu.visible = false
 
 func get_ipv4_address() -> String:
 	var ipv4_candidates: Array[String] = []
@@ -233,3 +244,13 @@ func _is_private_172(ip: String) -> bool:
 		return false
 	var second_octet: int = int(parts[1])
 	return second_octet >= 16 and second_octet <= 31
+
+@rpc("reliable", "call_local")
+func _enable_movement_locally() -> void:
+	for p in players_root.get_children():
+		if p.has_method("set_multiplayer_authority") and p.get_multiplayer_authority() == 0:
+			# ignore stray nodes; not required, just defensive
+			pass
+		if p.has_method("set_movement_enabled"):
+			p.set_movement_enabled(true)
+				
