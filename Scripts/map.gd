@@ -22,7 +22,7 @@ const MAX_CLIENTS: int = 1
 
 # --- Scene anchors ---
 @onready var players_root: Node3D = $Players
-@onready var spawn_area: Area3D   = (get_node_or_null("SpawnArea") as Area3D)
+@onready var spawn_area: Area3D   = (get_node_or_null("Gamespawn") as Area3D)
 
 var _enet := ENetMultiplayerPeer.new()
 
