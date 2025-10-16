@@ -9,16 +9,12 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $Model/AnimationPlayer
 var current_animation: String = ""
 
-var movement_enabled: bool = false
-@rpc("any_peer")
-func enable_movement():
-	movement_enabled = true
-
 @export var can_move : bool = true
 @export var has_gravity : bool = true
 @export var can_jump : bool = true
 @export var can_sprint : bool = true
 @export var can_freefly : bool = false
+@export var movement_enabled: bool = false
 
 @export_group("Speeds")
 @export var look_speed : float = 0.002
@@ -72,6 +68,9 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# ✅ Local-only input
 	if not is_multiplayer_authority():
+		return
+		
+	if not is_multiplayer_authority() or not movement_enabled:
 		return
 
 	# Mouse capturing
@@ -138,6 +137,9 @@ func exit_block():
 func _physics_process(delta: float) -> void:
 	# ✅ Local-only movement
 	if not is_multiplayer_authority():
+		return
+	
+	if not is_multiplayer_authority() or not movement_enabled:
 		return
 
 	if ristrictMovement:
@@ -287,4 +289,12 @@ func make_camera_current_deferred() -> void:
 		cam.current = true
 		var c := get_viewport().get_camera_3d()
 		print("[Player] promoted camera; viewport has:", c, " path=", c and c.get_path())
-	
+
+@rpc("reliable", "call_local")
+func set_movement_enabled(state: bool) -> void:
+	movement_enabled = state
+	if state:
+		capture_mouse()
+	else:
+		release_mouse()
+		velocity = Vector3.ZERO

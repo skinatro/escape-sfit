@@ -21,6 +21,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4hmep")
 
 [sub_resource type="Environment" id="Environment_kyy6m"]
 background_mode = 2
+background_energy_multiplier = 1.5
 sky = SubResource("Sky_m17t4")
 tonemap_mode = 2
 tonemap_exposure = 0.69

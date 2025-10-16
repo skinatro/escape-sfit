@@ -1,135 +1,119 @@
+# ReadyArea.gd
 extends Area3D
 
-const REQUIRED_COUNT := 2  # For 4 players
-var _present: = {}         # player_id(string) -> true
+@export var REQUIRED_COUNT: int = 4  # set as needed
+
+# Path to your Game Over UI. Defaults to a sibling named "GameOver".
+@onready var game_over: CanvasLayer = $"../GameOver"
+
+# peer_id -> true (tracks unique players inside the area)
+var _present: Dictionary = {}
+var _announced: bool = false
+
+var _game_over_node: Node
 
 func _ready() -> void:
-	# Optional: connect signals if not connected in editor
+	# Cache the GameOver node (if present)
+
+	# Ensure the Area is monitoring bodies
+	monitoring = true
+	monitorable = true
+
+	# Wire signals (safe even if already connected)
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
 	if not body_exited.is_connected(_on_body_exited):
 		body_exited.connect(_on_body_exited)
-	print("ReadyArea is ready. Waiting for players...")
 
+	print("ReadyArea armed. Waiting for players...")
+
+# -----------------------
+# Signal handlers
+# -----------------------
 func _on_body_entered(body: Node) -> void:
-	if not multiplayer.is_server():
+	if not _is_server_safe():
 		return
-	var pid := _extract_player_id(body)
-	if pid == "":
-		print("Entered body is not a player:", body.name)
+
+	var player := _get_player_root(body)
+	if player == null:
 		return
-	_present[pid] = true
-	print("Player entered:", pid, "Current count:", _present.size())
-	print("_present dict:", _present)
-	if _present.size() == REQUIRED_COUNT:
-		print("All players present! Announcing…")
-		rpc("announce_hello_world")
+
+	# Avoid double-counting (multi-collider players)
+	if not bool(player.get_meta("ready_area_inside", false)):
+		player.set_meta("ready_area_inside", true)
+
+		var pid: int = player.get_multiplayer_authority()
+		_present[pid] = true
+
+		# Clean up if the player despawns without firing body_exited
+		if not player.tree_exited.is_connected(_on_player_tree_exited):
+			player.tree_exited.connect(_on_player_tree_exited.bind(player), CONNECT_ONE_SHOT)
+
+		print("Player ENTER:", player.name, " pid=", pid, " count=", _present.size())
+
+		if not _announced and _present.size() >= REQUIRED_COUNT:
+			print("All required players present. Announcing…")
+			announce_hello_world.rpc()  # show on every peer locally
 
 func _on_body_exited(body: Node) -> void:
-	if not multiplayer.is_server():
+	if not _is_server_safe():
 		return
-	var pid := _extract_player_id(body)
-	if pid == "":
-		print("Exited body is not a player:", body.name)
-		return
-	_present.erase(pid)
-	print("Player exited:", pid, "Current count:", _present.size())
-	print("_present dict:", _present)
 
+	var player := _get_player_root(body)
+	if player == null:
+		return
+
+	if bool(player.get_meta("ready_area_inside", false)):
+		player.set_meta("ready_area_inside", false)
+		var pid: int = player.get_multiplayer_authority()
+		_present.erase(pid)
+		print("Player EXIT :", player.name, " pid=", pid, " count=", _present.size())
+
+# Handles despawn/disconnect cases where body_exited may not fire
+func _on_player_tree_exited(player: Node) -> void:
+	# This can run during teardown; guard hard
+	if not _is_server_safe():
+		return
+	if bool(player.get_meta("ready_area_inside", false)):
+		player.set_meta("ready_area_inside", false)
+		var pid: int = player.get_multiplayer_authority()
+		_present.erase(pid)
+		print("Player DESPAWN:", player.name, " pid=", pid, " count=", _present.size())
+
+# -----------------------
+# RPC
+# -----------------------
 @rpc("any_peer", "call_local", "reliable")
 func announce_hello_world() -> void:
-	print("Quitting game now!")
-	get_tree().quit()
+	if _announced:
+		return
+	_announced = true
+	_show_game_over_ui()
 
-func _extract_player_id(n: Node) -> String:
+# -----------------------
+# Helpers
+# -----------------------
+func _get_player_root(n: Node) -> Node:
+	# Walk up until we find a node in the "players" group
 	var cur := n
 	while cur:
-		if _looks_like_player_name(cur.name):
-			return String(cur.name)
+		if cur.is_in_group("players"):
+			return cur
 		cur = cur.get_parent()
-	return ""
+	return null
 
-func _looks_like_player_name(name: String) -> bool:
-	for i in name.length():
-		var c := name.unicode_at(i)
-		if c < 0x30 or c > 0x39:
-			return false
-	return name.length() > 0
+func _is_server_safe() -> bool:
+	if not is_inside_tree():
+		return false
+	var tree: SceneTree = get_tree()
+	if tree == null:
+		return false
+	var mp: MultiplayerAPI = tree.get_multiplayer()
+	if mp == null:
+		return false
+	return mp.is_server()
 
-
-#extends Area3D
-#
-#const REQUIRED_COUNT := 2   # set to 4 for your game
-#
-#var _present_count: int = 0
-#
-#func _ready() -> void:
-	## Ensure signals are connected (if not wired in the editor)
-	#if not body_entered.is_connected(_on_body_entered):
-		#body_entered.connect(_on_body_entered)
-	#if not body_exited.is_connected(_on_body_exited):
-		#body_exited.connect(_on_body_exited)
-	#print("ReadyArea armed. Waiting for players...")
-#
-#func _on_body_entered(body: Node) -> void:
-	#if not multiplayer.is_server():
-		#return
-	#var player := _get_player_root(body)
-	#if player == null:
-		#return
-#
-	## Use a meta flag on the player root to avoid double counting
-	#if not player.has_meta("ready_area_inside") or not bool(player.get_meta("ready_area_inside")):
-		#player.set_meta("ready_area_inside", true)
-		#_present_count += 1
-		## If the player despawns without firing body_exited, clean up
-		#if not player.tree_exited.is_connected(_on_player_tree_exited):
-			#player.tree_exited.connect(_on_player_tree_exited.bind(player))
-		#print("Player ENTER:", player.name, " count=", _present_count)
-		#if _present_count >= REQUIRED_COUNT:
-			#rpc("announce_hello_world")
-#
-#func _on_body_exited(body: Node) -> void:
-	#if not multiplayer.is_server():
-		#return
-	#var player := _get_player_root(body)
-	#if player == null:
-		#return
-#
-	#if player.has_meta("ready_area_inside") and bool(player.get_meta("ready_area_inside")):
-		#player.set_meta("ready_area_inside", false)
-		#_present_count = max(_present_count - 1, 0)
-		#print("Player EXIT :", player.name, " count=", _present_count)
-#
-#func _on_player_tree_exited(player: Node) -> void:
-	## Handles despawn/disconnect cases where body_exited may not fire
-	#if not multiplayer.is_server():
-		#return
-	#if player.has_meta("ready_area_inside") and bool(player.get_meta("ready_area_inside")):
-		#player.set_meta("ready_area_inside", false)
-		#_present_count = max(_present_count - 1, 0)
-		#print("Player DESPAWN:", player.name, " count=", _present_count)
-#
-#@rpc("any_peer", "call_local", "reliable")
-#func announce_hello_world() -> void:
-	#print("All required players present. Quitting game now!")
-	#get_tree().quit()
-#
-## ----- helpers -----
-#
-#func _get_player_root(n: Node) -> Node:
-	#var cur := n
-	#while cur:
-		#if _is_player_name_numeric(cur.name):
-			#return cur
-		#cur = cur.get_parent()
-	#return null
-#
-#func _is_player_name_numeric(name: String) -> bool:
-	#if name.is_empty():
-		#return false
-	#for i in name.length():
-		#var c := name.unicode_at(i)
-		#if c < 0x30 or c > 0x39: # not '0'..'9'
-			#return false
-	#return true
+func _show_game_over_ui() -> void:
+	game_over.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	return
