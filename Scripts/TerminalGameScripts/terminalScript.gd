@@ -7,7 +7,7 @@ var commandSequence:=["scan","ps","kill","nano","systemct1","shutdown"]
 signal terminalEnabled
 signal terminalDisabled
 
-
+var linkedPlayer:CharacterBody3D=null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#terminalEnabled.emit()
@@ -137,12 +137,12 @@ func checkValidity(input:String):
 				
 			Ai.ReduceHealth()
 			
-			var player
-			for obj in get_tree().current_scene.get_children():
-				if obj is CharacterBody3D:
-					player=obj
-					break
-			player.ristrictMovement=false
+			#var player
+			#for obj in get_tree().current_scene.get_children():
+				#if obj is CharacterBody3D:
+					#player=obj
+					#break
+			linkedPlayer.ristrictMovement=false
 			queue_free()
 	
 	else:

@@ -13,6 +13,7 @@ extends Control
 @onready var camera: Camera2D = $Camera2D
 
 
+
 var shake_strength := 0.0
 var shake_decay := 3.0
 var noise := 0.0
@@ -41,6 +42,7 @@ var canChange:=true
 var playerWon:=false
 #var accept_input:=false
 
+var linkedPlayer: CharacterBody3D = null
 signal PlayerWon
 
 func _ready():
@@ -237,16 +239,12 @@ func _on_amp_rotor_pressed() -> void:
 
 func _on_wave_vanished():
 	await get_tree().create_timer(1).timeout
-	var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
-	#print("SearchingPlayer")
-	for obj in get_tree().current_scene.get_children():
-		if obj is CharacterBody3D:
-			player=obj
-			#print("GotPlayer")
-			break
-	player.ristrictMovement=false
-	#print("SET")
-	self.queue_free()
+	#print("LINKED PLAYER:__________: "+str(linkedPlayer))
+	if linkedPlayer:
+		linkedPlayer.ristrictMovement = false
+		#print("NAMEEEEEEEEEEEEEE: "+str(linkedPlayer.get_child(0).get_child(0).get_child(1).name))
+		#linkedPlayer.get_child(0).get_child(0).get_child(1).current=true
+	queue_free()
 
 func find_node_of_type(type_ref: Object, root: Node = get_tree().get_root()) -> Node:
 	for child in root.get_children():

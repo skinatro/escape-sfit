@@ -5,6 +5,9 @@ extends Node3D
 @export var is_working=true
 @export var terminal:PackedScene
 @export var cutSceneCam:Camera3D
+
+var active_player: CharacterBody3D = null
+var overlapping_player: CharacterBody3D = null
 var inRange=false
 var terminalUsed=false
 var initialSet=false
@@ -55,33 +58,40 @@ func find_camera_by_path_fragment(fragment: String) -> Camera3D:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _unhandled_input(event: InputEvent) -> void:
-	if(is_working and inRange and !terminalUsed and Input.is_action_pressed("interact")):
-		terminalUsed=true
-		var parent=get_parent().get_parent()
-		
-		if(cutSceneCam!=null): cutSceneCam.current=true
-		
-		var animPlayer:AnimationPlayer=parent.get_node("AnimationPlayer")
-		#print(animPlayer.get)
-		animPlayer.play("ConsoleFoucs")
-		
-		await get_tree().create_timer(3).timeout
-		
-		if(terminal!=null):
-			var console=terminal.instantiate()
-			get_tree().current_scene.add_child(console)
-			print(console.get_path())
-			if(cutSceneCam!=null):cutSceneCam.current=false
-			animPlayer.play("RESET")
-			cutSceneCam.queue_free()
-			###############################
-			var player_cam =find_camera_by_path_fragment("/Head")
-			#print(player_cam.get_path())
-			if player_cam:
-				player_cam.current = true
-				#######################################
-			print_all_cameras()
-			
+	if(is_working and inRange and !terminalUsed):
+		if overlapping_player and overlapping_player.get_multiplayer_authority() == multiplayer.get_unique_id():
+			if Input.is_action_pressed("interact"):
+				terminalUsed=true
+				active_player=overlapping_player
+				var parent=get_parent().get_parent()
+				
+				if(cutSceneCam!=null): cutSceneCam.current=true
+				
+				var animPlayer:AnimationPlayer=parent.get_node("AnimationPlayer")
+				#print(animPlayer.get)
+				animPlayer.play("ConsoleFoucs")
+				
+				await get_tree().create_timer(3).timeout
+				#print("NAMEEEEEEEEEEEEEE: "+str(active_player.get_node("Model/Head/Camera3D").name))
+				active_player.get_node("Model/Head/Camera3D").current=true
+				if(terminal!=null):
+					#print("NOTNULL__________________________________________")
+					var console=terminal.instantiate()
+					get_tree().current_scene.add_child(console)
+					console.linkedPlayer=active_player
+					
+					#print(console.get_path())
+					if(cutSceneCam!=null):cutSceneCam.current=false
+					animPlayer.play("RESET")
+					cutSceneCam.queue_free()
+				###############################
+				#var player_cam =find_camera_by_path_fragment("/Head")
+				##print(player_cam.get_path())
+				#if player_cam:
+					#player_cam.current = true
+					#######################################
+				#print_all_cameras()
+			#print("__________________________________________NULLL")
 			
 func _process(delta: float) -> void:
 	if(cutSceneCam!=null and !initialSet):
@@ -91,11 +101,15 @@ func _process(delta: float) -> void:
 
 func _on_area_3d_body_entered(body: CharacterBody3D) -> void:
 	player=body
-	if(is_working):inRange=true
+	if body is CharacterBody3D and is_working:
+		inRange = true
+		overlapping_player = body
 
 
 func _on_area_3d_body_exited(body: CharacterBody3D) -> void:
-	if(is_working):inRange=false
+	if body == overlapping_player:
+		inRange = false
+		overlapping_player = null
 #extends Node3D
 #
 #@export var is_working = true

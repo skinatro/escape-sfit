@@ -85,6 +85,8 @@ extends Area3D
 @export var terminalGame := false
 @export var waveGame := false
 
+var active_player: CharacterBody3D = null
+var overlapping_player: CharacterBody3D = null
 var player_in_range := false
 var current_player: CharacterBody3D = null
 
@@ -97,23 +99,30 @@ func _ready() -> void:
 		label_3d.text = "Press E to Access Console"
 
 func _process(delta: float) -> void:
-	if player_in_range and Input.is_action_just_pressed("interact"):
-		if multiplayer.is_server():
-			# If this player is the host, act directly
-			_handle_button_press(multiplayer.get_unique_id())
-		else:
-			# Send an RPC to the server so it decides
-			rpc_id(1, "request_press_button", multiplayer.get_unique_id())
+	if overlapping_player and overlapping_player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if player_in_range and Input.is_action_just_pressed("interact") :
+			if multiplayer.is_server():
+				# If this player is the host, act directly
+				_handle_button_press(multiplayer.get_unique_id())
+			else:
+				# Send an RPC to the server so it decides
+				rpc_id(1, "request_press_button", multiplayer.get_unique_id())
 
 func _on_body_entered(body: CharacterBody3D) -> void:
-	if body.is_in_group("players"):  # Make sure only player bodies trigger it
+	#if body.is_in_group("players"):  # Make sure only player bodies trigger it
+		#player_in_range = true
+		#
+		#
+	if body is CharacterBody3D:
 		player_in_range = true
+		overlapping_player = body
 		current_player = body
 		animation_player.play("ButtonGlow")
 
 func _on_body_exited(body: CharacterBody3D) -> void:
-	if body == current_player:
+	if body is CharacterBody3D:
 		player_in_range = false
+		overlapping_player = null
 		current_player = null
 		animation_player.play("ButtonGlow_off")
 
