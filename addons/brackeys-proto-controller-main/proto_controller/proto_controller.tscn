@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene load_steps=9 format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://d1g1p827swfsm" path="res://addons/brackeys-proto-controller-main/proto_controller/proto_controller.gd" id="1_3pa5o"]
 [ext_resource type="PackedScene" uid="uid://cw71pwqj275sv" path="res://Assets/Models/Player/exported-model.glb" id="2_2o2of"]
 [ext_resource type="Script" uid="uid://bf80l5svttgpn" path="res://addons/brackeys-proto-controller-main/proto_controller/door_ray_cast_3d.gd" id="2_hniue"]
 [ext_resource type="Texture2D" uid="uid://bycf5jw2uysik" path="res://Assets/Textures/crosshair.png" id="2_kescs"]
+[ext_resource type="Script" uid="uid://brilyuyny22n7" path="res://Scripts/Cameras/CameraTag.gd" id="3_vc7vo"]
 [ext_resource type="PackedScene" uid="uid://iavdsh25khu6" path="res://Scenes/SFIT/dust_shader.tscn" id="5_0gfhr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
@@ -51,7 +52,7 @@ spot_angle_attenuation = 1.1095694
 
 [node name="Camera3D" type="Camera3D" parent="Model/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14544654, 0.019523233)
-current = true
+script = ExtResource("3_vc7vo")
 
 [node name="DoorRayCast3D" type="RayCast3D" parent="Model/Head/Camera3D"]
 transform = Transform3D(1.452, 0, 0, 0, -6.346894e-08, -1.452, 0, 1.452, -6.346894e-08, 0, 0, 0)

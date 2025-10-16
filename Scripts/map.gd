@@ -14,6 +14,9 @@ const MAX_CLIENTS: int = 4
 @onready var host_label: Label    = $Hosting/ShowIP
 @onready var players_label: Label = $Hosting/Players
 
+#Set Menu Cam
+@onready var wanted_cam: Camera3D = $Cutscene
+
 # --- Scene anchors ---
 @onready var players_root: Node3D = $Players
 @onready var spawn_area: Area3D   = (get_node_or_null("SpawnArea") as Area3D)
@@ -26,6 +29,7 @@ var _connected_ids: Dictionary = {}
 var _spawn_pos: Dictionary = {}
 
 func _ready() -> void:
+	wanted_cam.current = true
 	# Wire UI signals safely (avoid duplicate connects)
 	if host_btn and not host_btn.pressed.is_connected(_on_host_pressed):
 		host_btn.pressed.connect(_on_host_pressed)
@@ -158,6 +162,10 @@ func _spawn_player_all(peer_id: int, pos: Vector3) -> void:
 	p.set_multiplayer_authority(peer_id)
 	players_root.add_child(p, true)     # ensure in-tree first
 	(p as Node3D).global_position = pos # then set world position
+
+	if peer_id == multiplayer.get_unique_id():
+		# promote *local* player's camera after the node is fully alive
+		p.call_deferred("make_camera_current_deferred")
 
 func _despawn_player_everywhere(leaver_id: int) -> void:
 	_despawn_player_all.rpc(leaver_id)
