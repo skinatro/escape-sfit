@@ -98,4 +98,5 @@ size_flags_vertical = 4
 
 [node name="DustShader" parent="." instance=ExtResource("5_0gfhr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9250281, 0)
-visible = false
+
+[editable path="DustShader"]

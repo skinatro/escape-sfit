@@ -76,6 +76,7 @@ func ReduceHealth():
 		play_cutscene()
 		
 		
+		
 
 @rpc("any_peer") 
 func sync_health(new_health: int):

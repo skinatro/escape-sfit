@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var fov_change_speed: float = 6.0
 @onready var animation_player: AnimationPlayer = $Model/AnimationPlayer
 var current_animation: String = ""
+@onready var particles: GPUParticles3D = $DustShader/GPUParticles3D
 
 @export var can_move : bool = true
 @export var has_gravity : bool = true
@@ -55,6 +56,7 @@ var blockGameActive=false
 # 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
+	particles.emitting = false
 	add_to_group("players")
 	check_input_mappings()
 	look_rotation.y = rotation.y
@@ -298,3 +300,6 @@ func set_movement_enabled(state: bool) -> void:
 	else:
 		release_mouse()
 		velocity = Vector3.ZERO
+
+func set_particles_emitting(active: bool) -> void:
+	particles.emitting = active
