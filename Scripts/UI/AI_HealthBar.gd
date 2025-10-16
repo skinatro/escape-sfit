@@ -77,7 +77,13 @@ func play_cutscene() -> void:
 
 	# Optional: stop particles after cutscene, or keep them on if you prefer
 	_trigger_vfx_all(false)  # dust OFF (quake ends by itself)
-
+	var bg_player := get_tree().root.get_node("AudioStreamPlayer")  # adjust path if needed
+	if bg_player:
+		if bg_player.playing:
+			bg_player.stop()  # stop current track first
+		bg_player.stream = load("res://music/gameduo.mp3")
+		bg_player.volume_db = -4.0
+		bg_player.play()
 	# Reset your cutscene animation if desired
 	anim_player.play("RESET")
 
@@ -115,7 +121,7 @@ func _trigger_vfx_all(dust_active: bool) -> void:
 		rpc_id(1, "_rpc_set_dust", dust_active)
 		rpc_id(1, "_rpc_start_quake", 0.03, 1.5, 8.0, 0.015, 1.2)
 
-# Runs locally on every peer: toggles the local player's dust emission
+# Runs locally on every peer: toggles the"res://music/menu.mp3" local player's dust emission
 @rpc("reliable", "call_local")
 func _rpc_set_dust(active: bool) -> void:
 	var player := _get_local_player()
@@ -139,7 +145,9 @@ func _rpc_start_quake(
 ) -> void:
 	var player := _get_local_player()
 	if player and player.has_method("start_quake"):
-		player.start_quake(meters_amplitude, seconds_duration, frequency, rot_radians_amplitude, decay_power)
+		# Set infinite=True for continuous shaking
+		player.start_quake(meters_amplitude, seconds_duration, frequency, rot_radians_amplitude, decay_power, true)
+	
 
 # Find the local player's node.
 # Prefers group "player"; falls back to first CharacterBody3D with a camera under "Model/Head".

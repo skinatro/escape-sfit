@@ -115,6 +115,29 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
+	if quake_infinite or _shake_t < _shake_dur:
+		_shake_t += delta
+		var t := _shake_t
+		var envelope := 1.0 if quake_infinite else pow(1.0 - (t / _shake_dur), _decay)
+
+		var n1 := _noise.get_noise_2d(t * _freq, 37.0)
+		var n2 := _noise.get_noise_2d(91.0, t * _freq)
+		var n3 := _noise.get_noise_2d(t * _freq * 0.77, 153.0)
+
+		var pos_offset := Vector3(n1, n2, 0.0) * (_pos_amp * envelope)
+		var rot_offset := Vector3(n2, n3, 0.0) * (_rot_amp * envelope)
+
+		var basis := Basis()
+		basis = basis.rotated(Vector3.RIGHT,  rot_offset.x)
+		basis = basis.rotated(Vector3.UP,     rot_offset.y)
+		basis = basis.rotated(Vector3.FORWARD,rot_offset.z)
+
+		cam.transform = Transform3D(
+			basis * _base_xform.basis,
+			_base_xform.origin + pos_offset
+		)
+	elif _shake_dur > 0.0 and cam.transform != _base_xform and not quake_infinite:
+		cam.transform = _base_xform
 	# ✅ Local-only movement
 	if not is_multiplayer_authority():
 		return
@@ -313,20 +336,26 @@ func set_particles_emitting(active: bool) -> void:
 	if particles:
 		particles.emitting = active
 
+# Add this new flag
+var quake_infinite: bool = false
+
 func start_quake(
 	meters_amplitude: float = 0.03,
 	seconds_duration: float = 1.5,
 	frequency: float = 8.0,
 	rot_radians_amplitude: float = 0.015,
-	decay_power: float = 1.2
+	decay_power: float = 1.2,
+	infinite: bool = false     # new optional argument
 ) -> void:
 	_pos_amp = meters_amplitude
 	_rot_amp = rot_radians_amplitude
 	_freq = frequency
-	_shake_dur = max(0.0001, seconds_duration)
-	_decay = max(1.0, decay_power)
+	_shake_dur = seconds_duration
+	_decay = decay_power
 	_shake_t = 0.0
+	quake_infinite = infinite
 	_base_xform = cam.transform
+
 
 # --- Stair snapping helpers ---------------------------------------------------
 

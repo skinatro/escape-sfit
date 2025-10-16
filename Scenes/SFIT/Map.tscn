@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b82mkktpex7se"]
+[gd_scene load_steps=24 format=3 uid="uid://b82mkktpex7se"]
 
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
 [ext_resource type="Script" uid="uid://2jm6bma6eqtt" path="res://Scripts/map.gd" id="1_amylj"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bqc307setvepi" path="res://Scripts/game_over.gd" id="10_amylj"]
 [ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="10_e32mi"]
 [ext_resource type="Script" uid="uid://ctjsn05qk3nck" path="res://Scripts/UI/AI_HealthBar.gd" id="11_amylj"]
+[ext_resource type="AudioStream" uid="uid://0xf1sbwcffwy" path="res://music/gameuno.mp3" id="13_cfrmt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5d6t"]
 albedo_color = Color(0.75686276, 0.6431373, 0, 1)
@@ -218,7 +219,7 @@ spawn_path = NodePath("../Gamespawn")
 spawn_limit = 4
 
 [node name="Gamespawn" parent="." instance=ExtResource("10_e32mi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7645822, 0.49161983, 21.473076)
+transform = Transform3D(-0.27590424, -0.14462025, 0.95024306, 0, 0.98861605, 0.15046035, -0.96118516, 0.041512646, -0.27276337, 22.097994, 21.401989, 27.05262)
 
 [node name="AIHealth" type="ProgressBar" parent="." node_paths=PackedStringArray("progress_bar")]
 anchors_preset = 5
@@ -325,6 +326,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Thanks a lot for playing"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_cfrmt")
+volume_db = 4.0
+autoplay = true
+mix_target = 1
 
 [connection signal="body_entered" from="ExitArea" to="ExitArea" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitArea" to="ExitArea" method="_on_body_exited"]
