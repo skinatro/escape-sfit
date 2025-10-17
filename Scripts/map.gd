@@ -4,7 +4,7 @@ const DEFAULT_PORT: int = 42069
 const MAX_CLIENTS: int = 4
 
 @export var player_scene: PackedScene
-@export var min_players_to_start: int = 0
+@export var min_players_to_start: int = 4
 
 # --- UI (adjust paths to match your scene) ---
 @onready var host_mnu: CanvasLayer = $Hosting
@@ -219,6 +219,19 @@ func _on_start_pressed() -> void:
 @rpc("reliable", "call_local")
 func _game_start_all() -> void:
 	host_mnu.visible = false
+	if video_cutscene and is_instance_valid(video_cutscene):
+		video_cutscene.visible = true
+		var new_video_stream = load("res://Assets/video/simulation.ogv")
+		if new_video_stream:
+			video_cutscene_player.stream = new_video_stream
+			video_cutscene_player.play()
+		else:
+			print("Failed to load video stream")
+	else:
+		print("Cutscene nodes not found. Check the scene path.")
+	await video_cutscene_player.finished
+	video_cutscene.visible = false
+	
 
 func get_ipv4_address() -> String:
 	var ipv4_candidates: Array[String] = []

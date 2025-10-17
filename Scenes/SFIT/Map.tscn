@@ -348,14 +348,17 @@ autoplay = true
 mix_target = 1
 
 [node name="CutsceneVideo" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="CutsceneVideo"]
-offset_left = 515.0
-offset_top = 155.0
-offset_right = 1363.0
-offset_bottom = 633.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stream = ExtResource("14_qakt5")
 volume_db = 7.999997
+expand = true
 
 [node name="Menu" type="Camera3D" parent="."]
 transform = Transform3D(0.93084556, 0, -0.36541295, 0, 1, 0, 0.36541295, 0, 0.93084556, -0.7507858, 22.08414, 34.603226)

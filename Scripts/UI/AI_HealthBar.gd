@@ -1,7 +1,7 @@
 extends Node
 
 @export var progress_bar: ProgressBar
-var health: int = 25
+var health: int = 100
 var showBar := true
 var tp := false
 

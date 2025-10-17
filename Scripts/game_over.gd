@@ -1,10 +1,12 @@
 # ReadyArea.gd
 extends Area3D
 
-@export var REQUIRED_COUNT: int = 4  # set as needed
+@export var REQUIRED_COUNT: int = 4 # set as needed
 
 # Path to your Game Over UI. Defaults to a sibling named "GameOver".
 @onready var game_over: CanvasLayer = $"../GameOver"
+@onready var video_cutscene: CanvasLayer = get_tree().root.get_node_or_null("Map/CutsceneVideo")
+@onready var video_cutscene_player: VideoStreamPlayer = get_tree().root.get_node_or_null("Map/CutsceneVideo/VideoStreamPlayer")
 
 # peer_id -> true (tracks unique players inside the area)
 var _present: Dictionary = {}
@@ -114,6 +116,25 @@ func _is_server_safe() -> bool:
 	return mp.is_server()
 
 func _show_game_over_ui() -> void:
+	var bg_player := get_tree().root.get_node_or_null("AudioStreamPlayer")
+	if bg_player:
+		bg_player.stop()
+	
+	if video_cutscene and is_instance_valid(video_cutscene):
+		video_cutscene.visible = true
+		var new_video_stream = load("res://Assets/video/escaped.ogv")
+		if new_video_stream:
+			video_cutscene_player.stream = new_video_stream
+			video_cutscene_player.play()
+		else:
+			print("Failed to load video stream")
+	else:
+		print("Cutscene nodes not found. Check the scene path.")
+
+
+	await video_cutscene_player.finished
+	video_cutscene.visible = false
+	
 	game_over.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	return
