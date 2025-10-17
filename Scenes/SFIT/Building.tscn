@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=106 format=4 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -42,6 +42,8 @@
 [ext_resource type="Texture2D" uid="uid://cage6hk8w1grl" path="res://console/ps.png" id="40_ku42k"]
 [ext_resource type="Texture2D" uid="uid://nsnrsf5rwylm" path="res://console/kill.png" id="41_unn18"]
 [ext_resource type="Texture2D" uid="uid://cjc35xnvvcynl" path="res://console/nano.png" id="42_us2to"]
+[ext_resource type="Texture2D" uid="uid://b0lifa50vlgp0" path="res://console/systemctl.png" id="43_ebrqs"]
+[ext_resource type="Texture2D" uid="uid://dve8o834pebtr" path="res://console/shutdown.png" id="44_kkxo1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbjfs"]
 albedo_texture = ExtResource("4_8fa3p")
@@ -623,11 +625,24 @@ uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvdhe"]
 albedo_texture = ExtResource("42_us2to")
-uv2_scale = Vector3(5, 12.233, 5)
+uv1_scale = Vector3(1, 1.243, 1)
+uv1_offset = Vector3(0.511, 0.505, 0)
+uv1_triplanar = true
 uv2_offset = Vector3(5, 5, 5)
 uv2_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_rt8bl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rt8bl"]
+albedo_texture = ExtResource("43_ebrqs")
+uv1_offset = Vector3(-0.47, 0.376, 0)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_kkxo1"]
+material = SubResource("StandardMaterial3D_rt8bl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xypk8"]
+albedo_texture = ExtResource("44_kkxo1")
 
 [node name="SFIT" type="Node3D"]
 
@@ -31386,7 +31401,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.514719, 32.71609, -20.1999
 size = Vector3(14.88623, 1, 5.3032227)
 
 [node name="Scan" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.4935247, 0, 0, 0, -3.3804555e-09, -2.138641, 0, 0.077335805, -9.3482974e-08, -10.739329, 30.521208, -12.372198)
+transform = Transform3D(1.4935247, 0, 0, 0, -3.3804555e-09, -2.138641, 0, 0.077335805, -9.3482974e-08, -10.739329, 31.096655, -12.372198)
 mesh = SubResource("BoxMesh_us2to")
 skeleton = NodePath("")
 
@@ -31405,8 +31420,14 @@ transform = Transform3D(-4.8082526e-08, 0, 0.15, 0, 1.9000001, 0, -1.1, 0, -6.55
 material_override = SubResource("StandardMaterial3D_fvdhe")
 mesh = SubResource("BoxMesh_rt8bl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.745176, 0)
+[node name="systemctl" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3596317, 0, 0, 0, 1.5819886, 0, 0, 0, 0.02765078, -14, 31.328875, -12.507393)
+mesh = SubResource("BoxMesh_kkxo1")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.67119, 31.193838, -17.393848)
+size = Vector3(1, 1.5722109, 0.033325195)
+material = SubResource("StandardMaterial3D_xypk8")
 
 [connection signal="body_entered" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_exited"]
