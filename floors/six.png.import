@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crck133ytv1fc"
-path.s3tc="res://.godot/imported/zero.png-bbac967c78fb2aa63f92eaa58cb1ff84.s3tc.ctex"
+uid="uid://be4e157uwfwgl"
+path.s3tc="res://.godot/imported/six.png-fb9498fc44b833acd4e46a52365bdbfe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Textures/Floors/zero.png"
-dest_files=["res://.godot/imported/zero.png-bbac967c78fb2aa63f92eaa58cb1ff84.s3tc.ctex"]
+source_file="res://floors/six.png"
+dest_files=["res://.godot/imported/six.png-fb9498fc44b833acd4e46a52365bdbfe.s3tc.ctex"]
 
 [params]
 

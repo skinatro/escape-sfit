@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=4 uid="uid://c1luelue526sf"]
+[gd_scene load_steps=123 format=4 uid="uid://c1luelue526sf"]
 
 [ext_resource type="PackedScene" uid="uid://cbc8cne1c2xrs" path="res://Scenes/SFIT/Floors.tscn" id="1_33ows"]
 [ext_resource type="PackedScene" uid="uid://dpu48vnj1tw1" path="res://Scenes/LaserGame/laser_beam_new.tscn" id="3_bgxh0"]
@@ -44,6 +44,14 @@
 [ext_resource type="Texture2D" uid="uid://cjc35xnvvcynl" path="res://console/nano.png" id="42_us2to"]
 [ext_resource type="Texture2D" uid="uid://b0lifa50vlgp0" path="res://console/systemctl.png" id="43_ebrqs"]
 [ext_resource type="Texture2D" uid="uid://dve8o834pebtr" path="res://console/shutdown.png" id="44_kkxo1"]
+[ext_resource type="Texture2D" uid="uid://y22wqwx60mke" path="res://floors/zero.png" id="45_fvdhe"]
+[ext_resource type="Texture2D" uid="uid://c3obq36p4hxai" path="res://floors/one.png" id="46_rt8bl"]
+[ext_resource type="Texture2D" uid="uid://drlxm52bi0bes" path="res://floors/two.png" id="47_xypk8"]
+[ext_resource type="Texture2D" uid="uid://bf5s377jvlsc0" path="res://floors/three.png" id="48_1b0c2"]
+[ext_resource type="Texture2D" uid="uid://bt5xfbfcb4yjg" path="res://floors/four.png" id="49_osv8g"]
+[ext_resource type="Texture2D" uid="uid://bsyc56eayg1py" path="res://floors/five.png" id="50_abwy7"]
+[ext_resource type="Texture2D" uid="uid://be4e157uwfwgl" path="res://floors/six.png" id="51_as217"]
+[ext_resource type="Texture2D" uid="uid://j5kq45df27sw" path="res://floors/seven.png" id="52_phgu5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbjfs"]
 albedo_texture = ExtResource("4_8fa3p")
@@ -643,6 +651,33 @@ material = SubResource("StandardMaterial3D_rt8bl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xypk8"]
 albedo_texture = ExtResource("44_kkxo1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osv8g"]
+albedo_texture = ExtResource("45_fvdhe")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1b0c2"]
+albedo_texture = ExtResource("45_fvdhe")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_abwy7"]
+albedo_texture = ExtResource("46_rt8bl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_as217"]
+albedo_texture = ExtResource("47_xypk8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phgu5"]
+albedo_texture = ExtResource("48_1b0c2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1388o"]
+albedo_texture = ExtResource("49_osv8g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0ek3"]
+albedo_texture = ExtResource("50_abwy7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdx8w"]
+albedo_texture = ExtResource("51_as217")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffmhs"]
+albedo_texture = ExtResource("52_phgu5")
 
 [node name="SFIT" type="Node3D"]
 
@@ -31421,10 +31456,316 @@ mesh = SubResource("BoxMesh_rt8bl")
 transform = Transform3D(1.3596317, 0, 0, 0, 1.5819886, 0, 0, 0, 0.02765078, -14, 31.328875, -12.507393)
 mesh = SubResource("BoxMesh_kkxo1")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="shutdown" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.67119, 31.193838, -17.393848)
 size = Vector3(1, 1.5722109, 0.033325195)
 material = SubResource("StandardMaterial3D_xypk8")
+
+[node name="GFLoor0" type="CSGCombiner3D" parent="."]
+material_overlay = SubResource("StandardMaterial3D_osv8g")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor1" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.746377, 0)
+material_override = SubResource("StandardMaterial3D_abwy7")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor2" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.943922, 0)
+material_override = SubResource("StandardMaterial3D_as217")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor3" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.438412, 0)
+material_override = SubResource("StandardMaterial3D_phgu5")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor4" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.809252, 0)
+material_override = SubResource("StandardMaterial3D_1388o")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor5" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.4619, 0)
+material_override = SubResource("StandardMaterial3D_v0ek3")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor6" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.59834, 0)
+material_override = SubResource("StandardMaterial3D_hdx8w")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="GFLoor7" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 34.406498, 0)
+material_override = SubResource("StandardMaterial3D_ffmhs")
+
+[node name="Lift0" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.004689, 7.2533693, -5.2118497)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.5065918, 0.2775879, 1)
+
+[node name="Lift1" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 22.26619)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift4" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164133, 10.02038, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift5" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 41.11812)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift6" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4723525, 9.759923, 22.289356)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.0826416)
+
+[node name="Lift2" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
+
+[node name="Lift3" type="CSGBox3D" parent="GFLoor7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.186289, 7.1704226, 1.8167422)
+material_override = SubResource("StandardMaterial3D_1b0c2")
+size = Vector3(0.21716309, 0.44348145, 0.8935547)
 
 [connection signal="body_entered" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_exited"]
