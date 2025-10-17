@@ -39,14 +39,11 @@ func _process(_delta: float) -> void:
 		canAdd=true
 		
 	if(Input.is_key_pressed(KEY_ESCAPE)):
-		var player#=find_node_of_type(CharacterBody3D.new())#get_tree().current_scene.get_node("ProtoController")
+		pass
+		#var player=find_node_of_type(CharacterBody3D.new()).get_tree().current_scene.get_node("ProtoController")
 	#print("SearchingPlayer")
-		for obj in get_tree().current_scene.get_children():
-			if obj is CharacterBody3D:
-				player=obj
-			#print("GotPlayer")
-				break
-		player.ristrictMovement=false
+
+		#player.ristrictMovement=false
 		
 		var player_cam =find_camera_by_path_fragment("/Head")
 			#print(player_cam.get_path())

@@ -1,17 +1,23 @@
 extends Node
 
 @export var progress_bar: ProgressBar
-var health: int = 100
+var health: int = 25
 var showBar := true
 var tp := false
 
 @onready var cutscene_camera: Camera3D = get_tree().root.get_node_or_null("Map/Cutscene")
 @onready var anim_player: AnimationPlayer = get_tree().root.get_node_or_null("Map/Cutscene/AnimationPlayer")
 
-@onready var video_cutscene: CanvasLayer = $CutsceneVideo
-@onready var video_cutscene_player: VideoStreamPlayer = $CutsceneVideo/VideoStreamPlayer
+@onready var video_cutscene: CanvasLayer = get_tree().root.get_node_or_null("Map/CutsceneVideo")
+@onready var video_cutscene_player: VideoStreamPlayer = get_tree().root.get_node_or_null("Map/CutsceneVideo/VideoStreamPlayer")
+
 
 func _ready() -> void:
+	call_deferred("_find_cutscene_nodes")
+
+func _find_cutscene_nodes() -> void:
+	video_cutscene = get_tree().root.get_node_or_null("Map/CutsceneVideo")
+	video_cutscene_player = get_tree().root.get_node_or_null("Map/CutsceneVideo/VideoStreamPlayer")
 	call_deferred("_assign_progress_bar")
 	# ReduceHealth()
 
@@ -31,10 +37,10 @@ func set_progress_bar(bar: ProgressBar) -> void:
 	update_progress_bar()
 
 func update_progress_bar() -> void:
-	if progress_bar and is_instance_valid(progress_bar):
-		progress_bar.value = health
-	else:
-		print("Warning: progress_bar is null or invalid!")
+	if not progress_bar or not is_instance_valid(progress_bar):
+		call_deferred("_assign_progress_bar")
+		return
+	progress_bar.value = health
 
 # ------------------ Health / Cutscene ------------------
 
@@ -49,14 +55,15 @@ func ReduceHealth() -> void:
 	if health <= 0:
 		rpc("play_cutscene")
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local", "reliable")
 func sync_health(new_health: int) -> void:
 	health = new_health
 	update_progress_bar()
 
+
 # ------------------ Cutscene + VFX trigger ------------------
 
-@rpc("authority", "call_remote")
+@rpc("any_peer", "reliable", "call_local")
 func play_cutscene() -> void:
 	# Stop background music (if present)
 	var bg_player := get_tree().root.get_node_or_null("AudioStreamPlayer")
@@ -64,8 +71,12 @@ func play_cutscene() -> void:
 		bg_player.stop()
 
 	# Show and play cutscene video
-	video_cutscene.visible = true
-	video_cutscene_player.play()
+	if video_cutscene and is_instance_valid(video_cutscene):
+		video_cutscene.visible = true
+		video_cutscene_player.play()
+	else:
+		print("Cutscene nodes not found. Check the scene path.")
+
 
 	await video_cutscene_player.finished
 	video_cutscene.visible = false
@@ -83,7 +94,7 @@ func play_cutscene() -> void:
 		anim_player.play("ai_defeated")
 
 	# Let the camera/anim run briefly
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(3.0).timeout
 
 	# Return to player camera
 	if cutscene_camera:
@@ -145,13 +156,19 @@ func _trigger_vfx_all(dust_active: bool) -> void:
 @rpc("reliable", "call_local")
 func _rpc_set_dust(active: bool) -> void:
 	var player := _get_local_player()
+	print("Local player:", player)
 	if player:
-		if player.has_method("set_particles_emitting"):
-			player.set_particles_emitting(active)
+		var p := player.get_node_or_null("DustShader/GPUParticles3D")
+		print("Particle node:", p)
+		if p:
+			p.emitting = false
+			p.restart()
+			p.emitting = true
 		else:
-			var p := player.get_node_or_null("DustShader/GPUParticles3D")
-			if p is GPUParticles3D:
-				p.emitting = active
+			print("Dust particle node not found.")
+	else:
+		print("Local player not found.")
+
 
 # Runs locally on every peer: starts a camera shake on their local player
 @rpc("reliable", "call_local")

@@ -1,10 +1,10 @@
 extends Node3D
 
 const DEFAULT_PORT: int = 42069
-const MAX_CLIENTS: int = 1
+const MAX_CLIENTS: int = 4
 
 @export var player_scene: PackedScene
-@export var min_players_to_start: int = 1
+@export var min_players_to_start: int = 0
 
 # --- UI (adjust paths to match your scene) ---
 @onready var host_mnu: CanvasLayer = $Hosting
@@ -19,7 +19,7 @@ const MAX_CLIENTS: int = 1
 @onready var video_cutscene_player: VideoStreamPlayer = $CutsceneVideo/VideoStreamPlayer
 
 #Set Menu Cam
-@onready var wanted_cam: Camera3D = $Cutscene
+@onready var wanted_cam: Camera3D = $Menu
 
 # --- Scene anchors ---
 @onready var players_root: Node3D = $Players
