@@ -15,7 +15,8 @@ const MAX_CLIENTS: int = 1
 @onready var host_label: Label    = $Hosting/ShowIP
 @onready var players_label: Label = $Hosting/Players
 @onready var game_over: CanvasLayer = $GameOver
-
+@onready var video_cutscene: CanvasLayer = $CutsceneVideo
+@onready var video_cutscene_player: VideoStreamPlayer = $CutsceneVideo/VideoStreamPlayer
 
 #Set Menu Cam
 @onready var wanted_cam: Camera3D = $Cutscene
@@ -55,6 +56,7 @@ func _ready() -> void:
 	if not multiplayer.server_disconnected.is_connected(_on_server_drop):
 		multiplayer.server_disconnected.connect(_on_server_drop)
 
+	video_cutscene.visible = false
 	host_label.text = "Not host"
 	start_btn.disabled = true
 	_update_player_count()

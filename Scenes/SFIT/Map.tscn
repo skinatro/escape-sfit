@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b82mkktpex7se"]
+[gd_scene load_steps=25 format=3 uid="uid://b82mkktpex7se"]
 
 [ext_resource type="PackedScene" uid="uid://c1luelue526sf" path="res://Scenes/SFIT/Building.tscn" id="1_8lb3l"]
 [ext_resource type="Script" uid="uid://2jm6bma6eqtt" path="res://Scripts/map.gd" id="1_amylj"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c00u3pwjhjjy7" path="res://Scenes/LaserGame/spawn_point.tscn" id="10_e32mi"]
 [ext_resource type="Script" uid="uid://ctjsn05qk3nck" path="res://Scripts/UI/AI_HealthBar.gd" id="11_amylj"]
 [ext_resource type="AudioStream" uid="uid://0xf1sbwcffwy" path="res://music/gameuno.mp3" id="13_cfrmt"]
+[ext_resource type="VideoStream" uid="uid://slmv1o61uequ" path="res://Assets/video/cutscenematthew.ogv" id="14_qakt5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5d6t"]
 albedo_color = Color(0.75686276, 0.6431373, 0, 1)
@@ -336,6 +337,16 @@ stream = ExtResource("13_cfrmt")
 volume_db = 4.0
 autoplay = true
 mix_target = 1
+
+[node name="CutsceneVideo" type="CanvasLayer" parent="."]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="CutsceneVideo"]
+offset_left = 515.0
+offset_top = 155.0
+offset_right = 1363.0
+offset_bottom = 633.0
+stream = ExtResource("14_qakt5")
+volume_db = 7.999999
 
 [connection signal="body_entered" from="ExitArea" to="ExitArea" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitArea" to="ExitArea" method="_on_body_exited"]
