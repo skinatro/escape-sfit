@@ -135,13 +135,11 @@ func find_camera_by_path_fragment(fragment: String) -> Camera3D:
 
 func _trigger_vfx_all(dust_active: bool) -> void:
 	if multiplayer.is_server():
-		# Broadcast to all clients
 		rpc("_rpc_set_dust", dust_active)
-		rpc("_rpc_start_quake", 0.03, 1.5, 8.0, 0.015, 1.2)
+		rpc("_rpc_start_quake", 0.1, 9999.0, 12.0, 0.05, 0.0)
 	else:
-		# Ask server (ID 1) to broadcast
 		rpc_id(1, "_rpc_set_dust", dust_active)
-		rpc_id(1, "_rpc_start_quake", 0.03, 1.5, 8.0, 0.015, 1.2)
+		rpc_id(1, "_rpc_start_quake", 0.1, 9999.0, 12.0, 0.05, 0.0)
 
 # Runs locally on every peer: toggles the local player's dust emission
 @rpc("reliable", "call_local")
