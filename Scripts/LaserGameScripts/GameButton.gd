@@ -76,7 +76,8 @@ extends Area3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var main_button: MeshInstance3D = $MainButton
 @onready var label_3d: Label3D = $Label3D
-
+@export var lazers:Node3D
+var used=false
 @export var terminal: PackedScene
 @export var Console: PackedScene
 
@@ -99,8 +100,10 @@ func _ready() -> void:
 		label_3d.text = "Press E to Access Console"
 
 func _process(delta: float) -> void:
-	if overlapping_player and overlapping_player.get_multiplayer_authority() == multiplayer.get_unique_id():
+	if !used and overlapping_player and overlapping_player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		
 		if player_in_range and Input.is_action_just_pressed("interact") :
+			used=true
 			if multiplayer.is_server():
 				# If this player is the host, act directly
 				_handle_button_press(multiplayer.get_unique_id())
@@ -109,10 +112,7 @@ func _process(delta: float) -> void:
 				rpc_id(1, "request_press_button", multiplayer.get_unique_id())
 
 func _on_body_entered(body: CharacterBody3D) -> void:
-	#if body.is_in_group("players"):  # Make sure only player bodies trigger it
-		#player_in_range = true
-		#
-		#
+
 	if body is CharacterBody3D:
 		player_in_range = true
 		overlapping_player = body
@@ -138,6 +138,7 @@ func _handle_button_press(sender_id: int):
 	if laserGame:
 		print("Player ", sender_id, " disabled lasers.")
 		Ai.ReduceHealth()  # Runs server-side only
+		lazers.queue_free()
 	elif terminalGame:
 		print("Player ", sender_id, " opened terminal.")
 		rpc_id(sender_id, "open_terminal_ui")

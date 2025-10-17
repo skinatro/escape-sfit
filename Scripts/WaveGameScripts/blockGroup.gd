@@ -106,30 +106,31 @@ func _process(delta: float) -> void:
 			#animPlayer.play("RESET")
 			#print_all_cameras()
 func _on_area_3d_body_entered(body: CharacterBody3D) -> void:
-	if body is CharacterBody3D and is_working:
+	if body == overlapping_player and is_working:
 		inRange = true
 		overlapping_player = body
-		temp=overlapping_player
 	Player=body
-	#if body.is_class("CharacterBody3D"):
+	if body.is_class("CharacterBody3D"):
 		#body.enter_block()   # block the player
-	
-	overlapping_player.blockGameActive = true
-	overlapping_player.release_mouse()
-	canSelectBlocks = true
-	print("Entered block: Player blocked")
+		body.blockGameActive = true
+		body.release_mouse()
+		canSelectBlocks = true
+		print("Entered block: Player blocked")
 
 
 func _on_area_3d_body_exited(body:CharacterBody3D ) -> void:
+	
+	
 	Player=null
-	if body == overlapping_player:
+	if body == overlapping_player and is_working:
 		inRange = false
 		overlapping_player = null
-	#if body.is_class("CharacterBody3D"):
-	temp.exit_block()    # unblock if no other blocks
-	temp.blockGameActive = false
-	canSelectBlocks = false
-	print("Exited block: Player unblocked")
+	if body.is_class("CharacterBody3D"):
+		#body.exit_block()    # unblock if no other blocks
+		body.ristrictMovement = false
+		body.blockGameActive = false
+		canSelectBlocks = false
+		print("Exited block: Player unblocked")
 
 ## 🔍 Utility: Print all cameras
 #func print_all_cameras() -> void:

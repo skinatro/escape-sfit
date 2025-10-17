@@ -14707,8 +14707,8 @@ size = Vector3(0.15, 3, 9.369141)
 
 [node name="BlockGame" type="Node3D" parent="Floor2"]
 
-[node name="PuzzleManager" parent="Floor2/BlockGame" node_paths=PackedStringArray("blocks") instance=ExtResource("19_ku42k")]
-blocks = [NodePath("../Blocks/Puzzle_Block"), NodePath("../Blocks/Puzzle_Block6"), NodePath("../Blocks/Puzzle_Block4"), NodePath("../Blocks/Puzzle_Block14"), NodePath("../Blocks/Puzzle_Block15"), NodePath("../Blocks/Puzzle_Block16"), NodePath("../Blocks/Puzzle_Block18"), NodePath("../Blocks/Puzzle_Block17"), NodePath("../Blocks/Puzzle_Block7"), NodePath("../Blocks/Puzzle_Block2"), NodePath("../Blocks/Puzzle_Block5"), NodePath("../Blocks/Puzzle_Block9"), NodePath("../Blocks/Puzzle_Block10"), NodePath("../Blocks/Puzzle_Block3"), NodePath("../Blocks/Puzzle_Block8"), NodePath("../Blocks/Puzzle_Block11")]
+[node name="PuzzleManager" parent="Floor2/BlockGame" node_paths=PackedStringArray("blockss") instance=ExtResource("19_ku42k")]
+blockss = [NodePath("../Blocks/Puzzle_Block"), NodePath("../Blocks/Puzzle_Block6"), NodePath("../Blocks/Puzzle_Block4"), NodePath("../Blocks/Puzzle_Block14"), NodePath("../Blocks/Puzzle_Block15"), NodePath("../Blocks/Puzzle_Block16"), NodePath("../Blocks/Puzzle_Block18"), NodePath("../Blocks/Puzzle_Block7"), NodePath("../Blocks/Puzzle_Block17"), NodePath("../Blocks/Puzzle_Block2"), NodePath("../Blocks/Puzzle_Block5"), NodePath("../Blocks/Puzzle_Block9"), NodePath("../Blocks/Puzzle_Block10"), NodePath("../Blocks/Puzzle_Block3"), NodePath("../Blocks/Puzzle_Block8")]
 
 [node name="Blocks" type="Node3D" parent="Floor2/BlockGame" node_paths=PackedStringArray("cutSceneCam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.12052, -4.442935, -18.9108)
@@ -14733,6 +14733,9 @@ skeleton = NodePath("")
 
 [node name="Puzzle_Block6" parent="Floor2/BlockGame/Blocks" instance=ExtResource("18_v3jug")]
 transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, -2.5482845, 6.6147738, -1.4220066)
+
+[node name="CSGPolygon3D" parent="Floor2/BlockGame/Blocks/Puzzle_Block6/Area3D" index="1"]
+transform = Transform3D(-0.8660249, -0.5, 0, 0.5, -0.8660249, 0, 0, 0, 1, -0.063, 0, 0)
 
 [node name="MeshInstance3D2" parent="Floor2/BlockGame/Blocks/Puzzle_Block6/Area3D/CSGPolygon3D" index="2"]
 transform = Transform3D(-0.09849246, -1.0682051, -2.0948681e-08, 0.4851024, -0.21688235, 9.441748e-09, -1.4763332e-08, -4.51772e-08, 0.45, -0.21205139, -0.617012, -0.06814575)
@@ -25120,8 +25123,9 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.00
 [node name="LazerGame" type="Node3D" parent="Floor6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -33.718155, 0)
 
-[node name="GameButton" parent="Floor6/LazerGame" instance=ExtResource("20_p71kt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.499825, 37, 38.926098)
+[node name="GameButton" parent="Floor6/LazerGame" node_paths=PackedStringArray("lazers") instance=ExtResource("20_p71kt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.499825, 36.68618, 38.926098)
+lazers = NodePath("../Lazers")
 laserGame = true
 
 [node name="SpawnPoint" type="Area3D" parent="Floor6/LazerGame"]
@@ -25140,7 +25144,7 @@ rotateSpeed = 10.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew5" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106856e-16, 6.859791e-08, 0.099999994, 0.10000002, -6.859791e-08, 1.9411756e-23, 4.3711395e-09, 1.5693374, -4.3711386e-09, 24.651, 37.542, 33.83368)
+transform = Transform3D(1.9106856e-16, 6.859791e-08, 0.099999994, 0.10000002, -6.859791e-08, 1.9411756e-23, 4.3711395e-09, 1.5693374, -4.3711386e-09, 24.651, 37.542, 33.443542)
 up_down = false
 Rotate = true
 Rangee = 3
@@ -25219,7 +25223,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew13" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106943e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -8.258759e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
+transform = Transform3D(1.9106946e-16, 6.357867e-08, 0.099127166, 0.10000003, -6.357867e-08, -8.4528766e-22, 4.3711403e-09, 1.4545105, -4.332986e-09, 30.979387, 37.542, 43.349743)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -25228,7 +25232,7 @@ rotateSpeed = 15.0
 spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew14" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
-transform = Transform3D(1.9106808e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 5.338276e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 34.66754)
+transform = Transform3D(1.9106804e-16, 6.521079e-08, 0.09912716, 0.10000003, -6.521079e-08, 5.594162e-22, 4.3711403e-09, 1.491849, -4.3329855e-09, 30.979387, 37.542, 33.869286)
 up_down = false
 Rotate = true
 isMovingUp = false
@@ -25239,6 +25243,15 @@ spawnPoint = NodePath("../../SpawnPoint")
 
 [node name="laserBeamNew11" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
 transform = Transform3D(1.910686e-16, 2.4505155e-08, 0.09912714, 0.100000024, -2.4505155e-08, 0, 4.37114e-09, 0.5606126, -4.332985e-09, 31.016, 37.542, 37.091)
+up_down = false
+left_right = true
+isMovingUp = false
+Rangee = 4
+rotateSpeed = 10.0
+spawnPoint = NodePath("../../SpawnPoint")
+
+[node name="laserBeamNew15" parent="Floor6/LazerGame/Lazers" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_bgxh0")]
+transform = Transform3D(1.910686e-16, 2.4505155e-08, 0.09912714, 0.100000024, -2.4505155e-08, 0, 4.37114e-09, 0.5606126, -4.332985e-09, 32.292328, 37.542, 36.160748)
 up_down = false
 left_right = true
 isMovingUp = false
@@ -25263,6 +25276,7 @@ shape = SubResource("BoxShape3D_3k8sb")
 
 [node name="Floor7" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03967476, 39.0454, 1.5412483)
+visible = false
 
 [node name="Lift" type="Node3D" parent="Floor7"]
 transform = Transform3D(1.00007, 0, 0, 0, 1.00007, 0, 0, 0, 1.00007, 0, 0, 0)
@@ -31320,9 +31334,6 @@ libraries = {
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.514719, 32.71609, -20.199974)
 size = Vector3(14.88623, 1, 5.3032227)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 23.227673, 38.24696)
 
 [connection signal="body_entered" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Floor2/BlockGame/Blocks/Area3D" to="Floor2/BlockGame/Blocks" method="_on_area_3d_body_exited"]

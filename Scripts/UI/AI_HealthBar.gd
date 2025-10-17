@@ -3,13 +3,13 @@ extends Node
 @export var progress_bar: ProgressBar
 var health: int = 100
 var showBar := true
-
+var tp=false
 @onready var cutscene_camera: Camera3D = get_tree().root.get_node("Map/Cutscene")
 @onready var anim_player: AnimationPlayer = get_tree().root.get_node("Map/Cutscene/AnimationPlayer")
 
 func _ready() -> void:
 	call_deferred("_assign_progress_bar")
-
+	#ReduceHealth()
 func _assign_progress_bar() -> void:
 	var map_node = get_tree().root.get_node("Map")
 	if map_node:
@@ -55,10 +55,10 @@ func sync_health(new_health: int) -> void:
 @rpc("any_peer")
 func play_cutscene() -> void:
 	print("--- CUTSCENE START ---")
-
+	print(get_tree().root.get_children())
 	# 🔶 Start dust + quake on every peer (local on each machine)
 	_trigger_vfx_all(true)   # dust ON + quake start
-
+	
 	# Switch to cutscene camera and play animation
 	cutscene_camera.current = true
 	anim_player.play("ai_defeated")
@@ -166,3 +166,7 @@ func _get_local_player() -> Node:
 		if n is CharacterBody3D and (n as Node).has_node("Model/Head/Camera3D"):
 			return n
 	return null
+
+#func _unhandled_input(event: InputEvent) -> void:
+	#if(Input.is_key_pressed(KEY_0)):
+		#ReduceHealth()

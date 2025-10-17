@@ -340,8 +340,8 @@ func set_particles_emitting(active: bool) -> void:
 var quake_infinite: bool = false
 
 func start_quake(
-	meters_amplitude: float = 0.03,
-	seconds_duration: float = 1.5,
+	meters_amplitude: float = 0.05,
+	seconds_duration: float = 100,
 	frequency: float = 8.0,
 	rot_radians_amplitude: float = 0.015,
 	decay_power: float = 1.2,

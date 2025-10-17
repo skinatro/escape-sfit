@@ -1,6 +1,6 @@
 extends Node3D
 @export_group("Block Properties( Degree= n*90)")
-@export var correctRotationDegree:=0 
+@export var correctRotationDegree:=149 
 
 @onready var block: CSGPolygon3D = $Area3D/CSGPolygon3D
 @onready var area3d: Area3D = $Area3D
@@ -8,7 +8,7 @@ extends Node3D
 
 
 var rotating := false
-var target_angle := 0
+var target_angle = 0
 var rotation_speed := 180.0 # degrees per second
 
 var blockSelected:=false
@@ -27,7 +27,7 @@ func _ready() -> void:
 	area3d.input_event.connect(_on_area3d_input_event)
 	
 	block.rotation_degrees.z=[30,90,150,210,270].pick_random() #initial rotation (random)
-	currentRotation=block.rotation_degrees.z
+	currentRotation=int(block.rotation_degrees.z)
 	
 func _process(delta: float) -> void:
 	label_3d.text=str(blockSelected)	
@@ -39,27 +39,53 @@ func _process(delta: float) -> void:
 	if(blockSelected):
 		rotateBlock(delta)
 	
-		
-func rotateBlock(delta:float):
-	if (Input.is_action_just_pressed("left") or Input.is_action_just_pressed("Left_arrow") ) and not rotating:
+func rotateBlock(delta: float):
+	if (Input.is_action_just_pressed("left") or Input.is_action_just_pressed("Left_arrow")) and not rotating:
 		# Start rotation
 		rotating = true
-		target_angle = int(block.rotation_degrees.z + 60.0)
-		label_3d_2.text=str(target_angle)
-	elif (Input.is_action_just_pressed("right") or Input.is_action_just_pressed("Right_arrow") ) and not rotating:
+		target_angle = block.rotation_degrees.z + 60.0
+		
+	elif (Input.is_action_just_pressed("right") or Input.is_action_just_pressed("Right_arrow")) and not rotating:
 		# Start rotation
 		rotating = true
-		target_angle = int(block.rotation_degrees.z - 60.0)
-		label_3d_2.text=str(target_angle)
-		
+		target_angle = block.rotation_degrees.z - 60.0
+	
 	if rotating:
-		# Rotate smoothly towards the target
+		# Smooth rotation
 		block.rotation_degrees.z = move_toward(block.rotation_degrees.z, target_angle, rotation_speed * delta)
-
-		# Stop when we reach the target
+		
+		# Snap to exact target when reached
 		if is_equal_approx(block.rotation_degrees.z, target_angle):
 			block.rotation_degrees.z = target_angle
 			rotating = false
+	
+	# Keep currentRotation clamped between 0-360
+	currentRotation = fmod(block.rotation_degrees.z, 360)
+	if currentRotation < 0:
+		currentRotation += 360
+	
+	label_3d_2.text = str(int(currentRotation))
+
+#func rotateBlock(delta:float):
+	#if (Input.is_action_just_pressed("left") or Input.is_action_just_pressed("Left_arrow") ) and not rotating:
+		## Start rotation
+		#rotating = true
+		#target_angle = int(block.rotation_degrees.z + 60.0)
+		#label_3d_2.text=str(target_angle)
+	#elif (Input.is_action_just_pressed("right") or Input.is_action_just_pressed("Right_arrow") ) and not rotating:
+		## Start rotation
+		#rotating = true
+		#target_angle = int(block.rotation_degrees.z - 60.0)
+		#label_3d_2.text=str(target_angle)
+		#
+	#if rotating:
+		## Rotate smoothly towards the target
+		#block.rotation_degrees.z = move_toward(block.rotation_degrees.z, target_angle, rotation_speed * delta)
+#
+		## Stop when we reach the target
+		#if is_equal_approx(block.rotation_degrees.z, target_angle):
+			#block.rotation_degrees.z = target_angle
+			#rotating = false
 
 #
 #func _on_area3d_input_event(camera: Camera3D, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
